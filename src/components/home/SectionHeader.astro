@@ -1,0 +1,75 @@
+---
+import { SectionHeading } from "../typography";
+
+interface Props {
+  title: string;
+  headingId?: string;
+  stickerSrc?: string;
+  stickerAlt?: string;
+}
+
+const { title, headingId, stickerSrc, stickerAlt = "" } = Astro.props;
+---
+
+<div class="section-header">
+  <div class="section-header__title-wrap">
+    <SectionHeading id={headingId} class="section-header__title">{title}</SectionHeading>
+    <span class="section-header__underline" aria-hidden="true"></span>
+  </div>
+  {
+    stickerSrc && (
+      <img
+        class="section-header__sticker"
+        src={stickerSrc}
+        alt={stickerAlt}
+        loading="lazy"
+      />
+    )
+  }
+</div>
+
+<style>
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    margin-bottom: 48px;
+  }
+
+  .section-header__title-wrap {
+    --type-size-section-heading: clamp(2.5rem, 6vw, 3.9rem);
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  :global(.section-header__title) {
+    max-width: none;
+  }
+
+  .section-header__underline {
+    width: 100%;
+    height: 6px;
+    margin-top: -4px;
+    border-radius: 999px;
+    background: #59a7fd;
+  }
+
+  .section-header__sticker {
+    width: min(228px, 26vw);
+    height: auto;
+    object-fit: contain;
+  }
+
+  @media (max-width: 680px) {
+    .section-header {
+      align-items: flex-start;
+      margin-bottom: 32px;
+    }
+
+    .section-header__sticker {
+      display: none;
+    }
+  }
+</style>

@@ -16,6 +16,9 @@ const sourceDir = path.resolve(
   process.env.WEBFLOW_EXPORT_DIR || 'portfolio-site-1c56f5.webflow',
 );
 const publicDir = path.resolve(root, 'public');
+const astroOwnedHtmlFiles = new Set([
+  'index.html',
+]);
 
 if (!existsSync(sourceDir)) {
   throw new Error(`Webflow export not found: ${sourceDir}`);
@@ -137,6 +140,10 @@ function patchHtml(filePath) {
 
 for (const htmlFile of walkFiles(publicDir).filter((file) => file.endsWith('.html'))) {
   patchHtml(htmlFile);
+}
+
+for (const htmlFile of astroOwnedHtmlFiles) {
+  rmSync(path.join(publicDir, htmlFile), { force: true });
 }
 
 writeFileSync(path.join(publicDir, '.nojekyll'), '');

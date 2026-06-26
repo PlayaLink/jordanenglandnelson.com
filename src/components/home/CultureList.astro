@@ -1,0 +1,76 @@
+---
+import { Body, CardTitle } from "../typography";
+
+interface BookItem {
+  title: string;
+  author: string;
+}
+
+interface Props {
+  title: string;
+  books?: BookItem[];
+  items?: string[];
+}
+
+const { title, books = [], items = [] } = Astro.props;
+---
+
+<section class="culture-list" aria-labelledby={`${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-title`}>
+  <CardTitle as="h3" class="culture-list__title" id={`${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-title`}>
+    {title}
+  </CardTitle>
+  {
+    books.length > 0 ? (
+      <ul class="culture-list__items">
+        {books.map((book) => (
+          <li class="culture-list__book">
+            <Body as="span" class="culture-list__book-title">{book.title}</Body>
+            <Body as="span" tone="muted">- {book.author}</Body>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <ul class="culture-list__items culture-list__items--compact">
+        {items.map((item) => (
+          <li><Body as="span">{item}</Body></li>
+        ))}
+      </ul>
+    )
+  }
+</section>
+
+<style>
+  .culture-list {
+    display: grid;
+    gap: 20px;
+    align-content: start;
+  }
+
+  :global(.culture-list__title) {
+    --type-size-card-title: clamp(1.55rem, 3vw, 2.25rem);
+    max-width: none;
+  }
+
+  .culture-list__items {
+    display: grid;
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .culture-list__items--compact {
+    gap: 10px;
+  }
+
+  .culture-list__book {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+  }
+
+  :global(.culture-list__book-title) {
+    font-style: italic;
+    font-weight: 500;
+  }
+</style>

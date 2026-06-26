@@ -1,0 +1,537 @@
+---
+import CaseStudyCard from "../components/home/CaseStudyCard.astro";
+import CultureList from "../components/home/CultureList.astro";
+import ReflectionPanel from "../components/home/ReflectionPanel.astro";
+import SectionHeader from "../components/home/SectionHeader.astro";
+import Timeline from "../components/home/Timeline.astro";
+import { Body, Display, SectionHeading } from "../components/typography";
+import {
+  bookGroups,
+  caseStudies,
+  podcastGroups,
+  reflections,
+  roles,
+  timelineEntries,
+} from "../data/homepage";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const assetPath = (value: string) => `${import.meta.env.BASE_URL}${value.replace(/^\//, "")}`;
+const localHref = (value: string) => {
+  if (/^(https?:|mailto:|#)/.test(value)) {
+    return value;
+  }
+
+  return `${import.meta.env.BASE_URL}${value.replace(/^\//, "")}`;
+};
+
+const resolvedCaseStudies = caseStudies.map((caseStudy) => ({
+  ...caseStudy,
+  href: localHref(caseStudy.href),
+  image: assetPath(caseStudy.image),
+}));
+
+const resolvedTimelineEntries = timelineEntries.map((entry) => ({
+  ...entry,
+  images: entry.images.map((image) => ({
+    ...image,
+    src: assetPath(image.src),
+  })),
+}));
+
+const resolvedReflections = reflections.map((reflection) => ({
+  ...reflection,
+  image: reflection.image
+    ? {
+        ...reflection.image,
+        src: assetPath(reflection.image.src),
+      }
+    : undefined,
+}));
+---
+
+<BaseLayout
+  title="Jordan England Nelson | Product Designer"
+  description="Portfolio for Jordan England Nelson, a product designer with engineering chops and a journalism background."
+  constrain={false}
+  showBackLink={false}
+  mainClass="home-main"
+>
+  <div class="home-page">
+    <section class="hero-section" aria-labelledby="home-title">
+      <div class="home-container hero-grid">
+        <div class="hero-copy">
+          <p class="hero-greeting">Hello there... I'm</p>
+          <Display id="home-title" class="hero-name" aria-label="Jordan England Nelson">
+            <span>Jordan</span>
+            <span>England</span>
+            <span>Nelson</span>
+          </Display>
+        </div>
+        <img
+          class="hero-image hero-image--launch"
+          src={assetPath("/images/baby_blasting_out.png")}
+          alt=""
+          loading="eager"
+        />
+      </div>
+
+      <div class="home-container intro-grid">
+        <div class="intro-copy">
+          <div class="role-line">
+            <SectionHeading as="p" class="role-line__label">I'm a</SectionHeading>
+            <span
+              id="typed-role"
+              class="role-line__role"
+              aria-hidden="true"
+              data-roles={JSON.stringify(roles)}
+            >
+              {roles[0]}
+            </span>
+            <span class="sr-only">product designer, software tinkerer, journalism survivor, translator, and #vanlifer</span>
+          </div>
+
+          <div class="credential-list" aria-label="Portfolio summary">
+            <SectionHeading as="p" class="credential-list__intro">I have...</SectionHeading>
+            <ul>
+              <li>
+                <Body as="span">
+                  <strong>technical chops</strong> and a <strong>background in journalism</strong>
+                </Body>
+              </li>
+              <li>
+                <Body as="span">deep experience with early-stage startups</Body>
+              </li>
+              <li>
+                <Body as="span">
+                  worked on enterprise SaaS products with large design teams in mortgage and
+                  healthcare industries
+                </Body>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <img
+          class="hero-image hero-image--blocks"
+          src={assetPath("/images/blocks_all.png")}
+          alt=""
+          loading="lazy"
+        />
+      </div>
+    </section>
+
+    <div class="home-container mascot-break" aria-hidden="true">
+      <img src={assetPath("/images/dinosaur_no_words.png")} alt="" loading="lazy" />
+    </div>
+
+    <section class="page-section" aria-labelledby="case-studies-title">
+      <div class="home-container">
+        <SectionHeader
+          headingId="case-studies-title"
+          title="Some stories about design"
+          stickerSrc={assetPath("/images/Ai_helped_msg.png")}
+        />
+        <div class="case-study-grid">
+          {
+            resolvedCaseStudies.map((caseStudy) => (
+              <CaseStudyCard
+                title={caseStudy.title}
+                href={caseStudy.href}
+                image={caseStudy.image}
+                details={caseStudy.details}
+                featured={caseStudy.featured}
+              />
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section page-section--background" aria-labelledby="background-title">
+      <div class="home-container">
+        <SectionHeader headingId="background-title" title="My background" />
+        <div class="section-kicker">
+          <Body>
+            Any designer of a certain age - who finished school before UX degrees were a thing -
+            will have a unique story about how they got into design.
+          </Body>
+          <Body>This is mine...</Body>
+        </div>
+      </div>
+      <Timeline entries={resolvedTimelineEntries} />
+    </section>
+
+    <section class="page-section" aria-labelledby="reflections-title">
+      <div class="home-container">
+        <SectionHeader headingId="reflections-title" title="Some reflections" />
+        <div class="reflection-stack">
+          {
+            resolvedReflections.map((reflection) => (
+              <ReflectionPanel
+                title={reflection.title}
+                paragraphs={reflection.paragraphs}
+                image={reflection.image}
+              />
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section page-section--last" aria-labelledby="extra-title">
+      <div class="home-container">
+        <SectionHeader headingId="extra-title" title="Extra-curriculars" />
+        <div class="culture-grid">
+          {bookGroups.map((group) => <CultureList title={group.title} books={group.items} />)}
+          {podcastGroups.map((group) => <CultureList title={group.title} items={group.items} />)}
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const roleEl = document.getElementById("typed-role");
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const roleOptions = roleEl ? JSON.parse(roleEl.dataset.roles || "[]") : [];
+    let roleIndex = 0;
+    let letterIndex = roleOptions[0]?.length || 0;
+    let isDeleting = true;
+
+    const scheduleNextFrame = (delay) => {
+      window.setTimeout(typeRole, delay);
+    };
+
+    const typeRole = () => {
+      if (!roleEl || roleOptions.length === 0) {
+        return;
+      }
+
+      const currentRole = roleOptions[roleIndex];
+      roleEl.textContent = currentRole.slice(0, letterIndex);
+
+      if (isDeleting) {
+        if (letterIndex > 0) {
+          letterIndex -= 1;
+          scheduleNextFrame(24);
+          return;
+        }
+
+        isDeleting = false;
+        roleIndex = (roleIndex + 1) % roleOptions.length;
+        scheduleNextFrame(180);
+        return;
+      }
+
+      const nextRole = roleOptions[roleIndex];
+
+      if (letterIndex < nextRole.length) {
+        letterIndex += 1;
+        scheduleNextFrame(52);
+        return;
+      }
+
+      isDeleting = true;
+      scheduleNextFrame(1200);
+    };
+
+    if (roleEl && roleOptions.length > 1 && !prefersReducedMotion) {
+      scheduleNextFrame(1200);
+    }
+  </script>
+</BaseLayout>
+
+<style>
+  :global(.home-main) {
+    background:
+      linear-gradient(180deg, #fff8ef 0%, #fffdf8 42%, #f5f8ff 100%);
+  }
+
+  .home-page {
+    color: var(--type-color-primary);
+    overflow: hidden;
+  }
+
+  .home-container {
+    width: min(940px, calc(100% - 40px));
+    margin: 0 auto;
+  }
+
+  .hero-section {
+    padding: clamp(72px, 12vw, 150px) 0 28px;
+  }
+
+  .hero-grid,
+  .intro-grid {
+    display: grid;
+    align-items: center;
+  }
+
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.9fr);
+    gap: clamp(36px, 8vw, 96px);
+  }
+
+  .intro-grid {
+    grid-template-columns: minmax(540px, 1.45fr) minmax(240px, 0.55fr);
+    gap: clamp(32px, 5vw, 64px);
+  }
+
+  .hero-copy {
+    display: grid;
+    gap: 12px;
+  }
+
+  .hero-greeting {
+    margin: 0;
+    font-family: var(--type-font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    line-height: 1.25;
+  }
+
+  :global(.hero-name) {
+    --type-size-display: clamp(4.25rem, 11vw, 7rem);
+    display: grid;
+    max-width: none;
+    line-height: 0.98;
+  }
+
+  :global(.hero-name span:nth-child(2)) {
+    padding-left: clamp(28px, 6vw, 56px);
+  }
+
+  :global(.hero-name span:nth-child(3)) {
+    padding-left: clamp(56px, 12vw, 112px);
+  }
+
+  .hero-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .intro-grid {
+    margin-top: clamp(44px, 8vw, 80px);
+  }
+
+  .intro-copy {
+    display: grid;
+    gap: 48px;
+  }
+
+  .role-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+  }
+
+  :global(.role-line__label) {
+    --type-size-section-heading: clamp(2rem, 5vw, 3rem);
+    max-width: none;
+  }
+
+  .role-line__role {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    min-width: calc(1ch + 20px);
+    max-width: 100%;
+    height: calc(clamp(2rem, 5vw, 3rem) * 1.58);
+    box-sizing: border-box;
+    border: 5px solid #59a7fd;
+    padding: 0.14em 10px 0.12em;
+    font-family: var(--type-font-display);
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  .role-line__role::after {
+    width: 0.08em;
+    height: 0.85em;
+    margin-left: 0.08em;
+    background: currentColor;
+    content: "";
+    animation: typed-cursor 900ms steps(2, start) infinite;
+  }
+
+  .credential-list {
+    display: grid;
+    gap: 22px;
+  }
+
+  :global(.credential-list__intro) {
+    --type-size-section-heading: clamp(2rem, 5vw, 3rem);
+    max-width: none;
+  }
+
+  .credential-list ul {
+    display: grid;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .credential-list li {
+    position: relative;
+    padding-left: 28px;
+  }
+
+  .credential-list li::before {
+    position: absolute;
+    left: 0;
+    color: #59a7fd;
+    content: "•";
+    font-family: var(--type-font-display);
+    font-size: 1.8rem;
+    line-height: 1;
+  }
+
+  .credential-list strong {
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: #59a7fd;
+    text-decoration-thickness: 4px;
+    text-underline-offset: 0.12em;
+  }
+
+  .mascot-break {
+    margin-top: 56px;
+    margin-bottom: 32px;
+  }
+
+  .mascot-break img {
+    width: min(100%, 760px);
+    height: auto;
+    margin-left: min(8vw, 80px);
+  }
+
+  .page-section {
+    padding-top: clamp(96px, 13vw, 144px);
+  }
+
+  .page-section--last {
+    padding-bottom: 72px;
+  }
+
+  .case-study-grid {
+    display: grid;
+    gap: 16px;
+  }
+
+  .case-study-grid :global(.case-card:not(.case-card--featured)) {
+    min-height: 500px;
+  }
+
+  .case-study-grid :global(.case-card--featured) {
+    min-height: 500px;
+  }
+
+  .case-study-grid :global(.case-card:nth-child(2)),
+  .case-study-grid :global(.case-card:nth-child(3)) {
+    grid-row: span 1;
+  }
+
+  @media (min-width: 820px) {
+    .case-study-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .case-study-grid :global(.case-card--featured) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .section-kicker {
+    display: grid;
+    gap: 8px;
+    max-width: 520px;
+  }
+
+  .reflection-stack {
+    display: grid;
+    gap: 24px;
+  }
+
+  .culture-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 48px 72px;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+  }
+
+  @keyframes typed-cursor {
+    0%,
+    45% {
+      opacity: 1;
+    }
+
+    46%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .role-line__role::after {
+      animation: none;
+      opacity: 0;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .hero-grid,
+    .intro-grid,
+    .culture-grid {
+      grid-template-columns: 1fr;
+    }
+
+    :global(.role-line__label) {
+      flex-basis: 100%;
+    }
+
+    .hero-section {
+      padding-top: 64px;
+    }
+
+    .hero-image--launch {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .hero-image--blocks {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .culture-grid {
+      gap: 40px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .home-container {
+      width: min(100% - 28px, 940px);
+    }
+
+    :global(.hero-name span:nth-child(2)),
+    :global(.hero-name span:nth-child(3)) {
+      padding-left: 0;
+    }
+
+    .mascot-break img {
+      margin-left: 0;
+    }
+  }
+</style>

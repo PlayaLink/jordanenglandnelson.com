@@ -1,0 +1,180 @@
+---
+import { Body, Caption, CardTitle } from "../typography";
+
+interface TimelineImage {
+  src: string;
+  alt: string;
+}
+
+interface TimelineParagraph {
+  text?: string;
+  html?: string;
+}
+
+interface TimelineEntry {
+  title: string;
+  range: string;
+  images: TimelineImage[];
+  paragraphs: TimelineParagraph[];
+}
+
+interface Props {
+  entries: TimelineEntry[];
+}
+
+const { entries } = Astro.props;
+---
+
+<div class="timeline">
+  {
+    entries.map((entry) => (
+      <article class="timeline__item">
+        <div class="timeline__media">
+          <CardTitle as="h3" class="timeline__title">{entry.title}</CardTitle>
+          <Caption class="timeline__range">{entry.range}</Caption>
+          <div class="timeline__images">
+            {entry.images.map((image) => (
+              <img src={image.src} alt={image.alt} loading="lazy" />
+            ))}
+          </div>
+        </div>
+        <div class="timeline__marker" aria-hidden="true"></div>
+        <div class="timeline__copy">
+          {entry.paragraphs.map((paragraph) =>
+            paragraph.html ? (
+              <p class="type-body timeline__paragraph" set:html={paragraph.html} />
+            ) : (
+              <Body class="timeline__paragraph">{paragraph.text}</Body>
+            )
+          )}
+        </div>
+      </article>
+    ))
+  }
+</div>
+
+<style>
+  .timeline {
+    position: relative;
+    display: grid;
+    gap: 0;
+    width: min(1120px, calc(100% - 40px));
+    max-width: 1120px;
+    margin: 48px auto 0;
+  }
+
+  .timeline::before {
+    position: absolute;
+    top: 32px;
+    bottom: 32px;
+    left: 50%;
+    width: 3px;
+    border-radius: 999px;
+    background: #2d2d2d;
+    content: "";
+    transform: translateX(-50%);
+  }
+
+  .timeline__item {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 156px minmax(0, 1fr);
+    gap: 0;
+    padding: 72px 0;
+  }
+
+  .timeline__media {
+    display: grid;
+    justify-items: end;
+    align-content: start;
+    text-align: right;
+  }
+
+  :global(.timeline__title) {
+    --type-size-card-title: 2.25rem;
+    max-width: none;
+  }
+
+  :global(.timeline__range) {
+    margin-top: 8px;
+    font-size: 1.25rem;
+  }
+
+  .timeline__images {
+    display: grid;
+    gap: 24px;
+    width: min(100%, 480px);
+    margin-top: 28px;
+  }
+
+  .timeline__images img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    object-fit: contain;
+  }
+
+  .timeline__marker {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+  }
+
+  .timeline__marker::before {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 0 8px #0a0a0a;
+    content: "";
+  }
+
+  .timeline__copy {
+    display: grid;
+    align-content: start;
+    gap: 14px;
+    padding-top: 92px;
+  }
+
+  :global(.timeline__paragraph a) {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+  }
+
+  @media (max-width: 820px) {
+    .timeline {
+      gap: 48px;
+      margin-top: 36px;
+    }
+
+    .timeline::before {
+      left: 8px;
+    }
+
+    .timeline__item {
+      grid-template-columns: 28px minmax(0, 1fr);
+      gap: 20px;
+      padding: 0;
+    }
+
+    .timeline__media {
+      grid-column: 2;
+      justify-items: start;
+      text-align: left;
+    }
+
+    .timeline__marker {
+      grid-column: 1;
+      grid-row: 1 / span 2;
+      justify-content: flex-start;
+      padding-top: 8px;
+    }
+
+    .timeline__copy {
+      grid-column: 2;
+      padding-top: 0;
+    }
+  }
+</style>

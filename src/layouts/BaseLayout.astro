@@ -1,7 +1,21 @@
 ---
 import "../styles/typography.css";
 
-const { title = 'Portfolio' } = Astro.props;
+interface Props {
+  title?: string;
+  description?: string;
+  mainClass?: string;
+  constrain?: boolean;
+  showBackLink?: boolean;
+}
+
+const {
+  title = "Portfolio",
+  description,
+  mainClass,
+  constrain = true,
+  showBackLink = true,
+} = Astro.props;
 const homeHref = import.meta.env.BASE_URL;
 ---
 
@@ -11,6 +25,9 @@ const homeHref = import.meta.env.BASE_URL;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link href={`${homeHref}images/favicon.png`} rel="shortcut icon" type="image/x-icon" />
+    <link href={`${homeHref}images/webclip.png`} rel="apple-touch-icon" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -29,7 +46,11 @@ const homeHref = import.meta.env.BASE_URL;
         margin: 0;
       }
 
-      main {
+      .site-main {
+        min-height: 100vh;
+      }
+
+      .site-main--constrained {
         width: min(720px, calc(100% - 40px));
         margin: 0 auto;
         padding: 72px 0;
@@ -47,9 +68,9 @@ const homeHref = import.meta.env.BASE_URL;
     </style>
   </head>
   <body>
-    <main>
+    <main class:list={["site-main", constrain && "site-main--constrained", mainClass]}>
       <slot />
-      <p><a href={homeHref}>Back to portfolio</a></p>
+      {showBackLink && <p><a href={homeHref}>Back to portfolio</a></p>}
     </main>
   </body>
 </html>
