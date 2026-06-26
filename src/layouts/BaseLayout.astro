@@ -1,0 +1,64 @@
+---
+const { title = 'Portfolio' } = Astro.props;
+const homeHref = import.meta.env.BASE_URL;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <style>
+      :root {
+        color: #161616;
+        background: #f7f2ea;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+      }
+
+      main {
+        width: min(720px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 72px 0;
+      }
+
+      a {
+        color: inherit;
+        text-underline-offset: 0.18em;
+      }
+
+      .eyebrow {
+        margin: 0 0 16px;
+        color: #6a5a46;
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0 0 20px;
+        font-size: clamp(2.5rem, 8vw, 5.5rem);
+        line-height: 0.95;
+      }
+
+      p {
+        font-size: 1.08rem;
+        line-height: 1.65;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <slot />
+      <p><a href={homeHref}>Back to portfolio</a></p>
+    </main>
+  </body>
+</html>

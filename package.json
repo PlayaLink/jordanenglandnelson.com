@@ -1,0 +1,21 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "Jordan England Nelson portfolio site.",
+  "type": "module",
+  "scripts": {
+    "prepare:webflow": "node scripts/prepare-webflow-export.mjs",
+    "dev": "npm run prepare:webflow && astro dev",
+    "build": "npm run prepare:webflow && astro build",
+    "preview": "astro preview",
+    "clean": "rm -rf dist public .astro"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@astrojs/mdx": "^7.0.0",
+    "astro": "^7.0.2"
+  }
+}
