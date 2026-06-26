@@ -1,0 +1,15 @@
+---
+interface Props {
+  as?: "h1" | "h2" | "div" | "p" | "span";
+  class?: string;
+  tone?: "default" | "muted" | "subtle" | "inverse";
+  [key: string]: unknown;
+}
+
+const { as = "h1", class: className, tone = "default", ...attrs } = Astro.props;
+const Tag = as;
+---
+
+<Tag class:list={["type-display", className]} data-tone={tone === "default" ? undefined : tone} {...attrs}>
+  <slot />
+</Tag>

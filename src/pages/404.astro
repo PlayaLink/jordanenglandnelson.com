@@ -1,9 +1,12 @@
 ---
+import { Body, Eyebrow, PageTitle } from '../components/typography';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="Page Not Found">
-  <p class="eyebrow">404</p>
-  <h1>Page not found.</h1>
-  <p>The page may have moved while the portfolio is being migrated.</p>
+  <div class="stack">
+    <Eyebrow>404</Eyebrow>
+    <PageTitle>Page not found.</PageTitle>
+    <Body>The page may have moved while the portfolio is being migrated.</Body>
+  </div>
 </BaseLayout>

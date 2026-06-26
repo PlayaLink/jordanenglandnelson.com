@@ -1,12 +1,15 @@
 ---
+import { Body, Eyebrow, PageTitle } from '../components/typography';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="Portfolio Migration Status">
-  <p class="eyebrow">Astro Migration</p>
-  <h1>The new build pipeline is alive.</h1>
-  <p>
-    The current portfolio is still served from the cleaned Webflow export. This Astro
-    shell gives us a place to migrate pages into reusable components over time.
-  </p>
+  <div class="stack">
+    <Eyebrow>Astro Migration</Eyebrow>
+    <PageTitle>The new build pipeline is alive.</PageTitle>
+    <Body>
+      The current portfolio is still served from the cleaned Webflow export. This Astro
+      shell gives us a place to migrate pages into reusable components over time.
+    </Body>
+  </div>
 </BaseLayout>

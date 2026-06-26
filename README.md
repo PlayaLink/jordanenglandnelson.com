@@ -42,3 +42,24 @@ The build writes a `CNAME` file into the GitHub Pages artifact and sets:
 The Webflow export is the short-term deployable baseline. As the site changes,
 migrate one route at a time into Astro components, layouts, and MDX content under
 `src/`.
+
+## Typography
+
+New Astro pages should use the shared typography components in
+`src/components/typography/` instead of styling raw heading and paragraph tags.
+The system keeps Josefin Sans for expressive headings and Montserrat for readable
+body/UI copy.
+
+Available components:
+
+- `Display`
+- `PageTitle`
+- `SectionHeading`
+- `CardTitle`
+- `Body`
+- `Caption`
+- `Eyebrow`
+
+Each component accepts an optional `as` prop when the semantic element needs to
+differ from the visual style, plus `tone="muted" | "subtle" | "inverse"` for
+common color treatments.
