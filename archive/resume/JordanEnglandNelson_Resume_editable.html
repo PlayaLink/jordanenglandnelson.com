@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jordan England-Nelson Resume</title>
+  <!-- Edit the resume text in this file, then print from the browser and choose Save as PDF. -->
+  <style>
+    :root {
+      --ink: #333941;
+      --muted: #5b6067;
+      --rule: #54decd;
+      --paper: #ffffff;
+      --screen: #eceff1;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--screen);
+      color: var(--ink);
+      font-family: "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
+      font-size: 10.45pt;
+      line-height: 1.3;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 10mm auto;
+      padding: 12.3mm 12.7mm 27mm;
+      position: relative;
+      background: var(--paper);
+      box-shadow: 0 10px 35px rgba(22, 30, 40, 0.16);
+      overflow: hidden;
+    }
+
+    .page:focus {
+      outline: none;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    .name {
+      margin-bottom: 5.7mm;
+      font-size: 29pt;
+      font-weight: 300;
+      line-height: 1;
+    }
+
+    .summary {
+      margin-bottom: 9.6mm;
+      padding: 3.1mm 3.3mm 3mm;
+      border: 1.2pt solid var(--rule);
+      border-radius: 3pt;
+      color: #343a42;
+    }
+
+    .summary p + p {
+      margin-top: 2.5mm;
+    }
+
+    .entry {
+      margin-bottom: 6.8mm;
+    }
+
+    .entry.compact {
+      margin-bottom: 5.4mm;
+    }
+
+    .entry-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8mm;
+      margin-bottom: 2.2mm;
+    }
+
+    .role-line {
+      min-width: 0;
+      font-size: 11.55pt;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .date {
+      flex: 0 0 auto;
+      font-size: 11.45pt;
+      font-weight: 700;
+      line-height: 1.25;
+      white-space: nowrap;
+    }
+
+    .sep {
+      display: inline-block;
+      margin: 0 2.4mm;
+      color: #a6a8ab;
+      font-weight: 600;
+    }
+
+    .context {
+      margin-bottom: 3.1mm;
+      color: var(--ink);
+      font-style: italic;
+    }
+
+    .plain-context {
+      margin-bottom: 3.1mm;
+      color: var(--ink);
+    }
+
+    ul {
+      margin: 0 0 0 6.2mm;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 2.05mm;
+      padding-left: 1.2mm;
+    }
+
+    li:last-child {
+      margin-bottom: 0;
+    }
+
+    .divider {
+      height: 1px;
+      margin: 13.1mm 0 10.2mm;
+      background: var(--rule);
+    }
+
+    .education-title {
+      margin-bottom: 9.3mm;
+      font-size: 11.8pt;
+      font-weight: 400;
+      text-transform: uppercase;
+    }
+
+    .education-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14mm;
+    }
+
+    .education-item h3 {
+      margin-bottom: 1.2mm;
+      font-size: 12.1pt;
+      font-weight: 700;
+      line-height: 1.12;
+    }
+
+    .education-item p {
+      color: var(--ink);
+      line-height: 1.25;
+    }
+
+    .footer {
+      position: absolute;
+      right: 12.7mm;
+      bottom: 8.4mm;
+      left: 12.7mm;
+      padding-top: 4.6mm;
+      border-top: 1px solid var(--rule);
+    }
+
+    .contact-list {
+      display: grid;
+      grid-template-columns: 32mm 28mm 40mm 1fr;
+      align-items: center;
+      gap: 4mm;
+    }
+
+    .contact-item {
+      display: inline-flex;
+      align-items: center;
+      min-width: 0;
+      color: var(--ink);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .contact-item svg {
+      width: 13.5pt;
+      height: 13.5pt;
+      margin-right: 2.7mm;
+      flex: 0 0 auto;
+      stroke: currentColor;
+    }
+
+    .contact-item span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    u {
+      text-underline-offset: 2px;
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    @media print {
+      body {
+        background: var(--paper);
+      }
+
+      .page {
+        min-height: 297mm;
+        margin: 0;
+        box-shadow: none;
+        page-break-after: always;
+      }
+
+      .page:last-child {
+        page-break-after: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <article class="page" contenteditable="true" spellcheck="false">
+    <h1 class="name">JORDAN ENGLAND-NELSON</h1>
+
+    <section class="summary" aria-label="Summary">
+      <p>A trilingual <strong>product designer</strong> with technical chops, a background in journalism, and a passion for distilling complexity into clarity.</p>
+      <p>8 years of startup experience - from seed stage to billion-dollar valuation - has shaped my skillset as a designer and product thinker.</p>
+      <p>Adamant about understanding problems before vetting solutions. User-focused, but able to balance user needs with business objectives. Tickled by research discoveries that confirm or demolish a hypothesis and lead to real innovation.</p>
+    </section>
+
+    <section class="entry">
+      <div class="entry-header">
+        <p class="role-line">Senior UX Designer <span class="sep">|</span> Modio Health <span class="sep">|</span> New York, NY (Remote)</p>
+        <p class="date">2024 - Present</p>
+      </div>
+      <p class="context">Healthcare credentialing platform that helps hospital systems and medical staffing companies manage the licensing and credentialing process for their healthcare providers. Modio was acquired by CHG Healthcare, a Fortune 100 company and the largest locum tenens medical staffing company in the US, in 2019.</p>
+      <ul>
+        <li>One of two designers hired to develop a unified design language and fix major UX challenges in a tool that had no designer for its first 8 years.</li>
+        <li>Built a React clone of our core credentialing tool, OneView, with a Supabase backend to use for testing all new design work, allowing our UXR department to run fully functional usability tests.</li>
+        <li>Supported our Unified Design System team by fully owning the development of our Figma design system into a React-based NPM library that supports 6 stand-alone products under the CHG Healthcare umbrella. All components fully documented in Storybook.</li>
+        <li>Currently leading a complete redesign of Modio's OneView product from the ground up, while collaborating with Engineering to define new spec-driven, AI-assisted development practices.</li>
+      </ul>
+    </section>
+
+    <section class="entry">
+      <div class="entry-header">
+        <p class="role-line">Senior UX Designer <span class="sep">|</span> SimpleNexus <span class="sep">|</span> SLC, Utah (Remote)</p>
+        <p class="date">April 2021 - Jul 2023</p>
+      </div>
+      <p class="context">Mature B2B fintech startup with 300+ employees. Design team grew from 5 designers to 14 over the 2+ years I was there. Company acquired by nCino for $1.2B in Jan 2022.</p>
+      <ul>
+        <li>Reduced new logo implementation times by 33% by converting 30+ day, high-touch onboarding process into a self-serve, in-product onboarding experience.</li>
+        <li>Reduced bank configuration times from 3 days to less than 1 by designing an admin dashboard that standardized settings interaction patterns, provided settings visibility across a bank's regions and branches and relieved need for extensive testing for newly onboarded clients.</li>
+        <li>Co-led the creation of first design system in Figma that eventually supported 11 product teams and 14 designers.</li>
+        <li>Synthesized inconsistent settings patterns into universal design standard for 14 product teams. Created Figma templates for other designers to ensure consistency, with customizable slots that allowed for design flexibility across suite of tools.</li>
+        <li>Led educational Pendo workshops to empower the Design Team and encourage data-driven design practices.</li>
+      </ul>
+    </section>
+
+    <footer class="footer" aria-label="Contact">
+      <div class="contact-list">
+        <span class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07L11 4.93"></path><path d="M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 0 0 7.07 7.07L13 19.07"></path></svg>
+          <span>Portfolio site</span>
+        </span>
+        <span class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          <span>LinkedIn</span>
+        </span>
+        <a class="contact-item" href="tel:+17148646496">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.32 1.84.55 2.8.68A2 2 0 0 1 22 16.92Z"></path></svg>
+          <span>(714) 864-6496</span>
+        </a>
+        <a class="contact-item" href="mailto:jordan.england.nelson@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-10 6L2 7"></path></svg>
+          <span>jordan.england.nelson@gmail.com</span>
+        </a>
+      </div>
+    </footer>
+  </article>
+
+  <article class="page" contenteditable="true" spellcheck="false">
+    <section class="entry">
+      <div class="entry-header">
+        <p class="role-line">Founding Product Designer <span class="sep">|</span> Meetly <span class="sep">|</span> Irvine, CA (Remote)</p>
+        <p class="date">June 2019 - Feb 2021</p>
+      </div>
+      <p class="context">I was the <u>only designer and part of the founding team</u>. Meetly was a venture-backed, B2C note-taking platform powered by your calendar.</p>
+      <ul>
+        <li>Led design research, defined problem space and built prototypes used to secure seed funding.</li>
+        <li>Reduced churn rate by 28% by designing around OAuth-related usability issues during first-time user experience.</li>
+        <li>Created design language that unified experiences across a web app, Chrome extension, and monday.com plugin.</li>
+        <li>Won a "Best New App" award (2nd place) in monday.com's App Store challenge in 2020.</li>
+        <li>Developed an engaged Customer Advisory Board that provided regular, rapid feedback on new features.</li>
+        <li>Grew as a user researcher and product developer, learning valuable lessons about how to ask questions, how to interpret user responses &amp; when to adhere to or adapt the product vision.</li>
+      </ul>
+    </section>
+
+    <section class="entry">
+      <div class="entry-header">
+        <p class="role-line">Product Developer <span class="sep">|</span> POPin <span class="sep">|</span> Irvine, CA</p>
+        <p class="date">Oct 2017 - June 2019</p>
+      </div>
+      <p class="context">POPin was an anonymous crowdsourcing platform for employee feedback. Hired during Series A. Originally hired as a frontend dev, I transitioned to UX research/design after our only designer left the company.</p>
+      <ul>
+        <li>Led research, defined product requirements and designed screens for POPin Live, a live-polling consumer tool that increased MOA by 15% and generated 1,000+ marketing-qualified leads for our enterprise survey product within 3 months of launch.</li>
+        <li>Led greenfield design research that revealed people were using POPin to help run meetings. This research ultimately led to the idea for Meetly.</li>
+        <li>As a frontend dev, I built UI in React and AngularJS for the survey product's web app.</li>
+        <li>Coded Mixpanel product analytics into the entire product. Used reports to demonstrate weak adoption of our enterprise product and secure investment (i.e. 50% of my time and salary) in better understanding our users and their problems.</li>
+      </ul>
+    </section>
+
+    <section class="entry compact">
+      <div class="entry-header">
+        <p class="role-line">Web developer (Contractor) <span class="sep">|</span> Spin Master <span class="sep">|</span> Los Angeles, CA</p>
+        <p class="date">May 2017 - Oct 2017</p>
+      </div>
+      <p class="context">The fourth-largest toy company in the world.</p>
+      <ul>
+        <li>Built and maintained websites for more than a dozen toy product lines (React, HTML, CSS)</li>
+      </ul>
+    </section>
+
+    <footer class="footer" aria-label="Contact">
+      <div class="contact-list">
+        <span class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07L11 4.93"></path><path d="M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 0 0 7.07 7.07L13 19.07"></path></svg>
+          <span>Portfolio site</span>
+        </span>
+        <span class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          <span>LinkedIn</span>
+        </span>
+        <a class="contact-item" href="tel:+17148646496">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.32 1.84.55 2.8.68A2 2 0 0 1 22 16.92Z"></path></svg>
+          <span>(714) 864-6496</span>
+        </a>
+        <a class="contact-item" href="mailto:jordan.england.nelson@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-10 6L2 7"></path></svg>
+          <span>jordan.england.nelson@gmail.com</span>
+        </a>
+      </div>
+    </footer>
+  </article>
+
+  <article class="page" contenteditable="true" spellcheck="false">
+    <section class="entry compact">
+      <div class="entry-header">
+        <p class="role-line">Career transition <span class="sep">|</span> JavaScript bootcamp</p>
+        <p class="date">May 2016 - Dec 2016</p>
+      </div>
+      <p class="plain-context">I wanted to understand how things worked from the ground up. My background in languages inspired me to enroll at Isomer Code School in Salt Lake City, UT.</p>
+      <ul>
+        <li>Researched, designed and developed a web app that helped teachers document and track progress of students with special needs. This <u>Medium post</u> drove 2,000+ organic signups over next 2 years.</li>
+      </ul>
+    </section>
+
+    <section class="entry compact">
+      <div class="entry-header">
+        <p class="role-line">Product Marketing Manager <span class="sep">|</span> Cargomatic <span class="sep">|</span> Venice, CA</p>
+        <p class="date">Apr 2015 - Apr 2016</p>
+      </div>
+      <p class="context">2-sided marketplace for connecting B2B shippers and commercial truckers in real-time. The company grew from 30 to 100 employees during my time there. I led all marketing efforts until a marketing director was hired.</p>
+      <ul>
+        <li>Project managed website redesign, ran Hubspot, produced investor decks, launched logistics tech blog.</li>
+      </ul>
+    </section>
+
+    <section class="entry compact">
+      <div class="entry-header">
+        <p class="role-line">Journalist <span class="sep">|</span> Los Angeles Newspaper Group <span class="sep">|</span> Los Angeles, CA</p>
+        <p class="date">2012 - 2015</p>
+      </div>
+      <p class="plain-context">Wrote about tech, aerospace and entrepreneurship in Southern California.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="education" aria-label="Education">
+      <h2 class="education-title">Education</h2>
+      <div class="education-grid">
+        <div class="education-item">
+          <h3>Columbia University-<br>Universitat de Barcelona</h3>
+          <p>Master's Degree, Journalism</p>
+          <p>All coursework was in Spanish.</p>
+        </div>
+        <div class="education-item">
+          <h3>Université de Paris, La<br>Sorbonne</h3>
+          <p>Master's Degree, Philosophy</p>
+          <p>All coursework was in French.</p>
+        </div>
+        <div class="education-item">
+          <h3>UC Berkeley</h3>
+          <p>Bachelor's Degree</p>
+          <p>French &amp; Spanish literature</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer" aria-label="Contact">
+      <div class="contact-list">
+        <span class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07L11 4.93"></path><path d="M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 0 0 7.07 7.07L13 19.07"></path></svg>
+          <span>Portfolio site</span>
+        </span>
+        <span class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          <span>LinkedIn</span>
+        </span>
+        <a class="contact-item" href="tel:+17148646496">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.32 1.84.55 2.8.68A2 2 0 0 1 22 16.92Z"></path></svg>
+          <span>(714) 864-6496</span>
+        </a>
+        <a class="contact-item" href="mailto:jordan.england.nelson@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-10 6L2 7"></path></svg>
+          <span>jordan.england.nelson@gmail.com</span>
+        </a>
+      </div>
+    </footer>
+  </article>
+</body>
+</html>
