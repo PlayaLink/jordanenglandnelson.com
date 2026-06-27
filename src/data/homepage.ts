@@ -19,7 +19,7 @@ export const caseStudies = [
     ],
   },
   {
-    title: "Reducing onboarding times at mortgage SaaS startup",
+    title: "An admin settings engine that reduced onboarding time by 33% at a mortgage SaaS startup",
     href: "/admin-settings-management-system.html",
     image: "/images/synth_admin_wide.png",
     featured: true,
