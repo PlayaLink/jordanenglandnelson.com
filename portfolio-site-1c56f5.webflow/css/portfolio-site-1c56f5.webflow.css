@@ -4858,3 +4858,13 @@ img {
   font-style: normal;
   font-display: swap;
 }
+/* Portfolio migration override: allow van case-study text blocks to use the full content width. */
+.case-study-container---van-life .text-block-big-title._w-50 {
+  width: 75%;
+  max-width: 75%;
+}
+
+.case-study-container---van-life .text-block-big-title._w-75 {
+  width: 75%;
+  max-width: 75%;
+}
