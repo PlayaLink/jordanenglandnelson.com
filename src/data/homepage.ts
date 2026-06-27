@@ -23,6 +23,7 @@ export const caseStudies = [
     href: "/admin-settings-management-system.html",
     image: "/images/synth_admin_wide.png",
     featured: true,
+    titleMaxWidth: "30ch",
     details: [
       { label: "Company", value: "Enterprise B2B SaaS", note: "SimpleNexus" },
       { label: "My role", value: "Only designer", note: "on product team" },
