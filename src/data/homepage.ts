@@ -8,7 +8,7 @@ export const roles = [
 
 export const caseStudies = [
   {
-    title: "Re-designing meeting notes navigation for 50% faster information retrieval times",
+    title: "How iterative design helped users find their meeting notes twice as fast",
     href: "/meetly-navigation.html",
     image: "/images/meeting_room.png",
     featured: true,
