@@ -60,7 +60,7 @@ export const timelineEntries = [
       },
       { text: "Earned a graduate degree in philosophy (in French)." },
       {
-        text: "Attended Columbia University's Spanish-speaking satellite master's program in Barcelona.",
+        text: "Attended Columbia University's Spanish-speaking journalism master's program at the University of Barcelona.",
       },
     ],
   },
