@@ -21,7 +21,7 @@ export const caseStudies = [
   {
     title: "Reducing onboarding times at mortgage SaaS startup",
     href: "/admin-settings-management-system.html",
-    image: "/images/synth_admin.png",
+    image: "/images/synth_admin_wide.png",
     featured: true,
     details: [
       { label: "Company", value: "Enterprise B2B SaaS", note: "SimpleNexus" },
