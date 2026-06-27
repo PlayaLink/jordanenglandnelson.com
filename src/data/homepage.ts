@@ -31,7 +31,7 @@ export const caseStudies = [
     ],
   },
   {
-    title: "How to live in a van (in NYC)",
+    title: "Designing a home on wheels in NYC",
     href: "/how-to-live-in-a-van-in-nyc.html",
     image: "/images/van_thumbnail.png",
     featured: true,
