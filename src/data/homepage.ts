@@ -119,7 +119,7 @@ export const reflections = [
   {
     title: "On language & code",
     image: {
-      src: "/images/vitruvian_man.jpeg",
+      src: "/images/vitruvian_man-transparent.png",
       alt: "Notebook-style anatomical study artwork",
     },
     paragraphs: [
