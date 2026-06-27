@@ -1,10 +1,12 @@
 ---
 import CaseStudyCard from "../components/home/CaseStudyCard.astro";
+import ReflectionPanel from "../components/home/ReflectionPanel.astro";
 import SectionHeader from "../components/home/SectionHeader.astro";
 import Timeline from "../components/home/Timeline.astro";
 import { Body, Display, SectionHeading } from "../components/typography";
 import {
   caseStudies,
+  reflections,
   roles,
   timelineEntries,
 } from "../data/homepage";
@@ -33,6 +35,15 @@ const resolvedTimelineEntries = timelineEntries.map((entry) => ({
   })),
 }));
 
+const resolvedReflections = reflections.map((reflection) => ({
+  ...reflection,
+  image: reflection.image
+    ? {
+        ...reflection.image,
+        src: assetPath(reflection.image.src),
+      }
+    : undefined,
+}));
 ---
 
 <BaseLayout
@@ -145,6 +156,23 @@ const resolvedTimelineEntries = timelineEntries.map((entry) => ({
         </div>
       </div>
       <Timeline entries={resolvedTimelineEntries} />
+    </section>
+
+    <section class="page-section page-section--last" aria-labelledby="reflections-title">
+      <div class="home-container">
+        <SectionHeader headingId="reflections-title" title="Some reflections" />
+        <div class="reflection-stack">
+          {
+            resolvedReflections.map((reflection) => (
+              <ReflectionPanel
+                title={reflection.title}
+                paragraphs={reflection.paragraphs}
+                image={reflection.image}
+              />
+            ))
+          }
+        </div>
+      </div>
     </section>
   </div>
 
@@ -378,7 +406,7 @@ const resolvedTimelineEntries = timelineEntries.map((entry) => ({
     padding-top: clamp(96px, 13vw, 144px);
   }
 
-  .page-section--background {
+  .page-section--last {
     padding-bottom: clamp(72px, 10vw, 112px);
   }
 
@@ -414,6 +442,11 @@ const resolvedTimelineEntries = timelineEntries.map((entry) => ({
     display: grid;
     gap: 8px;
     max-width: 520px;
+  }
+
+  .reflection-stack {
+    display: grid;
+    gap: 24px;
   }
 
   .sr-only {
