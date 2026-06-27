@@ -30,8 +30,6 @@ const { entries } = Astro.props;
     entries.map((entry) => (
       <article class="timeline__item">
         <div class="timeline__media">
-          <CardTitle as="h3" class="timeline__title">{entry.title}</CardTitle>
-          <Caption class="timeline__range">{entry.range}</Caption>
           <div class="timeline__images">
             {entry.images.map((image) => (
               <img src={image.src} alt={image.alt} loading="lazy" />
@@ -40,6 +38,10 @@ const { entries } = Astro.props;
         </div>
         <div class="timeline__marker" aria-hidden="true"></div>
         <div class="timeline__copy">
+          <header class="timeline__heading">
+            <CardTitle as="h3" class="timeline__title">{entry.title}</CardTitle>
+            <Caption class="timeline__range">{entry.range}</Caption>
+          </header>
           {entry.paragraphs.map((paragraph) =>
             paragraph.html ? (
               <p class="type-body timeline__paragraph" set:html={paragraph.html} />
@@ -92,24 +94,12 @@ const { entries } = Astro.props;
     display: grid;
     justify-items: end;
     align-content: start;
-    text-align: right;
-  }
-
-  :global(.timeline__title) {
-    --type-size-card-title: 2.25rem;
-    max-width: none;
-  }
-
-  :global(.timeline__range) {
-    margin-top: 8px;
-    font-size: 1.25rem;
   }
 
   .timeline__images {
     display: grid;
     gap: 24px;
     width: min(100%, 480px);
-    margin-top: 28px;
   }
 
   .timeline__images img {
@@ -139,7 +129,21 @@ const { entries } = Astro.props;
     display: grid;
     align-content: start;
     gap: 14px;
-    padding-top: 92px;
+  }
+
+  .timeline__heading {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  :global(.timeline__title) {
+    --type-size-card-title: 2.25rem;
+    max-width: none;
+  }
+
+  :global(.timeline__range) {
+    font-size: 1.25rem;
   }
 
   :global(.timeline__paragraph a) {
@@ -168,7 +172,6 @@ const { entries } = Astro.props;
     .timeline__media {
       grid-column: 2;
       justify-items: start;
-      text-align: left;
     }
 
     .timeline__marker {
@@ -180,7 +183,11 @@ const { entries } = Astro.props;
 
     .timeline__copy {
       grid-column: 2;
-      padding-top: 0;
+    }
+
+    .timeline__heading {
+      grid-row: 1;
+      margin-bottom: 0;
     }
   }
 </style>
