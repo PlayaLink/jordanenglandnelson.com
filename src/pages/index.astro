@@ -95,16 +95,16 @@ const resolvedReflections = reflections.map((reflection) => ({
             <ul>
               <li>
                 <Body as="span">
-                  <strong>technical chops</strong> and a <strong>background in journalism</strong>
+                  <strong>technical chops</strong> and a background in <strong>journalism</strong>
                 </Body>
               </li>
               <li>
-                <Body as="span">deep experience with early-stage startups</Body>
+                <Body as="span">deep experience with <strong>early-stage startups</strong></Body>
               </li>
               <li>
                 <Body as="span">
-                  worked on enterprise SaaS products with large design teams in mortgage and
-                  healthcare industries
+                  worked on enterprise SaaS products with large design teams in the <strong>mortgage</strong> and
+                  {" "}<strong>healthcare</strong> industries
                 </Body>
               </li>
             </ul>
@@ -373,6 +373,7 @@ const resolvedReflections = reflections.map((reflection) => ({
   .credential-list ul {
     display: grid;
     gap: 24px;
+    max-width: 515px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -385,11 +386,12 @@ const resolvedReflections = reflections.map((reflection) => ({
 
   .credential-list li::before {
     position: absolute;
+    top: 0.08em;
     left: 0;
-    color: #59a7fd;
+    color: currentColor;
     content: "•";
     font-family: var(--type-font-display);
-    font-size: 1.8rem;
+    font-size: 1.65rem;
     line-height: 1;
   }
 
@@ -397,8 +399,9 @@ const resolvedReflections = reflections.map((reflection) => ({
     font-weight: 600;
     text-decoration: underline;
     text-decoration-color: #59a7fd;
-    text-decoration-thickness: 4px;
-    text-underline-offset: 0.12em;
+    text-decoration-skip-ink: none;
+    text-decoration-thickness: 3px;
+    text-underline-offset: calc(0.22em + 1px);
   }
 
   .mascot-break {
