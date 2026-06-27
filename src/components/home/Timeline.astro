@@ -65,12 +65,17 @@ const { entries } = Astro.props;
 
   .timeline::before {
     position: absolute;
-    top: 32px;
+    top: 89px;
     bottom: 32px;
     left: 50%;
     width: 3px;
     border-radius: 999px;
-    background: #2d2d2d;
+    background: linear-gradient(
+      180deg,
+      #2d2d2d 0%,
+      #2d2d2d calc(100% - 96px),
+      rgb(45 45 45 / 0%) 100%
+    );
     content: "";
     transform: translateX(-50%);
   }
