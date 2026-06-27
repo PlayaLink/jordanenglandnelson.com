@@ -1,6 +1,6 @@
 export const roles = [
   "product designer",
-  "software tinkerer",
+  "software orchestrator",
   "journalism survivor",
   "translator",
   "#vanlifer",
