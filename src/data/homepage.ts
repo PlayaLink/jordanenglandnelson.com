@@ -22,20 +22,11 @@ export const caseStudies = [
     title: "Reducing onboarding times at mortgage SaaS startup",
     href: "/admin-settings-management-system.html",
     image: "/images/synth_admin.png",
+    featured: true,
     details: [
       { label: "Company", value: "Enterprise B2B SaaS", note: "SimpleNexus" },
       { label: "My role", value: "Only designer", note: "on product team" },
       { label: "Duration", value: "8 mos" },
-    ],
-  },
-  {
-    title: "Establishing a design system at startup w/ 350 employees",
-    href: "/design-system.html",
-    image: "/images/sad_worker.png",
-    details: [
-      { label: "Company", value: "B2B SaaS", note: "14+ designers" },
-      { label: "My role", value: "Design system co-lead", note: "and lead Figma architect" },
-      { label: "Duration", value: "9 months" },
     ],
   },
   {
