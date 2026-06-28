@@ -48,6 +48,7 @@
   --blue: #39f;
   --light-blue: #e0f0ff;
   --off-white: #eaeaea;
+  --portfolio-cream: #fff8ef;
 }
 
 .w-layout-blockcontainer {
@@ -4910,4 +4911,10 @@ img {
 
 .case-study-container---van-life .page-title > .page-detail-subtitle {
   margin-bottom: 24px;
+}
+
+/* Portfolio migration override: match case-study page canvases to the Astro home page cream. */
+body:has(> .case-study-container---planets > .section-group),
+body:has(> .case-study-container---van-life > .section-group) {
+  background-color: var(--portfolio-cream);
 }
