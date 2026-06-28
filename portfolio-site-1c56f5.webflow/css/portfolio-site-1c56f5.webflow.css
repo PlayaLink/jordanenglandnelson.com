@@ -4868,3 +4868,46 @@ img {
   width: 75%;
   max-width: 75%;
 }
+
+/* Portfolio migration override: tighten title/body spacing consistently across case-study pages. */
+.text-block-big-title {
+  grid-row-gap: 12px;
+  row-gap: 12px;
+}
+
+.text-block-big-title > .heading-2 {
+  margin-bottom: 0;
+}
+
+/* Portfolio migration override: match van case-study paragraph copy to standard body text sizing. */
+.case-study-container---van-life .paragraph {
+  font-size: 16px;
+}
+
+@media screen and (max-width: 767px) {
+  .case-study-container---van-life .paragraph {
+    font-size: 20px;
+  }
+}
+
+/* Portfolio migration override: make van section labels match the other case-study eyebrows. */
+.case-study-container---van-life .big-section {
+  color: var(--grey);
+  font-family: Montserrat, sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.case-study-container---van-life .section---spaced > div:has(> .big-section) {
+  margin-bottom: -36px;
+}
+
+/* Portfolio migration override: rebalance van case-study page header spacing. */
+.case-study-container---van-life .page-title > .page-detail-title {
+  margin-bottom: -12px;
+}
+
+.case-study-container---van-life .page-title > .page-detail-subtitle {
+  margin-bottom: 24px;
+}
