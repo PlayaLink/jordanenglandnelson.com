@@ -19,6 +19,22 @@ const publicDir = path.resolve(root, 'public');
 const astroOwnedHtmlFiles = new Set([
   'index.html',
 ]);
+const logRocketAppId = 'jordan-england-nelson-personal/webflow-portfolio-site';
+const logRocketCdnUrl = 'https://cdn.logr-in.com/LogRocket.min.js';
+const logRocketSnippet = `  <script src="${logRocketCdnUrl}" crossorigin="anonymous"></script>
+  <script>
+    (function () {
+      var disabledHostnames = ["", "localhost", "127.0.0.1", "0.0.0.0", "::1"];
+
+      if (disabledHostnames.indexOf(window.location.hostname) !== -1) {
+        return;
+      }
+
+      window.LogRocket && window.LogRocket.init("${logRocketAppId}");
+    })();
+  </script>`;
+const logRocketSnippetPattern =
+  /\s*<script src="https:\/\/cdn\.(?:lr-ingest\.com|logr-in\.com)\/LogRocket\.min\.js"[^>]*><\/script>\s*<script>[\s\S]*?LogRocket\.init[\s\S]*?<\/script>/g;
 
 if (!existsSync(sourceDir)) {
   throw new Error(`Webflow export not found: ${sourceDir}`);
@@ -90,10 +106,8 @@ function localiseWebflowAssetUrl(url) {
 function patchHtml(filePath) {
   let html = readFileSync(filePath, 'utf8');
 
-  html = html.replace(
-    /\s*<script src="https:\/\/cdn\.lr-ingest\.com\/LogRocket\.min\.js"[^>]*><\/script>\s*<script>window\.LogRocket[\s\S]*?<\/script>/g,
-    '',
-  );
+  html = html.replace(logRocketSnippetPattern, '');
+  html = html.replace(/\s*<\/head>/i, `\n${logRocketSnippet}\n</head>`);
 
   html = html.replace(
     /https:\/\/uploads-ssl\.webflow\.com\/[^"'<>]+?\.(?:gif|jpe?g|mov|mp4|png|svg|webm)/g,
