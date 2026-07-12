@@ -1,0 +1,58 @@
+---
+import { Eyebrow, SectionHeading } from "../typography";
+
+interface Props {
+  id: string;
+  eyebrow?: string;
+  title: string;
+  layout?: "prose" | "split" | "wide";
+  visualPosition?: "start" | "end";
+  tone?: "default" | "tinted" | "dark";
+}
+
+const {
+  id,
+  eyebrow,
+  title,
+  layout = "prose",
+  visualPosition = "end",
+  tone = "default",
+} = Astro.props;
+const hasVisual = Astro.slots.has("visual");
+---
+
+<section
+  id={id}
+  class:list={[
+    "story-section",
+    `story-section--${layout}`,
+    `story-section--visual-${visualPosition}`,
+    `story-section--${tone}`,
+    hasVisual && "story-section--has-visual",
+  ]}
+  aria-labelledby={`${id}-title`}
+>
+  <div class="story-section__inner">
+    <div class="story-section__copy">
+      {eyebrow && <Eyebrow tone={tone === "dark" ? "inverse" : "default"}>{eyebrow}</Eyebrow>}
+      <SectionHeading
+        id={`${id}-title`}
+        class="story-section__title"
+        tone={tone === "dark" ? "inverse" : "default"}
+      >
+        {title}
+      </SectionHeading>
+      <div class="story-section__prose">
+        <slot />
+      </div>
+    </div>
+
+    {
+      hasVisual && (
+        <div class="story-section__visual">
+          <slot name="visual" />
+        </div>
+      )
+    }
+  </div>
+</section>

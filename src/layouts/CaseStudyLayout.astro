@@ -1,0 +1,37 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import "../styles/case-study.css";
+
+interface Props {
+  title: string;
+  description: string;
+  homeAnchor?: string;
+}
+
+const { title, description, homeAnchor = "#case-studies-title" } = Astro.props;
+const homeHref = homeAnchor.startsWith("#")
+  ? `${import.meta.env.BASE_URL}${homeAnchor}`
+  : `${import.meta.env.BASE_URL}${homeAnchor.replace(/^\//, "")}`;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  constrain={false}
+  showBackLink={false}
+  mainClass="case-study-main"
+>
+  <div class="case-study-shell">
+    <nav class="case-study-return case-study-return--top" aria-label="Portfolio stories">
+      <a href={homeHref}><span aria-hidden="true">←</span> Back to stories</a>
+    </nav>
+
+    <article class="case-study-article">
+      <slot />
+    </article>
+
+    <nav class="case-study-return case-study-return--bottom" aria-label="Portfolio stories">
+      <a href={homeHref}><span aria-hidden="true">←</span> Back to stories</a>
+    </nav>
+  </div>
+</BaseLayout>

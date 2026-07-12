@@ -1,0 +1,62 @@
+---
+import { Body, Eyebrow, PageTitle } from "../typography";
+
+interface ProjectFact {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  lede: string;
+  facts: readonly ProjectFact[];
+  activities: readonly string[];
+}
+
+const { eyebrow, title, lede, facts, activities } = Astro.props;
+---
+
+<header class="case-hero" aria-labelledby="benchmarkr-title">
+  <div class="case-hero__grid">
+    <div class="case-hero__copy">
+      <Eyebrow class="case-hero__eyebrow">{eyebrow}</Eyebrow>
+      <PageTitle id="benchmarkr-title" class="case-hero__title">{title}</PageTitle>
+      <Body class="case-hero__lede">{lede}</Body>
+    </div>
+
+    {
+      Astro.slots.has("visual") && (
+        <div class="case-hero__visual">
+          <slot name="visual" />
+        </div>
+      )
+    }
+  </div>
+
+  <dl class="case-facts">
+    {
+      facts.map((fact) => (
+        <div class="case-facts__item">
+          <dt>{fact.label}</dt>
+          <dd>{fact.value}</dd>
+        </div>
+      ))
+    }
+  </dl>
+
+  <div class="case-activities" aria-labelledby="activities-title">
+    <Eyebrow id="activities-title" as="p">Activities and outputs</Eyebrow>
+    <ul>
+      {activities.map((activity) => <li>{activity}</li>)}
+    </ul>
+  </div>
+
+  {
+    Astro.slots.has("default") && (
+      <div class="case-hero__summary">
+        <slot />
+      </div>
+    )
+  }
+</header>

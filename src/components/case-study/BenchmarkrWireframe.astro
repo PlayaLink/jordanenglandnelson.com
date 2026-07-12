@@ -1,0 +1,771 @@
+---
+import type { WireframeScene } from "../../data/benchmarkr";
+
+interface Props {
+  scene: WireframeScene;
+  compact?: boolean;
+}
+
+const { scene, compact = false } = Astro.props;
+---
+
+<div
+  class:list={["benchmarkr-wireframe", compact && "benchmarkr-wireframe--compact"]}
+  data-scene={scene}
+  aria-hidden="true"
+>
+  {
+    scene === "inspection-checkpoint" && (
+      <div class="wf-device wf-device--tablet">
+        <div class="wf-device__camera" />
+        <div class="wf-device__screen">
+          <div class="wf-appbar">
+            <span class="wf-brand">Benchmarkr</span>
+            <span class="wf-language">EN · ES</span>
+          </div>
+          <div class="wf-inspection">
+            <aside class="wf-product-rail">
+              <span class="wf-kicker">Fire table</span>
+              <strong>FT-042</strong>
+              <span class="wf-serial">Serial 24-0318</span>
+              <div class="wf-progress-ring"><span>3/6</span></div>
+              <div class="wf-step-rail">
+                <i class="is-complete" />
+                <i class="is-complete" />
+                <i class="is-current" />
+                <i />
+                <i />
+                <i />
+              </div>
+            </aside>
+            <div class="wf-task-panel">
+              <div class="wf-task-heading">
+                <span>Step 3 of 6</span>
+                <strong>Inspect surface finish</strong>
+              </div>
+              <div class="wf-evidence-pair">
+                <div class="wf-photo-card wf-photo-card--expected">
+                  <span>Expected</span>
+                  <div class="wf-photo-texture wf-photo-texture--smooth" />
+                  <small>Approved finish</small>
+                </div>
+                <div class="wf-photo-card wf-photo-card--capture">
+                  <span>Inspection</span>
+                  <div class="wf-photo-texture wf-photo-texture--captured" />
+                  <small>Captured now</small>
+                </div>
+              </div>
+              <div class="wf-task-footer">
+                <span class="wf-action wf-action--quiet">Report an issue</span>
+                <span class="wf-action wf-action--primary">Continue</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  {
+    scene === "paper-vs-practice" && (
+      <div class="wf-paper-practice">
+        <div class="wf-paper-sheet">
+          <div class="wf-paper-clip" />
+          <span class="wf-stamp">OFFICIAL CHECKLIST</span>
+          <strong>Fire table QC</strong>
+          <ol>
+            <li><i /> Pour concrete</li>
+            <li><i /> Cure</li>
+            <li><i /> Sand surface</li>
+            <li><i /> Inspect finish</li>
+            <li><i /> Pack</li>
+          </ol>
+          <span class="wf-paper-note">One straight line</span>
+        </div>
+        <div class="wf-practice-map">
+          <span class="wf-stamp wf-stamp--blue">PRACTICED WORKFLOW</span>
+          <div class="wf-map-row">
+            <span class="wf-map-node">Pour</span>
+            <i class="wf-map-arrow" />
+            <span class="wf-map-node">Cure</span>
+            <i class="wf-map-arrow" />
+            <span class="wf-map-node">Check</span>
+          </div>
+          <div class="wf-map-detour">
+            <span>Humidity changes timing</span>
+            <i />
+          </div>
+          <div class="wf-map-row wf-map-row--offset">
+            <span class="wf-map-node wf-map-node--overlap">Sand + inspect</span>
+            <i class="wf-map-arrow" />
+            <span class="wf-map-node">Rework?</span>
+          </div>
+          <div class="wf-map-loop">
+            <i />
+            <span>Manager workaround</span>
+          </div>
+          <div class="wf-practice-legend">
+            <span><i class="wf-dot wf-dot--orange" /> exception</span>
+            <span><i class="wf-dot wf-dot--blue" /> overlapping roles</span>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  {
+    scene === "separate-processes" && (
+      <div class="wf-separated-model">
+        <div class="wf-builder-card wf-builder-card--manufacturing">
+          <div class="wf-window-bar"><i /><i /><i /></div>
+          <span class="wf-stamp">PROCESS TYPE 01</span>
+          <strong>Manufacturing</strong>
+          <div class="wf-builder-field"><span>Instructions</span><i /></div>
+          <div class="wf-builder-field"><span>Documents</span><i /></div>
+          <div class="wf-builder-list"><i /><i /><i /></div>
+          <span class="wf-locked-capability">Making capabilities only</span>
+        </div>
+        <div class="wf-hard-divider">
+          <span>Hard rule</span>
+          <i />
+        </div>
+        <div class="wf-builder-card wf-builder-card--quality">
+          <div class="wf-window-bar"><i /><i /><i /></div>
+          <span class="wf-stamp wf-stamp--blue">PROCESS TYPE 02</span>
+          <strong>Quality Control</strong>
+          <div class="wf-builder-field"><span>Reference photos</span><i /></div>
+          <div class="wf-builder-field"><span>Evidence required</span><i /></div>
+          <div class="wf-builder-list"><i /><i /><i /></div>
+          <span class="wf-locked-capability">Inspection capabilities only</span>
+        </div>
+      </div>
+    )
+  }
+
+  {
+    scene === "step-builder" && (
+      <div class="wf-unified-builder">
+        <div class="wf-window-bar wf-window-bar--dark">
+          <i /><i /><i /><span>Process template · Fire table quality</span>
+        </div>
+        <div class="wf-builder-layout">
+          <aside class="wf-builder-steps">
+            <span class="wf-kicker">Steps</span>
+            <div><i class="is-done" /> Receive unit</div>
+            <div><i class="is-done" /> Dimensions</div>
+            <div class="is-selected"><i /> Surface finish</div>
+            <div><i /> Burner fit</div>
+            <div><i /> Final review</div>
+            <span class="wf-add-row">+ Add Step</span>
+          </aside>
+          <div class="wf-builder-config">
+            <div class="wf-config-heading">
+              <div><span>Selected Step</span><strong>Surface finish</strong></div>
+              <span class="wf-capability-badge">Configure where work varies</span>
+            </div>
+            <div class="wf-config-grid">
+              <div class="wf-config-card">
+                <span>Step guidance</span>
+                <div class="wf-file-row"><i /> Finish-standard.pdf</div>
+                <div class="wf-file-row"><i /> Lighting setup</div>
+              </div>
+              <div class="wf-config-card wf-config-card--task">
+                <span>Task</span>
+                <strong>Compare finish and gloss</strong>
+                <div class="wf-toggle-row"><i class="is-on" /> Require inspection photo</div>
+                <div class="wf-reference-row">
+                  <i class="wf-mini-photo" /> Expected
+                  <i class="wf-mini-photo wf-mini-photo--defect" /> Defect
+                </div>
+              </div>
+              <div class="wf-config-card wf-config-card--small">
+                <span>Task</span><strong>Record inspector signature</strong>
+              </div>
+              <span class="wf-add-task">+ Add Task</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  {
+    scene === "process-instance" && (
+      <div class="wf-instance-journey">
+        <div class="wf-view wf-view--overview">
+          <div class="wf-view-top"><span>Overview</span><i>1</i></div>
+          <span class="wf-kicker">Fire table · FT-042</span>
+          <strong>Serial 24-0318</strong>
+          <div class="wf-product-drawing"><i /><i /></div>
+          <div class="wf-progress-bar"><i /></div>
+          <small>3 of 6 Steps complete</small>
+        </div>
+        <i class="wf-journey-arrow" />
+        <div class="wf-view wf-view--current">
+          <div class="wf-view-top"><span>Current Step</span><i>2</i></div>
+          <span class="wf-kicker">Same product</span>
+          <strong>Surface finish</strong>
+          <div class="wf-current-task"><i /> Compare gloss</div>
+          <div class="wf-current-task"><i /> Capture evidence</div>
+          <span class="wf-action wf-action--primary">Complete Step</span>
+        </div>
+        <i class="wf-journey-arrow" />
+        <div class="wf-view wf-view--history">
+          <div class="wf-view-top"><span>History</span><i>3</i></div>
+          <span class="wf-kicker">Same product</span>
+          <strong>Progress + evidence</strong>
+          <div class="wf-history-line"><i class="is-done" /><span>Received</span></div>
+          <div class="wf-history-line"><i class="is-done" /><span>Dimensions</span></div>
+          <div class="wf-history-line"><i class="is-current" /><span>Surface finish</span></div>
+          <div class="wf-history-line"><i /><span>Burner fit</span></div>
+        </div>
+      </div>
+    )
+  }
+
+  {
+    scene === "visual-verification" && (
+      <div class="wf-verification">
+        <div class="wf-verification-card wf-verification-card--expected">
+          <div class="wf-verification-label"><i /> Expected</div>
+          <div class="wf-large-photo wf-large-photo--expected"><i /><i /></div>
+          <strong>Approved finish</strong>
+          <small>Warm gray · low gloss</small>
+        </div>
+        <div class="wf-verification-card wf-verification-card--defect">
+          <div class="wf-verification-label"><i /> Defect</div>
+          <div class="wf-large-photo wf-large-photo--defect"><i /><i /></div>
+          <strong>Known pinholes</strong>
+          <small>Compare, don’t assume</small>
+        </div>
+        <div class="wf-verification-card wf-verification-card--inspection">
+          <div class="wf-verification-label"><i /> Inspection</div>
+          <div class="wf-large-photo wf-large-photo--inspection"><i /><i /></div>
+          <strong>Captured unit</strong>
+          <small>Evidence from FT-042</small>
+        </div>
+        <div class="wf-human-decision">
+          <span>Human judgment</span>
+          <i />
+          <div><span>Looks right</span><span>Report issue</span></div>
+        </div>
+      </div>
+    )
+  }
+
+  {
+    scene === "needs-review" && (
+      <div class="wf-review-window">
+        <div class="wf-review-list">
+          <div class="wf-review-heading"><strong>Needs Review</strong><span>Open · 3</span></div>
+          <div class="wf-filter-row"><span>Process: Fire table quality</span><i /></div>
+          <div class="wf-review-columns"><span>Serial</span><span>Process</span><span>Issues</span></div>
+          <div class="wf-review-row is-selected"><strong>24-0318</strong><span>Fire table QC</span><i>2</i></div>
+          <div class="wf-review-row"><strong>24-0321</strong><span>Fire table QC</span><i>1</i></div>
+          <div class="wf-review-row"><strong>24-0324</strong><span>Fire table QC</span><i>1</i></div>
+        </div>
+        <div class="wf-review-detail">
+          <div class="wf-detail-top"><span>Fire table · 24-0318</span><i>Needs Review</i></div>
+          <span class="wf-kicker">Step context</span>
+          <strong>Surface finish · Compare gloss</strong>
+          <div class="wf-detail-evidence">
+            <div><i class="wf-mini-photo" /><span>Expected</span></div>
+            <div><i class="wf-mini-photo wf-mini-photo--capture" /><span>Inspection</span></div>
+          </div>
+          <p>Inspector reported gloss above the approved reference.</p>
+          <div class="wf-review-actions">
+            <span class="wf-action">Clear review</span>
+            <span class="wf-action wf-action--primary">Send back</span>
+            <span class="wf-action wf-action--danger">Reject</span>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  {
+    scene === "next-steps" && (
+      <div class="wf-next-concepts">
+        <div class="wf-scanner-concept">
+          <span class="wf-plan-label">PLANNED 01</span>
+          <strong>Touch-free completion</strong>
+          <div class="wf-workstation">
+            <div class="wf-scanner"><i /><i /></div>
+            <div class="wf-barcode"><i /><i /><i /><i /><i /><i /><i /></div>
+            <div class="wf-glove"><i /><i /><i /><i /></div>
+            <span class="wf-scan-line" />
+          </div>
+          <small>Scan at a fixed workstation—no touchscreen navigation</small>
+        </div>
+        <div class="wf-analytics-concept">
+          <span class="wf-plan-label">PLANNED 02</span>
+          <strong>Aggregate process learning</strong>
+          <div class="wf-chart">
+            <div><span>Surface finish</span><i style="--bar: 84%" /></div>
+            <div><span>Dimensions</span><i style="--bar: 58%" /></div>
+            <div><span>Burner fit</span><i style="--bar: 36%" /></div>
+            <div><span>Packaging</span><i style="--bar: 20%" /></div>
+          </div>
+          <div class="wf-trend-line"><i /><i /><i /><i /><span>Issue trend by Step</span></div>
+        </div>
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .benchmarkr-wireframe {
+    --wf-ink: #252423;
+    --wf-muted: #696a70;
+    --wf-paper: #fffdf8;
+    --wf-cream: #f7f2ea;
+    --wf-blue: #59a7fd;
+    --wf-blue-soft: #d9ebff;
+    --wf-orange: #e98a4b;
+    --wf-red: #bd4d48;
+    --wf-green: #4d866a;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    color: var(--wf-ink);
+    container-type: inline-size;
+    font-family: var(--type-font-body);
+    font-size: clamp(7px, 1.15cqw, 13px);
+    line-height: 1.25;
+  }
+
+  .benchmarkr-wireframe *,
+  .benchmarkr-wireframe *::before,
+  .benchmarkr-wireframe *::after {
+    box-sizing: border-box;
+  }
+
+  .benchmarkr-wireframe strong,
+  .benchmarkr-wireframe span,
+  .benchmarkr-wireframe small {
+    min-width: 0;
+  }
+
+  .wf-device {
+    position: relative;
+    width: 90%;
+    height: 92%;
+    margin: auto;
+    border: max(2px, 0.35em) solid var(--wf-ink);
+    border-radius: 2.2em;
+    background: var(--wf-ink);
+    box-shadow: 1.2em 1.4em 0 rgb(37 36 35 / 14%);
+  }
+
+  .wf-device__camera {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 0.55em;
+    width: 0.55em;
+    aspect-ratio: 1;
+    border: 1px solid #62615f;
+    border-radius: 50%;
+    background: #0c0c0c;
+  }
+
+  .wf-device__screen {
+    position: absolute;
+    inset: 0.75em;
+    overflow: hidden;
+    border-radius: 1.3em;
+    background: var(--wf-paper);
+  }
+
+  .wf-appbar {
+    display: flex;
+    height: 11%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5em;
+    border-bottom: 1px solid #d8d1c7;
+    background: #fff;
+  }
+
+  .wf-brand {
+    font-family: var(--type-font-display);
+    font-size: 1.15em;
+    font-weight: 650;
+  }
+
+  .wf-language {
+    border: 1px solid #cbc4ba;
+    border-radius: 999px;
+    padding: 0.35em 0.7em;
+    color: var(--wf-muted);
+    font-size: 0.75em;
+    font-weight: 700;
+  }
+
+  .wf-inspection {
+    display: grid;
+    height: 89%;
+    grid-template-columns: 28% minmax(0, 1fr);
+  }
+
+  .wf-product-rail {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.2em 0.8em;
+    border-right: 1px solid #d8d1c7;
+    background: #f2eee7;
+    text-align: center;
+  }
+
+  .wf-kicker {
+    color: var(--wf-muted);
+    font-size: 0.72em;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .wf-product-rail strong {
+    margin-top: 0.3em;
+    font-family: var(--type-font-display);
+    font-size: 1.4em;
+  }
+
+  .wf-serial {
+    color: var(--wf-muted);
+    font-size: 0.68em;
+  }
+
+  .wf-progress-ring {
+    display: grid;
+    width: 3.8em;
+    margin-top: 1em;
+    aspect-ratio: 1;
+    place-items: center;
+    border: 0.55em solid #d6d1ca;
+    border-top-color: var(--wf-blue);
+    border-right-color: var(--wf-blue);
+    border-radius: 50%;
+    background: var(--wf-paper);
+    transform: rotate(25deg);
+  }
+
+  .wf-progress-ring span {
+    font-size: 0.72em;
+    font-weight: 700;
+    transform: rotate(-25deg);
+  }
+
+  .wf-step-rail {
+    display: flex;
+    width: 82%;
+    justify-content: space-between;
+    margin-top: auto;
+  }
+
+  .wf-step-rail i {
+    width: 0.65em;
+    aspect-ratio: 1;
+    border: 1px solid #9f9a92;
+    border-radius: 50%;
+    background: var(--wf-paper);
+  }
+
+  .wf-step-rail .is-complete { border-color: var(--wf-green); background: var(--wf-green); }
+  .wf-step-rail .is-current { border: 0.2em solid var(--wf-blue); }
+
+  .wf-task-panel {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    padding: 1.2em 1.4em 1em;
+  }
+
+  .wf-task-heading { display: grid; gap: 0.2em; }
+  .wf-task-heading span { color: var(--wf-muted); font-size: 0.72em; }
+  .wf-task-heading strong { font-family: var(--type-font-display); font-size: 1.35em; }
+
+  .wf-evidence-pair {
+    display: grid;
+    min-height: 0;
+    flex: 1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8em;
+    margin-top: 0.8em;
+  }
+
+  .wf-photo-card {
+    display: grid;
+    min-width: 0;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: 0.45em;
+    padding: 0.65em;
+    border: 1px solid #c9c2b8;
+    border-radius: 0.7em;
+    background: #fff;
+  }
+
+  .wf-photo-card > span { font-size: 0.68em; font-weight: 750; text-transform: uppercase; }
+  .wf-photo-card small { color: var(--wf-muted); font-size: 0.66em; }
+  .wf-photo-texture { position: relative; min-height: 0; overflow: hidden; border-radius: 0.35em; background: #d8d2c8; }
+  .wf-photo-texture::before,
+  .wf-photo-texture::after { position: absolute; border: 1px solid rgb(37 36 35 / 52%); content: ""; }
+  .wf-photo-texture::before { inset: 20% 12%; border-radius: 45% 55% 15% 20%; transform: skew(-7deg); }
+  .wf-photo-texture::after { right: 20%; bottom: 18%; width: 34%; height: 26%; border-radius: 50%; }
+  .wf-photo-texture--smooth { background: linear-gradient(145deg, #c8c0b3 0 45%, #e7e1d8 45% 62%, #bbb1a2 62%); }
+  .wf-photo-texture--captured { background: repeating-linear-gradient(165deg, #c8c0b4 0 0.8em, #ded8ce 0.8em 1.5em); }
+
+  .wf-task-footer { display: flex; justify-content: flex-end; gap: 0.55em; margin-top: 0.8em; }
+  .wf-action { display: inline-flex; min-height: 2.3em; align-items: center; justify-content: center; border: 1px solid #aaa39a; border-radius: 0.5em; padding: 0.45em 0.75em; background: #fff; font-size: 0.68em; font-style: normal; font-weight: 750; text-align: center; }
+  .wf-action--quiet { color: var(--wf-red); }
+  .wf-action--primary { border-color: var(--wf-ink); background: var(--wf-ink); color: #fff; }
+  .wf-action--danger { border-color: var(--wf-red); color: var(--wf-red); }
+
+  .wf-paper-practice,
+  .wf-separated-model,
+  .wf-unified-builder,
+  .wf-instance-journey,
+  .wf-verification,
+  .wf-review-window,
+  .wf-next-concepts { width: 100%; height: 100%; }
+
+  .wf-paper-practice { display: grid; align-items: center; grid-template-columns: 0.72fr 1.28fr; gap: 4%; padding: 4%; }
+  .wf-paper-sheet { position: relative; display: flex; height: 92%; min-width: 0; flex-direction: column; padding: 9% 9% 7%; border: 1px solid #bdb5aa; background: var(--wf-paper); box-shadow: 0.7em 0.8em 0 rgb(37 36 35 / 10%); transform: rotate(-1.5deg); }
+  .wf-paper-clip { position: absolute; top: -0.5em; left: 41%; width: 2.8em; height: 1.1em; border: 0.17em solid #77716a; border-bottom: 0; border-radius: 0.8em 0.8em 0 0; }
+  .wf-stamp { align-self: flex-start; border: 1px solid var(--wf-orange); padding: 0.25em 0.45em; color: #a95828; font-size: 0.62em; font-weight: 800; letter-spacing: 0.06em; transform: rotate(-2deg); }
+  .wf-stamp--blue { border-color: var(--wf-blue); color: #276da8; transform: rotate(1deg); }
+  .wf-paper-sheet > strong { margin-top: 0.6em; font-family: var(--type-font-display); font-size: 1.25em; }
+  .wf-paper-sheet ol { display: grid; gap: 0.48em; margin: 0.8em 0 0; padding: 0; counter-reset: paper; list-style: none; }
+  .wf-paper-sheet li { display: flex; align-items: center; gap: 0.55em; border-bottom: 1px solid #dfd8ce; padding-bottom: 0.35em; font-size: 0.72em; }
+  .wf-paper-sheet li i { width: 1em; aspect-ratio: 1; border: 1px solid #938c82; }
+  .wf-paper-note { margin-top: auto; color: var(--wf-muted); font-family: var(--type-font-display); font-size: 0.85em; font-style: italic; }
+  .wf-practice-map { position: relative; height: 94%; min-width: 0; padding: 5%; border: 1px dashed #aaa197; border-radius: 1em; background: #fbf5e9; }
+  .wf-map-row { display: flex; align-items: center; gap: 0.55em; margin-top: 11%; }
+  .wf-map-row--offset { margin-top: 10%; margin-left: 12%; }
+  .wf-map-node { display: inline-flex; min-height: 2.8em; flex: 0 1 auto; align-items: center; justify-content: center; border: 1px solid var(--wf-ink); border-radius: 0.45em; padding: 0.45em 0.7em; background: #fff; font-size: 0.72em; font-weight: 700; text-align: center; }
+  .wf-map-node--overlap { border-color: #347bb8; box-shadow: 0.35em 0.35em 0 var(--wf-blue-soft); }
+  .wf-map-arrow { position: relative; width: 1.5em; height: 1px; flex: 0 1 1.5em; background: var(--wf-ink); }
+  .wf-map-arrow::after { position: absolute; top: -0.26em; right: 0; width: 0.5em; aspect-ratio: 1; border-top: 1px solid var(--wf-ink); border-right: 1px solid var(--wf-ink); content: ""; transform: rotate(45deg); }
+  .wf-map-detour { position: absolute; top: 11%; right: 5%; max-width: 38%; border-bottom: 1px solid var(--wf-orange); color: #9c5529; font-size: 0.66em; font-weight: 650; transform: rotate(2deg); }
+  .wf-map-detour i { position: absolute; top: 100%; left: 20%; width: 1px; height: 3.4em; background: var(--wf-orange); transform: rotate(18deg); transform-origin: top; }
+  .wf-map-loop { position: absolute; right: 7%; bottom: 19%; color: #9c5529; font-size: 0.65em; font-weight: 650; }
+  .wf-map-loop i { position: absolute; right: 15%; bottom: 1.4em; width: 5.5em; height: 3em; border: 1px solid var(--wf-orange); border-left-color: transparent; border-radius: 0 2em 2em 0; transform: rotate(-12deg); }
+  .wf-practice-legend { position: absolute; bottom: 4%; left: 5%; display: flex; flex-wrap: wrap; gap: 0.8em; color: var(--wf-muted); font-size: 0.62em; }
+  .wf-practice-legend span { display: inline-flex; align-items: center; gap: 0.3em; }
+  .wf-dot { width: 0.65em; aspect-ratio: 1; border-radius: 50%; }
+  .wf-dot--orange { background: var(--wf-orange); }
+  .wf-dot--blue { background: var(--wf-blue); }
+
+  .wf-separated-model { display: grid; align-items: stretch; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 2.5%; padding: 4%; }
+  .wf-builder-card { position: relative; display: flex; min-width: 0; flex-direction: column; gap: 0.65em; padding: 10% 8% 7%; border: 2px solid var(--wf-ink); border-radius: 0.7em; background: #fff; box-shadow: 0.55em 0.55em 0 rgb(37 36 35 / 11%); }
+  .wf-builder-card--manufacturing { border-top: 0.65em solid var(--wf-orange); }
+  .wf-builder-card--quality { border-top: 0.65em solid var(--wf-blue); }
+  .wf-window-bar { position: absolute; top: 0; right: 0; left: 0; display: flex; height: 1.7em; align-items: center; gap: 0.35em; padding: 0 0.65em; border-bottom: 1px solid #cfc8be; background: #f1ede6; }
+  .wf-window-bar i { width: 0.48em; aspect-ratio: 1; border: 1px solid #7f7a73; border-radius: 50%; }
+  .wf-builder-card > strong { font-family: var(--type-font-display); font-size: 1.4em; }
+  .wf-builder-field { display: flex; min-height: 2.5em; align-items: center; justify-content: space-between; border: 1px solid #cbc3b9; border-radius: 0.35em; padding: 0.5em 0.65em; font-size: 0.68em; }
+  .wf-builder-field i { width: 1.9em; height: 1em; border-radius: 999px; background: #d6d0c7; }
+  .wf-builder-list { display: grid; gap: 0.55em; margin-top: 0.25em; }
+  .wf-builder-list i { display: block; height: 0.55em; border-radius: 99px; background: #ded8cf; }
+  .wf-builder-list i:nth-child(2) { width: 82%; }
+  .wf-builder-list i:nth-child(3) { width: 62%; }
+  .wf-locked-capability { margin-top: auto; border: 1px dashed #aaa198; padding: 0.55em; color: var(--wf-muted); font-size: 0.62em; text-align: center; }
+  .wf-hard-divider { display: flex; width: 2.8em; flex-direction: column; align-items: center; justify-content: center; gap: 0.7em; }
+  .wf-hard-divider span { border: 1px solid var(--wf-red); padding: 0.35em; color: var(--wf-red); font-size: 0.58em; font-weight: 800; text-align: center; text-transform: uppercase; transform: rotate(-5deg); }
+  .wf-hard-divider i { width: 2px; height: 56%; background: repeating-linear-gradient(to bottom, var(--wf-red) 0 0.5em, transparent 0.5em 0.9em); }
+
+  .wf-unified-builder { position: relative; overflow: hidden; border: 2px solid var(--wf-ink); border-radius: 0.8em; background: #fff; box-shadow: 0.7em 0.8em 0 rgb(37 36 35 / 12%); }
+  .wf-window-bar--dark { position: static; height: 9%; background: var(--wf-ink); color: #fff; }
+  .wf-window-bar--dark i { border-color: #e9e3d9; }
+  .wf-window-bar--dark span { margin-left: 0.45em; font-size: 0.68em; }
+  .wf-builder-layout { display: grid; height: 91%; grid-template-columns: 29% minmax(0, 1fr); }
+  .wf-builder-steps { display: flex; min-width: 0; flex-direction: column; gap: 0.4em; padding: 8% 6%; border-right: 1px solid #cfc7bd; background: #f1ede6; }
+  .wf-builder-steps > div { display: flex; min-width: 0; align-items: center; gap: 0.5em; border-radius: 0.35em; padding: 0.55em 0.45em; font-size: 0.68em; }
+  .wf-builder-steps > div.is-selected { background: var(--wf-blue-soft); font-weight: 750; }
+  .wf-builder-steps > div i { width: 0.8em; flex: 0 0 auto; aspect-ratio: 1; border: 1px solid #8c867f; border-radius: 50%; }
+  .wf-builder-steps > div i.is-done { border-color: var(--wf-green); background: var(--wf-green); }
+  .wf-add-row { margin-top: auto; border-top: 1px solid #cfc7bd; padding-top: 0.65em; color: #276da8; font-size: 0.65em; font-weight: 750; }
+  .wf-builder-config { min-width: 0; padding: 4%; }
+  .wf-config-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 1em; }
+  .wf-config-heading > div { display: grid; gap: 0.1em; }
+  .wf-config-heading span { color: var(--wf-muted); font-size: 0.62em; }
+  .wf-config-heading strong { font-family: var(--type-font-display); font-size: 1.25em; }
+  .wf-capability-badge { max-width: 40%; border: 1px solid var(--wf-blue); border-radius: 99px; padding: 0.45em 0.7em; color: #276da8 !important; font-weight: 700; text-align: center; }
+  .wf-config-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 0.55em; margin-top: 0.7em; }
+  .wf-config-card { display: grid; min-width: 0; align-content: start; gap: 0.35em; border: 1px solid #c9c2b8; border-radius: 0.45em; padding: 0.65em; }
+  .wf-config-card > span { color: var(--wf-muted); font-size: 0.6em; font-weight: 700; text-transform: uppercase; }
+  .wf-config-card > strong { font-size: 0.7em; }
+  .wf-file-row { display: flex; align-items: center; gap: 0.4em; border-bottom: 1px solid #e2ddd5; padding: 0.4em 0; font-size: 0.61em; }
+  .wf-file-row i { width: 0.8em; height: 1em; border: 1px solid #8f8981; background: var(--wf-cream); }
+  .wf-toggle-row { display: flex; align-items: center; gap: 0.45em; color: var(--wf-muted); font-size: 0.6em; }
+  .wf-toggle-row i { position: relative; width: 1.9em; height: 1em; border-radius: 999px; background: var(--wf-blue); }
+  .wf-toggle-row i::after { position: absolute; top: 0.15em; right: 0.15em; width: 0.7em; aspect-ratio: 1; border-radius: 50%; background: #fff; content: ""; }
+  .wf-reference-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35em; font-size: 0.56em; }
+  .wf-mini-photo { display: inline-block; width: 1.7em; aspect-ratio: 1.2; border: 1px solid #89837c; background: repeating-linear-gradient(145deg, #cbc4b9 0 0.3em, #e6e1d9 0.3em 0.6em); }
+  .wf-mini-photo--defect { margin-left: 0.35em; border-color: var(--wf-red); background: repeating-radial-gradient(circle at 60% 45%, #9f6d62 0 0.2em, #d7c0b9 0.2em 0.45em); }
+  .wf-mini-photo--capture { border-color: var(--wf-blue); }
+  .wf-config-card--small { grid-column: 1 / -1; grid-template-columns: auto 1fr; align-items: center; }
+  .wf-add-task { align-self: center; color: #276da8; font-size: 0.62em; font-weight: 750; }
+
+  .wf-instance-journey { display: grid; align-items: center; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr); gap: 1.5%; padding: 4%; }
+  .wf-view { display: flex; height: 84%; min-width: 0; flex-direction: column; gap: 0.5em; padding: 6%; border: 1px solid #aaa39a; border-radius: 0.75em; background: #fff; box-shadow: 0.4em 0.5em 0 rgb(37 36 35 / 10%); }
+  .wf-view--current { height: 94%; border: 2px solid var(--wf-blue); }
+  .wf-view-top { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #d8d1c7; padding-bottom: 0.45em; color: var(--wf-muted); font-size: 0.6em; font-weight: 750; }
+  .wf-view-top i { display: grid; width: 1.5em; aspect-ratio: 1; place-items: center; border-radius: 50%; background: var(--wf-ink); color: #fff; font-style: normal; }
+  .wf-view > strong { font-family: var(--type-font-display); font-size: 0.9em; }
+  .wf-product-drawing { position: relative; min-height: 0; flex: 1; border-radius: 0.4em; background: #eee8df; }
+  .wf-product-drawing::before { position: absolute; inset: 28% 18% 20%; border: 1px solid #77716a; border-radius: 45% 45% 12% 12%; content: ""; transform: perspective(5em) rotateX(12deg); }
+  .wf-product-drawing i:first-child { position: absolute; top: 25%; left: 46%; height: 52%; border-left: 1px dashed #8d867e; }
+  .wf-product-drawing i:last-child { position: absolute; top: 52%; right: 16%; left: 16%; border-top: 1px dashed #8d867e; }
+  .wf-progress-bar { height: 0.45em; overflow: hidden; border-radius: 99px; background: #ded8cf; }
+  .wf-progress-bar i { display: block; width: 50%; height: 100%; background: var(--wf-blue); }
+  .wf-view small { color: var(--wf-muted); font-size: 0.58em; }
+  .wf-current-task { display: flex; align-items: center; gap: 0.45em; border: 1px solid #d0c9bf; border-radius: 0.35em; padding: 0.65em 0.45em; font-size: 0.62em; }
+  .wf-current-task i { width: 0.9em; flex: 0 0 auto; aspect-ratio: 1; border: 1px solid #918a82; }
+  .wf-view .wf-action { align-self: stretch; margin-top: auto; }
+  .wf-history-line { position: relative; display: flex; align-items: center; gap: 0.5em; font-size: 0.62em; }
+  .wf-history-line i { position: relative; z-index: 1; width: 0.8em; aspect-ratio: 1; border: 1px solid #948e86; border-radius: 50%; background: #fff; }
+  .wf-history-line i.is-done { border-color: var(--wf-green); background: var(--wf-green); }
+  .wf-history-line i.is-current { border: 0.2em solid var(--wf-blue); }
+  .wf-history-line:not(:last-child)::after { position: absolute; top: 0.8em; bottom: -0.7em; left: 0.36em; border-left: 1px solid #aaa39a; content: ""; }
+  .wf-journey-arrow { position: relative; width: 1.5em; height: 1px; background: var(--wf-blue); }
+  .wf-journey-arrow::after { position: absolute; top: -0.3em; right: 0; width: 0.6em; aspect-ratio: 1; border-top: 1px solid var(--wf-blue); border-right: 1px solid var(--wf-blue); content: ""; transform: rotate(45deg); }
+
+  .wf-verification { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2%; padding: 4% 4% 11%; }
+  .wf-verification-card { display: flex; min-width: 0; flex-direction: column; gap: 0.45em; padding: 0.7em; border: 1px solid #aaa39a; border-radius: 0.7em; background: #fff; }
+  .wf-verification-card--inspection { border: 2px solid var(--wf-blue); }
+  .wf-verification-label { display: flex; align-items: center; gap: 0.35em; font-size: 0.62em; font-weight: 800; text-transform: uppercase; }
+  .wf-verification-label i { width: 0.65em; aspect-ratio: 1; border-radius: 50%; background: var(--wf-green); }
+  .wf-verification-card--defect .wf-verification-label i { background: var(--wf-red); }
+  .wf-verification-card--inspection .wf-verification-label i { background: var(--wf-blue); }
+  .wf-large-photo { position: relative; min-height: 0; flex: 1; overflow: hidden; border-radius: 0.4em; background: #d6d0c7; }
+  .wf-large-photo::before { position: absolute; inset: 20% 12%; border: 1px solid #6f6a64; border-radius: 45% 48% 15% 15%; content: ""; }
+  .wf-large-photo i:first-child { position: absolute; top: 28%; left: 22%; width: 22%; aspect-ratio: 1; border: 1px dashed #726d67; border-radius: 50%; }
+  .wf-large-photo i:last-child { position: absolute; right: 17%; bottom: 22%; width: 34%; height: 18%; border-top: 1px solid #726d67; transform: rotate(-8deg); }
+  .wf-large-photo--expected { background: linear-gradient(145deg, #bdb4a8, #eee8df 60%, #c3b8a9); }
+  .wf-large-photo--defect { background: repeating-radial-gradient(circle at 58% 46%, #a77f74 0 0.35em, #d9cbc3 0.4em 1.2em); }
+  .wf-large-photo--inspection { background: repeating-linear-gradient(160deg, #bab0a3 0 1em, #ddd5ca 1em 1.8em); }
+  .wf-verification-card > strong { font-size: 0.7em; }
+  .wf-verification-card small { color: var(--wf-muted); font-size: 0.58em; }
+  .wf-human-decision { position: absolute; right: 18%; bottom: 3%; left: 18%; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 0.7em; border: 1px solid var(--wf-ink); border-radius: 99px; padding: 0.55em 0.9em; background: var(--wf-paper); box-shadow: 0.35em 0.4em 0 rgb(37 36 35 / 12%); }
+  .wf-human-decision > span { font-family: var(--type-font-display); font-size: 0.78em; font-weight: 650; }
+  .wf-human-decision > i { height: 1px; background: #aca59c; }
+  .wf-human-decision > div { display: flex; gap: 0.4em; }
+  .wf-human-decision > div span { border: 1px solid #aaa39a; border-radius: 99px; padding: 0.35em 0.55em; font-size: 0.55em; font-weight: 700; }
+  .wf-human-decision > div span:last-child { border-color: var(--wf-red); color: var(--wf-red); }
+
+  .wf-review-window { display: grid; overflow: hidden; grid-template-columns: 1.05fr 0.95fr; border: 2px solid var(--wf-ink); border-radius: 0.8em; background: #fff; box-shadow: 0.7em 0.8em 0 rgb(37 36 35 / 12%); }
+  .wf-review-list { min-width: 0; padding: 5%; border-right: 1px solid #cfc8be; }
+  .wf-review-heading { display: flex; align-items: center; justify-content: space-between; }
+  .wf-review-heading strong { font-family: var(--type-font-display); font-size: 1.25em; }
+  .wf-review-heading span { color: var(--wf-muted); font-size: 0.62em; }
+  .wf-filter-row { display: flex; align-items: center; justify-content: space-between; margin: 0.8em 0; border: 1px solid #aaa39a; border-radius: 0.35em; padding: 0.55em; font-size: 0.62em; }
+  .wf-filter-row i { width: 0.45em; aspect-ratio: 1; border-right: 1px solid #79736d; border-bottom: 1px solid #79736d; transform: rotate(45deg); }
+  .wf-review-columns,
+  .wf-review-row { display: grid; min-width: 0; grid-template-columns: 0.8fr 1.2fr 0.45fr; align-items: center; gap: 0.5em; padding: 0.55em; }
+  .wf-review-columns { border-bottom: 1px solid #bdb6ad; color: var(--wf-muted); font-size: 0.55em; font-weight: 700; text-transform: uppercase; }
+  .wf-review-row { border-bottom: 1px solid #e1dcd5; font-size: 0.6em; }
+  .wf-review-row.is-selected { background: var(--wf-blue-soft); }
+  .wf-review-row i { display: grid; width: 1.5em; aspect-ratio: 1; place-items: center; border-radius: 50%; background: #f4d8d4; color: #8a332e; font-size: 0.9em; font-style: normal; font-weight: 800; }
+  .wf-review-detail { display: flex; min-width: 0; flex-direction: column; padding: 5%; }
+  .wf-detail-top { display: flex; align-items: center; justify-content: space-between; gap: 0.5em; margin-bottom: 0.8em; }
+  .wf-detail-top > span { font-size: 0.7em; font-weight: 800; }
+  .wf-detail-top > i { border-radius: 99px; padding: 0.35em 0.55em; background: #f4d8d4; color: #8a332e; font-size: 0.5em; font-style: normal; font-weight: 800; }
+  .wf-review-detail > strong { margin-top: 0.2em; font-size: 0.72em; }
+  .wf-detail-evidence { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5em; margin-top: 0.7em; }
+  .wf-detail-evidence > div { display: flex; align-items: center; gap: 0.35em; border: 1px solid #ccc5bb; padding: 0.45em; font-size: 0.55em; }
+  .wf-review-detail p { margin: 0.75em 0; color: var(--wf-muted); font-size: 0.58em; line-height: 1.35; }
+  .wf-review-actions { display: flex; flex-wrap: wrap; gap: 0.35em; margin-top: auto; }
+
+  .wf-next-concepts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3%; padding: 4%; }
+  .wf-scanner-concept,
+  .wf-analytics-concept { display: flex; min-width: 0; flex-direction: column; gap: 0.5em; padding: 5%; border: 1px dashed #827c75; border-radius: 0.8em; background: rgb(255 253 248 / 72%); }
+  .wf-plan-label { align-self: flex-start; border: 1px solid var(--blue, #59a7fd); padding: 0.25em 0.45em; color: #276da8; font-size: 0.58em; font-weight: 850; letter-spacing: 0.08em; }
+  .wf-scanner-concept > strong,
+  .wf-analytics-concept > strong { font-family: var(--type-font-display); font-size: 1em; }
+  .wf-workstation { position: relative; min-height: 0; flex: 1; overflow: hidden; border-radius: 0.5em; background: #e9e3da; }
+  .wf-workstation::after { position: absolute; right: 8%; bottom: 15%; left: 8%; height: 8%; border: 1px solid #77716a; background: #b9b0a4; content: ""; transform: perspective(5em) rotateX(12deg); }
+  .wf-scanner { position: absolute; z-index: 2; top: 16%; left: 12%; width: 25%; height: 37%; border: 2px solid var(--wf-ink); border-radius: 1.1em 1.1em 0.4em 0.4em; background: #f8f4ed; }
+  .wf-scanner i:first-child { position: absolute; top: 17%; left: 23%; width: 54%; height: 38%; border: 1px solid #77716a; background: var(--wf-ink); }
+  .wf-scanner i:last-child { position: absolute; right: 28%; bottom: -43%; width: 42%; height: 45%; border: 2px solid var(--wf-ink); border-top: 0; background: #cfc6bb; }
+  .wf-barcode { position: absolute; z-index: 3; bottom: 24%; left: 42%; display: flex; width: 27%; height: 18%; align-items: stretch; justify-content: space-around; padding: 0.25em; border: 1px solid #77716a; background: #fff; transform: rotate(-7deg); }
+  .wf-barcode i { width: 0.08em; background: var(--wf-ink); }
+  .wf-barcode i:nth-child(2n) { width: 0.18em; }
+  .wf-glove { position: absolute; z-index: 2; right: 6%; bottom: 16%; width: 34%; height: 45%; border: 2px solid var(--wf-ink); border-radius: 48% 40% 30% 45%; background: #c9bfb3; transform: rotate(-18deg); }
+  .wf-glove i { position: absolute; top: -23%; width: 20%; height: 52%; border: 2px solid var(--wf-ink); border-bottom: 0; border-radius: 0.8em 0.8em 0 0; background: #c9bfb3; }
+  .wf-glove i:nth-child(1) { left: 4%; height: 45%; }
+  .wf-glove i:nth-child(2) { left: 26%; }
+  .wf-glove i:nth-child(3) { left: 48%; height: 48%; }
+  .wf-glove i:nth-child(4) { left: 70%; height: 40%; }
+  .wf-scan-line { position: absolute; z-index: 4; top: 34%; left: 32%; width: 38%; height: 2px; background: var(--wf-red); box-shadow: 0 0 0.45em var(--wf-red); transform: rotate(8deg); }
+  .wf-scanner-concept small { color: var(--wf-muted); font-size: 0.58em; }
+  .wf-chart { display: grid; gap: 0.45em; margin-top: 0.4em; }
+  .wf-chart > div { display: grid; grid-template-columns: 0.42fr 0.58fr; align-items: center; gap: 0.5em; font-size: 0.58em; }
+  .wf-chart i { position: relative; display: block; height: 0.75em; border-radius: 0 99px 99px 0; background: #dfd8cf; }
+  .wf-chart i::after { position: absolute; inset: 0 auto 0 0; width: var(--bar); border-radius: inherit; background: var(--wf-blue); content: ""; }
+  .wf-trend-line { position: relative; min-height: 0; flex: 1; margin-top: 0.35em; border-bottom: 1px solid #aaa39a; border-left: 1px solid #aaa39a; }
+  .wf-trend-line::before { position: absolute; right: 8%; bottom: 23%; left: 7%; height: 48%; border-top: 2px solid var(--wf-orange); border-radius: 50%; content: ""; transform: rotate(-8deg); }
+  .wf-trend-line i { position: absolute; width: 0.55em; aspect-ratio: 1; border: 2px solid var(--wf-orange); border-radius: 50%; background: var(--wf-paper); }
+  .wf-trend-line i:nth-child(1) { bottom: 30%; left: 8%; }
+  .wf-trend-line i:nth-child(2) { bottom: 39%; left: 36%; }
+  .wf-trend-line i:nth-child(3) { bottom: 51%; left: 64%; }
+  .wf-trend-line i:nth-child(4) { right: 7%; bottom: 62%; }
+  .wf-trend-line span { position: absolute; right: 0; bottom: -1.8em; color: var(--wf-muted); font-size: 0.55em; }
+
+  .benchmarkr-wireframe--compact {
+    width: min(90%, 720px);
+    font-size: clamp(7px, 1.35cqw, 14px);
+  }
+
+  .benchmarkr-wireframe--compact .wf-device {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-2deg);
+  }
+
+  @container (max-width: 520px) {
+    .wf-device { width: 96%; height: 88%; }
+    .wf-product-rail { padding-inline: 0.35em; }
+    .wf-progress-ring { width: 3.1em; }
+    .wf-task-panel { padding: 0.8em; }
+    .wf-photo-card { padding: 0.4em; }
+    .wf-paper-practice { grid-template-columns: 0.78fr 1.22fr; gap: 2%; padding: 2%; }
+    .wf-paper-sheet { height: 88%; }
+    .wf-paper-sheet li:nth-child(2),
+    .wf-paper-sheet li:nth-child(4) { display: none; }
+    .wf-map-loop,
+    .wf-practice-legend { display: none; }
+    .wf-separated-model { gap: 1%; padding: 2%; }
+    .wf-hard-divider { width: 1.7em; }
+    .wf-builder-card { padding-inline: 5%; }
+    .wf-locked-capability { padding: 0.3em; }
+    .wf-unified-builder { border-width: 1px; }
+    .wf-builder-layout { grid-template-columns: 31% minmax(0, 1fr); }
+    .wf-builder-steps > div:nth-of-type(4),
+    .wf-builder-steps > div:nth-of-type(5),
+    .wf-capability-badge,
+    .wf-config-card--small { display: none; }
+    .wf-config-grid { grid-template-columns: 1fr; }
+    .wf-instance-journey { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }
+    .wf-instance-journey > .wf-view:nth-of-type(3),
+    .wf-instance-journey > .wf-journey-arrow:nth-of-type(2) { display: none; }
+    .wf-view { height: 90%; }
+    .wf-verification { padding-inline: 2%; }
+    .wf-verification-card { padding: 0.45em; }
+    .wf-human-decision { right: 7%; left: 7%; }
+    .wf-human-decision > i { display: none; }
+    .wf-human-decision { grid-template-columns: auto 1fr; }
+    .wf-review-window { grid-template-columns: 0.85fr 1.15fr; border-width: 1px; }
+    .wf-review-columns span:nth-child(2),
+    .wf-review-row > span { display: none; }
+    .wf-review-columns,
+    .wf-review-row { grid-template-columns: 1fr auto; }
+    .wf-review-row:nth-child(6) { display: none; }
+    .wf-review-actions .wf-action:first-child { display: none; }
+    .wf-next-concepts { gap: 2%; padding: 2%; }
+    .wf-scanner-concept,
+    .wf-analytics-concept { padding: 4%; }
+  }
+</style>

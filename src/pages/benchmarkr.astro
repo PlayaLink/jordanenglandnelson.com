@@ -1,0 +1,514 @@
+---
+import BenchmarkrWireframe from "../components/case-study/BenchmarkrWireframe.astro";
+import CaseStudyHero from "../components/case-study/CaseStudyHero.astro";
+import PullQuote from "../components/case-study/PullQuote.astro";
+import StorySection from "../components/case-study/StorySection.astro";
+import WireframePlaceholder from "../components/case-study/WireframePlaceholder.astro";
+import { Body, Eyebrow } from "../components/typography";
+import {
+  benchmarkrActivities,
+  benchmarkrFacts,
+  benchmarkrNextSteps,
+  benchmarkrVisuals,
+  pilotMeasures,
+} from "../data/benchmarkr";
+import CaseStudyLayout from "../layouts/CaseStudyLayout.astro";
+
+const [
+  heroVisual,
+  paperVisual,
+  separateProcessesVisual,
+  stepBuilderVisual,
+  processInstanceVisual,
+  verificationVisual,
+  needsReviewVisual,
+  nextStepsVisual,
+] = benchmarkrVisuals;
+
+const meetlyHref = `${import.meta.env.BASE_URL}meetly-navigation.html`;
+---
+
+<CaseStudyLayout
+  title="Benchmarkr case study | Jordan England Nelson"
+  description="How Jordan England Nelson designed and built a flexible bilingual quality-control product around real shop-floor work for an ongoing manufacturing pilot."
+>
+  <CaseStudyHero
+    eyebrow="Benchmarkr · Product strategy, design, and implementation"
+    title="From rigid paper checklists to flexible factory quality control"
+    lede="How I designed and built Benchmarkr around the messy reality of shop-floor work, then piloted it on a fire-table SKU at a 60-person concrete furniture manufacturer in Mexico."
+    facts={benchmarkrFacts}
+    activities={benchmarkrActivities}
+  >
+    <WireframePlaceholder
+      slot="visual"
+      index={heroVisual.index}
+      title={heroVisual.title}
+      description={heroVisual.description}
+      caption={heroVisual.caption}
+      device={heroVisual.device}
+      ratio={heroVisual.ratio}
+      status={heroVisual.status}
+    >
+      <BenchmarkrWireframe scene={heroVisual.scene} />
+    </WireframePlaceholder>
+
+    <aside class="case-intro-summary" aria-label="Project problem">
+      <Body>
+        The manufacturer had outgrown paper checklists and spreadsheets, but complex enterprise
+        manufacturing software was a poor fit. Approved standards were difficult to reference at
+        the point of work, while the checklists defining each SKU presented a cleaner and more
+        rigid process than managers actually followed. Benchmarkr’s ongoing pilot connects the
+        standard, each serialized product, inspection evidence, and management decisions in one
+        bilingual workflow.
+      </Body>
+    </aside>
+  </CaseStudyHero>
+
+  <StorySection
+    id="pilot-changed"
+    eyebrow="The hook"
+    title="The factory floor changed the pilot before it began"
+    layout="prose"
+  >
+    <PullQuote
+      quote="Let’s test this on the guys with clipboards, not the guys with gloves who are covered in concrete."
+      attribution="Lead shop-floor manager"
+    />
+    <Body>
+      I heard that sentence while showing the first MVP to the lead shop-floor manager and planning
+      the pilot. I expected a debate about whether manufacturing and inspection should be one
+      workflow or two. Instead, he exposed a physical constraint that buyer-led discovery had
+      missed: fabricators worked in heavy gloves, in an environment covered with concrete, where
+      navigating an iPad touchscreen was impractical.
+    </Body>
+    <Body>
+      The first pilot narrowed to inspectors—the people already carrying clipboards. That did not
+      mean fabricators saw no value in process guidance; the interaction method was the constraint.
+      The flexible process model described later was already in place, so this moment changed who
+      the pilot was for rather than causing the model redesign.
+    </Body>
+    <div class="case-boundary-note">
+      <Body>
+        That sentence changed who the first pilot was for—and exposed what I had missed by
+        beginning with the buyer rather than the people closest to the work.
+      </Body>
+    </div>
+  </StorySection>
+
+  <StorySection
+    id="standard-separated"
+    eyebrow="The business problem"
+    title="The approved standard was separated from the work"
+    layout="prose"
+    tone="tinted"
+  >
+    <Body>
+      The factory produces heavy concrete furniture for a major U.S. luxury home-furnishings
+      retailer. Finish, color, gloss, and overall appearance could take months and dozens of
+      refinement rounds before one physical sample was approved.
+    </Body>
+    <Body>
+      That large sample was hard to move and could be far from the active work. People sometimes
+      had to rely on memory, while remote leadership lacked an immediate view of each
+      unit’s quality status. An unacceptable result might be discovered only after substantial
+      labor and material had already been added.
+    </Body>
+    <div class="case-boundary-note">
+      <Body>
+        <strong>Intended impact—not a measured result:</strong> connect the approved standard,
+        per-unit work, evidence, and review while intervention is still possible. The ongoing pilot
+        has not yet produced measured quality or cost outcomes.
+      </Body>
+    </div>
+  </StorySection>
+
+  <StorySection
+    id="paper-versus-practice"
+    eyebrow="Stated process versus practiced process"
+    title="Paper documented the intended process—not the practiced process"
+    layout="split"
+  >
+    <Body>
+      Initial discovery centered on the buyer—the factory owner—and the PDF process checklists he
+      had created. The documents appeared to define clear, linear SKU steps. They also made
+      manufacturing and inspection look more distinct than they were on the floor.
+    </Body>
+    <Body>
+      Conversations with shop-floor managers exposed informal adaptations, exceptions,
+      overlapping responsibilities, and inconsistent checklist use. The problem was not simply
+      that workers ignored instructions. The checklists were too rigid to represent how the work
+      was actually practiced.
+    </Body>
+
+    <WireframePlaceholder
+      slot="visual"
+      index={paperVisual.index}
+      title={paperVisual.title}
+      description={paperVisual.description}
+      caption={paperVisual.caption}
+      device={paperVisual.device}
+      ratio={paperVisual.ratio}
+      status={paperVisual.status}
+    >
+      <BenchmarkrWireframe scene={paperVisual.scene} />
+    </WireframePlaceholder>
+  </StorySection>
+
+  <StorySection
+    id="wrong-abstraction"
+    eyebrow="The wrong turn"
+    title="The first MVP encoded the wrong abstraction"
+    layout="split"
+    visualPosition="start"
+  >
+    <Body>
+      An <strong>abstraction</strong> is the simplified model software uses to organize reality. My
+      first model created hard “manufacturing process” and “inspection process” types with
+      different functionality. It mirrored the buyer’s terminology and the clean divisions in the
+      paper artifacts.
+    </Body>
+    <Body>
+      In practice, making and checking could be separate, alternating, or intermixed. I had turned
+      a fuzzy, context-dependent organizational distinction into a rigid software rule. The model
+      asked the factory to reshape its work around the software instead of letting the software
+      adapt to the work.
+    </Body>
+
+    <WireframePlaceholder
+      slot="visual"
+      index={separateProcessesVisual.index}
+      title={separateProcessesVisual.title}
+      description={separateProcessesVisual.description}
+      caption={separateProcessesVisual.caption}
+      device={separateProcessesVisual.device}
+      ratio={separateProcessesVisual.ratio}
+      status={separateProcessesVisual.status}
+    >
+      <BenchmarkrWireframe scene={separateProcessesVisual.scene} />
+    </WireframePlaceholder>
+  </StorySection>
+
+  <StorySection
+    id="step-level-flexibility"
+    eyebrow="The pivotal product decision"
+    title="Flexibility belonged at the step level"
+    layout="split"
+    tone="tinted"
+  >
+    <Body>
+      I replaced the separate typed builders with one configurable process-template builder.
+      Instead of assigning an entire process a type, managers assemble each Step from the
+      capabilities it needs: Tasks, guidance, attachments, signatures, and inspection requirements
+      on the relevant Tasks.
+    </Body>
+    <Body>
+      The same builder can create manufacturing-only, inspection-only, or mixed workflows. A
+      reusable Process remains easy to understand, while the configuration can vary where the
+      physical work actually varies.
+    </Body>
+    <div class="principle-callout">
+      <Body>
+        <strong>This is composition over classification:</strong> assembling behavior from small
+        capabilities instead of forcing an entire workflow into one fixed category.
+      </Body>
+    </div>
+
+    <WireframePlaceholder
+      slot="visual"
+      index={stepBuilderVisual.index}
+      title={stepBuilderVisual.title}
+      description={stepBuilderVisual.description}
+      caption={stepBuilderVisual.caption}
+      device={stepBuilderVisual.device}
+      ratio={stepBuilderVisual.ratio}
+      status={stepBuilderVisual.status}
+    >
+      <BenchmarkrWireframe scene={stepBuilderVisual.scene} />
+    </WireframePlaceholder>
+  </StorySection>
+
+  <StorySection
+    id="pilot-narrowed"
+    eyebrow="Architecture meets the factory"
+    title="Physical reality narrowed the pilot"
+    layout="prose"
+  >
+    <Body>
+      With the flexible model in place, I expected one of two patterns: separate manufacturing and
+      inspection workflows, or one alternating workflow assigned by role. Managers chose neither.
+      They created an inspector-only quality process because quality control was the highest-priority
+      use case and inspectors were already using iPads.
+    </Body>
+    <Body>
+      Touch interaction—not a lack of value—kept gloved fabricators out of the first workflow. The
+      architecture survived the scope change because it had stopped treating making and inspecting
+      as fixed workflow categories. A barcode-based completion flow at a fixed workstation is a later,
+      research-backed direction; it has not been implemented, prototyped, or validated.
+    </Body>
+  </StorySection>
+
+  <StorySection
+    id="product-journey"
+    eyebrow="The tested workflow"
+    title="One product moved from standard to decision"
+    layout="wide"
+  >
+    <Body>
+      The pilot was not a collection of disconnected features. It connected a reusable standard to
+      the live history and decisions for one serialized physical product.
+    </Body>
+
+    <dl class="journey-definitions">
+      <div class="journey-definition">
+        <dt>Process template</dt>
+        <dd>The reusable blueprint for how a product type should be inspected or made.</dd>
+      </div>
+      <div class="journey-definition">
+        <dt>Process instance</dt>
+        <dd>The live run of that blueprint for one physical unit.</dd>
+      </div>
+    </dl>
+
+    <ol class="journey-sequence" aria-label="Benchmarkr pilot journey">
+      <li>Reusable process template</li>
+      <li>Serialized product + process instance</li>
+      <li>Inspector execution</li>
+      <li>References and evidence</li>
+      <li>Needs Review</li>
+      <li>Management decision</li>
+    </ol>
+
+    <div class="journey-beats">
+      <section class="journey-beat" aria-labelledby="follow-product-title">
+        <div class="journey-beat__copy">
+          <span class="journey-beat__number">01</span>
+          <h3 id="follow-product-title" class="journey-beat__title">Follow the serialized product</h3>
+          <Body>
+            An inspector opens the pilot fire table and its assigned quality process on an iPad.
+            Progress belongs to that individual product rather than to a generic checklist. The
+            same process instance carries its current Step, completed Tasks, evidence, and history.
+          </Body>
+        </div>
+        <div class="journey-beat__visual">
+          <WireframePlaceholder
+            index={processInstanceVisual.index}
+            title={processInstanceVisual.title}
+            description={processInstanceVisual.description}
+            caption={processInstanceVisual.caption}
+            device={processInstanceVisual.device}
+            ratio={processInstanceVisual.ratio}
+            status={processInstanceVisual.status}
+          >
+            <BenchmarkrWireframe scene={processInstanceVisual.scene} />
+          </WireframePlaceholder>
+        </div>
+      </section>
+
+      <section class="journey-beat" aria-labelledby="visual-standard-title">
+        <div class="journey-beat__copy">
+          <span class="journey-beat__number">02</span>
+          <h3 id="visual-standard-title" class="journey-beat__title">
+            Put the visual standard at the checkpoint
+          </h3>
+          <Body>
+            Approved references and known-defect examples appear on the relevant Task. The
+            inspector captures evidence of the actual unit beside them. Benchmarkr organizes the
+            comparison; the human inspector—not the software—makes the quality judgment.
+          </Body>
+        </div>
+        <div class="journey-beat__visual">
+          <WireframePlaceholder
+            index={verificationVisual.index}
+            title={verificationVisual.title}
+            description={verificationVisual.description}
+            caption={verificationVisual.caption}
+            device={verificationVisual.device}
+            ratio={verificationVisual.ratio}
+            status={verificationVisual.status}
+          >
+            <BenchmarkrWireframe scene={verificationVisual.scene} />
+          </WireframePlaceholder>
+        </div>
+      </section>
+
+      <section class="journey-beat" aria-labelledby="evidence-decision-title">
+        <div class="journey-beat__copy">
+          <span class="journey-beat__number">03</span>
+          <h3 id="evidence-decision-title" class="journey-beat__title">
+            Turn evidence into a decision
+          </h3>
+          <Body>
+            A reported issue routes the product into Needs Review. Leadership can filter the live
+            queue by process and inspect step-level issue context to see where work is accumulating.
+            A reviewer then chooses Clear review, Send back, or Reject.
+          </Body>
+          <Body>
+            This provides operational visibility into active work. It is not an aggregate analytics
+            dashboard, and the queue does not claim a current Step filter.
+          </Body>
+        </div>
+        <div class="journey-beat__visual">
+          <WireframePlaceholder
+            index={needsReviewVisual.index}
+            title={needsReviewVisual.title}
+            description={needsReviewVisual.description}
+            caption={needsReviewVisual.caption}
+            device={needsReviewVisual.device}
+            ratio={needsReviewVisual.ratio}
+            status={needsReviewVisual.status}
+          >
+            <BenchmarkrWireframe scene={needsReviewVisual.scene} />
+          </WireframePlaceholder>
+        </div>
+      </section>
+    </div>
+  </StorySection>
+
+  <StorySection
+    id="working-software"
+    eyebrow="A compact implementation loop"
+    title="From product decisions to working software"
+    layout="wide"
+    tone="dark"
+  >
+    <div class="implementation-aside">
+      <div class="implementation-aside__copy">
+        <Body>
+          I was Benchmarkr’s only product and design person, and I built the working product myself.
+          I documented behavior in product specs and decision records, broke implementation into
+          small, verifiable slices, and used an AI-assisted development workflow to accelerate
+          execution. I remained responsible for product judgment, implementation review, testing,
+          and user validation.
+        </Body>
+        <Body>
+          English and Spanish support was part of the product from the beginning, so the same
+          workflow could be used by leadership and shop-floor participants without treating
+          language as a later add-on.
+        </Body>
+      </div>
+
+      <figure class="implementation-diagram">
+        <figcaption class="visually-hidden">Spec-driven development and feedback loop</figcaption>
+        <ol class="development-loop">
+          <li>Factory feedback</li>
+          <li>Specs and decision records</li>
+          <li>Testable implementation slices</li>
+          <li>Code and tests</li>
+          <li>Pilot feedback</li>
+          <li>Revised decisions</li>
+        </ol>
+      </figure>
+    </div>
+  </StorySection>
+
+  <StorySection
+    id="ongoing-pilot"
+    eyebrow="Evidence and measurement"
+    title="An ongoing pilot—not a finished success story"
+    layout="wide"
+  >
+    <Body>
+      Measurable quality, time, and cost outcomes are not available yet. The current evidence is a
+      working bilingual product tested with factory leadership and floor users—not a finished
+      launch, a factory-wide rollout, or proof of business impact.
+    </Body>
+
+    <div class="evidence-measures">
+      <section class="evidence-panel" aria-labelledby="current-evidence-title">
+        <Eyebrow as="p" class="evidence-panel__label">Current evidence</Eyebrow>
+        <p id="current-evidence-title" class="evidence-panel__title">What exists today</p>
+        <ul class="current-evidence-list">
+          <li>A working product in English and Spanish.</li>
+          <li>Testing with factory leadership and floor users.</li>
+          <li>An inspector-led iPad workflow for one fire-table SKU within the wider pilot.</li>
+          <li>A configurable builder with capabilities composed at the Step and Task level.</li>
+          <li>Operational visibility through Needs Review and step-level issue context.</li>
+        </ul>
+      </section>
+
+      <section class="evidence-panel evidence-panel--future" aria-labelledby="future-measures-title">
+        <Eyebrow as="p" class="evidence-panel__label">Future pilot measures</Eyebrow>
+        <p id="future-measures-title" class="evidence-panel__title">What the pilot still needs to prove</p>
+        <ol class="measure-list">
+          {pilotMeasures.map((measure) => <li>{measure}</li>)}
+        </ol>
+      </section>
+    </div>
+
+    <div class="current-future-clarifier">
+      <Body>
+        <strong>Current:</strong> filter the live queue by process and inspect step-level context.
+      </Body>
+      <Body>
+        <strong>Future:</strong> aggregate issue counts and trends by process and Step, once broader
+        usage produces enough data to make those patterns meaningful.
+      </Body>
+    </div>
+
+    <aside class="ethics-note" aria-label="Product ethics and boundaries">
+      <span class="ethics-note__mark" aria-hidden="true">H</span>
+      <p>
+        Benchmarkr supports human judgment; it does not automate defect detection or guarantee
+        quality. Photos and signatures are evidence and forcing functions—deliberate pauses that
+        make important work harder to skip—not worker surveillance. Traceability supports shared
+        accountability and process improvement; it does not automatically assign individual blame.
+      </p>
+    </aside>
+  </StorySection>
+
+  <StorySection
+    id="reflection-next"
+    eyebrow="Reflection and next steps"
+    title="What I would do differently—and what comes next"
+    layout="split"
+    visualPosition="end"
+    tone="tinted"
+  >
+    <Body>
+      I would involve shop-floor managers during initial discovery rather than beginning only with
+      the buyer. The buyer supplied the business problem and the formal process. Practitioners
+      exposed the exceptions, role overlap, and physical constraints. The lesson is not simply to
+      “talk to more users”; buyers and practitioners hold different kinds of truth.
+    </Body>
+
+    <div class="reflection-synthesis">
+      <Body>
+        <strong>The most important product decision</strong> was moving flexibility to the level
+        where the work actually varies: the Step. <strong>The most important research lesson</strong>{" "}
+        was involving the people closest to that work sooner.
+      </Body>
+    </div>
+
+    <Eyebrow as="p">Planned after the pilot</Eyebrow>
+    <ol class="planned-list">
+      {benchmarkrNextSteps.map((nextStep) => <li>{nextStep}</li>)}
+    </ol>
+
+    <Body>
+      Benchmarkr is still early, but the pilot has already reinforced a central design principle:
+      flexibility does not mean adding options everywhere. It means placing decisions at the level
+      where real work varies.
+    </Body>
+
+    <WireframePlaceholder
+      slot="visual"
+      index={nextStepsVisual.index}
+      title={nextStepsVisual.title}
+      description={nextStepsVisual.description}
+      caption={nextStepsVisual.caption}
+      device={nextStepsVisual.device}
+      ratio={nextStepsVisual.ratio}
+      status={nextStepsVisual.status}
+    >
+      <BenchmarkrWireframe scene={nextStepsVisual.scene} />
+    </WireframePlaceholder>
+  </StorySection>
+
+  <nav class="next-project" aria-label="Next case study">
+    <p>Next up</p>
+    <a href={meetlyHref}>
+      How iterative design helped users find their meeting notes twice as fast{" "}
+      <span aria-hidden="true">→</span>
+    </a>
+  </nav>
+</CaseStudyLayout>

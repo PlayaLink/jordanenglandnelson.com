@@ -1,5 +1,6 @@
 ---
 import CaseStudyCard from "../components/home/CaseStudyCard.astro";
+import BenchmarkrCardArtwork from "../components/home/BenchmarkrCardArtwork.astro";
 import ReflectionPanel from "../components/home/ReflectionPanel.astro";
 import SectionHeader from "../components/home/SectionHeader.astro";
 import Timeline from "../components/home/Timeline.astro";
@@ -24,7 +25,7 @@ const localHref = (value: string) => {
 const resolvedCaseStudies = caseStudies.map((caseStudy) => ({
   ...caseStudy,
   href: localHref(caseStudy.href),
-  image: assetPath(caseStudy.image),
+  image: caseStudy.image ? assetPath(caseStudy.image) : undefined,
 }));
 
 const resolvedTimelineEntries = timelineEntries.map((entry) => ({
@@ -130,15 +131,27 @@ const resolvedReflections = reflections.map((reflection) => ({
         />
         <div class="case-study-grid">
           {
-            resolvedCaseStudies.map((caseStudy) => (
-              <CaseStudyCard
-                title={caseStudy.title}
-                href={caseStudy.href}
-                image={caseStudy.image}
-                featured={caseStudy.featured}
-                titleMaxWidth={caseStudy.titleMaxWidth}
-              />
-            ))
+            resolvedCaseStudies.map((caseStudy) =>
+              caseStudy.artwork === "benchmarkr-inspection" ? (
+                <CaseStudyCard
+                  title={caseStudy.title}
+                  href={caseStudy.href}
+                  artwork={caseStudy.artwork}
+                  featured={caseStudy.featured}
+                  titleMaxWidth={caseStudy.titleMaxWidth}
+                >
+                  <BenchmarkrCardArtwork slot="artwork" />
+                </CaseStudyCard>
+              ) : (
+                <CaseStudyCard
+                  title={caseStudy.title}
+                  href={caseStudy.href}
+                  image={caseStudy.image}
+                  featured={caseStudy.featured}
+                  titleMaxWidth={caseStudy.titleMaxWidth}
+                />
+              )
+            )
           }
         </div>
       </div>

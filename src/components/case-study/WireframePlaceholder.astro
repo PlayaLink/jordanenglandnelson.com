@@ -1,0 +1,45 @@
+---
+import { Caption } from "../typography";
+
+interface Props {
+  index?: number;
+  title: string;
+  description: string;
+  caption?: string;
+  device?: "tablet" | "desktop" | "paper" | "diagram";
+  ratio?: "tablet" | "wide" | "landscape";
+  status?: "current" | "planned";
+}
+
+const {
+  index,
+  title,
+  description,
+  caption,
+  device = "desktop",
+  ratio = "wide",
+  status = "current",
+} = Astro.props;
+const statusLabel = status === "planned" ? "Planned concept" : "Product screenshot placeholder";
+---
+
+<figure
+  class:list={["wireframe-placeholder", status === "planned" && "wireframe-placeholder--planned"]}
+  data-device={device}
+  data-ratio={ratio}
+>
+  <div class="wireframe-placeholder__header">
+    <p class="wireframe-placeholder__label">
+      {index && <span>Visual {String(index).padStart(2, "0")}</span>}
+      <span>{statusLabel}</span>
+    </p>
+    <p class="wireframe-placeholder__title">{title}</p>
+    <p class="wireframe-placeholder__description">{description}</p>
+  </div>
+
+  <div class="wireframe-placeholder__art" aria-hidden="true">
+    <slot />
+  </div>
+
+  {caption && <Caption as="figcaption" class="wireframe-placeholder__caption">{caption}</Caption>}
+</figure>

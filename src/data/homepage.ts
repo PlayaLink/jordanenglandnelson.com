@@ -6,7 +6,33 @@ export const roles = [
   "#vanlifer",
 ];
 
-export const caseStudies = [
+export interface HomepageCaseStudy {
+  title: string;
+  href: string;
+  image?: string;
+  artwork?: "benchmarkr-inspection";
+  featured?: boolean;
+  titleMaxWidth?: string;
+  details: Array<{
+    label: string;
+    value: string;
+    note?: string;
+  }>;
+}
+
+export const caseStudies: readonly HomepageCaseStudy[] = [
+  {
+    title: "From rigid paper checklists to flexible factory quality control",
+    href: "/benchmarkr",
+    artwork: "benchmarkr-inspection",
+    featured: true,
+    titleMaxWidth: "25ch",
+    details: [
+      { label: "Project", value: "B2B manufacturing quality control", note: "Benchmarkr" },
+      { label: "My role", value: "Founder, product designer, and builder" },
+      { label: "Status", value: "Ongoing pilot program" },
+    ],
+  },
   {
     title: "How iterative design helped users find their meeting notes twice as fast",
     href: "/meetly-navigation.html",

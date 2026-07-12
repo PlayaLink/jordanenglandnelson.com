@@ -4,19 +4,45 @@ import { CardTitle } from "../typography";
 interface Props {
   title: string;
   href: string;
-  image: string;
+  image?: string;
+  artwork?: "benchmarkr-inspection";
   featured?: boolean;
   titleMaxWidth?: string;
 }
 
-const { title, href, image, featured = false, titleMaxWidth = "28ch" } = Astro.props;
+const {
+  title,
+  href,
+  image,
+  artwork,
+  featured = false,
+  titleMaxWidth = "28ch",
+} = Astro.props;
+const hasArtwork = Boolean(artwork && Astro.slots.has("artwork"));
+const cardStyle = [
+  image ? `--case-image: url("${image}")` : undefined,
+  `--case-title-max-width: ${titleMaxWidth}`,
+]
+  .filter(Boolean)
+  .join("; ");
 ---
 
 <a
-  class:list={["case-card", featured && "case-card--featured"]}
+  class:list={[
+    "case-card",
+    featured && "case-card--featured",
+    hasArtwork && "case-card--artwork",
+  ]}
   href={href}
-  style={`--case-image: url("${image}"); --case-title-max-width: ${titleMaxWidth}`}
+  style={cardStyle}
 >
+  {
+    hasArtwork && (
+      <div class="case-card__media" aria-hidden="true">
+        <slot name="artwork" />
+      </div>
+    )
+  }
   <div class="case-card__content">
     <CardTitle as="h3" tone="inverse" class="case-card__title">{title}</CardTitle>
   </div>
@@ -38,12 +64,25 @@ const { title, href, image, featured = false, titleMaxWidth = "28ch" } = Astro.p
     text-decoration: none;
   }
 
+  .case-card--artwork {
+    background-color: #252423;
+    background-image: none;
+  }
+
+  .case-card__media {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+  }
+
   .case-card:focus-visible {
-    outline: 4px solid #59a7fd;
+    outline: 4px solid #276da8;
     outline-offset: 4px;
   }
 
   .case-card__content {
+    position: relative;
+    z-index: 1;
     box-sizing: border-box;
     display: grid;
     width: 100%;
