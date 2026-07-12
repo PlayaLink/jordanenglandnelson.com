@@ -1,0 +1,155 @@
+{
+  "page": {
+    "id": "202:605",
+    "name": "👋 Introduction and Cover Image"
+  },
+  "topLevel": [
+    {
+      "id": "571:45218",
+      "type": "GROUP",
+      "name": "Group 42300",
+      "visible": true,
+      "x": -5496,
+      "y": 14135,
+      "width": 1359,
+      "height": 1470
+    },
+    {
+      "id": "362:73200",
+      "type": "FRAME",
+      "name": "Cover Image / Thumbnail",
+      "visible": true,
+      "x": -3744,
+      "y": 14135,
+      "width": 1424,
+      "height": 960
+    }
+  ],
+  "texts": [
+    {
+      "id": "571:45222",
+      "name": "👋 Resources Introduction",
+      "text": "👋 Resources Introduction",
+      "x": -5416,
+      "y": 14187,
+      "width": 1033,
+      "height": 116,
+      "path": [
+        "Group 42300",
+        "introduction",
+        "Group 42299"
+      ]
+    },
+    {
+      "id": "362:73205",
+      "name": "UX Storytelling Toolkit",
+      "text": "UX Storytelling Toolkit",
+      "x": -3442,
+      "y": 14299,
+      "width": 455,
+      "height": 60,
+      "path": [
+        "Cover Image / Thumbnail"
+      ]
+    },
+    {
+      "id": "571:45225",
+      "name": "Overview",
+      "text": "Overview",
+      "x": -5416,
+      "y": 14435,
+      "width": 211,
+      "height": 65,
+      "path": [
+        "Group 42300",
+        "introduction",
+        "Frame 42296",
+        "Frame 42295"
+      ]
+    },
+    {
+      "id": "362:73207",
+      "name": "Course Resources",
+      "text": "Course Resources",
+      "x": -3575,
+      "y": 14443,
+      "width": 838,
+      "height": 135,
+      "path": [
+        "Cover Image / Thumbnail"
+      ]
+    },
+    {
+      "id": "571:45226",
+      "name": "These resources go along with the course video modules. They might make more sense after watching the videos! :)",
+      "text": "These resources go along with the course video modules. They might make more sense after watching the videos! :)",
+      "x": -5416,
+      "y": 14532,
+      "width": 1199,
+      "height": 94,
+      "path": [
+        "Group 42300",
+        "introduction",
+        "Frame 42296"
+      ]
+    },
+    {
+      "id": "571:45229",
+      "name": "These are all real presentations from my career",
+      "text": "These are all real presentations from my career",
+      "x": -5416,
+      "y": 14706,
+      "width": 1044,
+      "height": 65,
+      "path": [
+        "Group 42300",
+        "introduction",
+        "Frame 42297",
+        "Frame 42295"
+      ]
+    },
+    {
+      "id": "571:45230",
+      "name": "Some elements and designs have been blurred, redacted, or built from scratch to protect the privacy of my clients, employers, and co-workers. But all other details are authentic. With the exception of The Case Study I Wish Designers Would Show Me (which I created for this course)—everything in these resources is real and was actually presented by me to a client, an employer, or a hiring team during interviews. I included them here because I know they work.",
+      "text": "Some elements and designs have been blurred, redacted, or built from scratch to protect the privacy of my clients, employers, and co-workers. But all other details are authentic. With the exception of The Case Study I Wish Designers Would Show Me (which I created for this course)—everything in these resources is real and was actually presented by me to a client, an employer, or a hiring team during interviews. I included them here because I know they work.",
+      "x": -5416,
+      "y": 14803,
+      "width": 1199,
+      "height": 376,
+      "path": [
+        "Group 42300",
+        "introduction",
+        "Frame 42297"
+      ]
+    },
+    {
+      "id": "571:45233",
+      "name": "Feedback",
+      "text": "Feedback",
+      "x": -5416,
+      "y": 15259,
+      "width": 217,
+      "height": 65,
+      "path": [
+        "Group 42300",
+        "introduction",
+        "Frame 42298",
+        "Frame 42295"
+      ]
+    },
+    {
+      "id": "571:45234",
+      "name": "Have questions or feedback? Email me anytime at jeffwhitedesignllc@gmail.com. Thank you!",
+      "text": "Have questions or feedback? Email me anytime at jeffwhitedesignllc@gmail.com. Thank you!",
+      "x": -5416,
+      "y": 15356,
+      "width": 1199,
+      "height": 141,
+      "path": [
+        "Group 42300",
+        "introduction",
+        "Frame 42298"
+      ]
+    }
+  ]
+}
