@@ -66,9 +66,10 @@ const solutionShots = [
   mainClass="quality-case-main"
 >
   <nav class="quality-return" aria-label="Portfolio stories">
-    <a class="quality-return__back" href={homeHref}
-      ><span aria-hidden="true">←</span> Back to stories</a
-    >
+    <a class="quality-return__back" href={homeHref} aria-label="Back to stories">
+      <span aria-hidden="true">←</span>
+      <span class="quality-return__name">Jordan England-Nelson</span>
+    </a>
   </nav>
 
   <article class="quality-case">
@@ -453,6 +454,10 @@ const solutionShots = [
   </article>
 
   <nav class="quality-return quality-return--bottom" aria-label="Portfolio stories">
+    <a class="quality-return__back" href={homeHref} aria-label="Back to stories">
+      <span aria-hidden="true">←</span>
+      <span class="quality-return__name">Jordan England-Nelson</span>
+    </a>
     <div class="quality-next-story-wrapper">
       <p class="quality-next-story__eyebrow">Next case study</p>
       <a
@@ -503,10 +508,11 @@ const solutionShots = [
   .quality-return--bottom {
     display: grid;
     align-items: center;
+    gap: clamp(32px, 7vw, 96px);
     padding: 40px 0 64px;
     border-top: 1px solid var(--quality-line);
-    grid-template-columns: minmax(320px, 440px);
-    justify-content: end;
+    grid-template-columns: auto minmax(320px, 440px);
+    justify-content: space-between;
   }
 
   .quality-return__back {
@@ -517,6 +523,13 @@ const solutionShots = [
     color: var(--quality-ink);
     font-family: var(--type-font-body);
     font-weight: 600;
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+
+  .quality-return__back > span[aria-hidden] {
+    display: inline-block;
+    transition: transform 160ms ease;
   }
 
   .quality-return a:focus-visible {
@@ -596,12 +609,22 @@ const solutionShots = [
   }
 
   @media (hover: hover) {
+    .quality-return__back:hover {
+      color: #7250d7;
+    }
+
+    .quality-return__back:hover > span[aria-hidden] {
+      transform: translateX(-3px);
+    }
+
     .quality-next-story:hover img {
       transform: scale(1.035);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .quality-return__back,
+    .quality-return__back > span[aria-hidden],
     .quality-next-story img {
       transition: none;
     }
