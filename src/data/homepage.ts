@@ -57,6 +57,18 @@ export const caseStudies: readonly HomepageCaseStudy[] = [
     ],
   },
   {
+    title: "Reducing manufacturing flaws at a concrete furniture factory",
+    href: "/benchmarkr-quality",
+    image: "/images/benchmarkr-quality/physical-sample.png",
+    featured: true,
+    titleMaxWidth: "28ch",
+    details: [
+      { label: "Company", value: "B2B manufacturing SaaS", note: "Benchmarkr" },
+      { label: "My role", value: "Solo designer and builder" },
+      { label: "Duration", value: "7 months" },
+    ],
+  },
+  {
     title: "Designing a home on wheels in NYC",
     href: "/how-to-live-in-a-van-in-nyc.html",
     image: "/images/van_thumbnail.png",

@@ -1,0 +1,709 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const assetPath = (value: string) => `${import.meta.env.BASE_URL}${value.replace(/^\//, "")}`;
+const homeHref = `${import.meta.env.BASE_URL}#case-studies-title`;
+
+const facts = [
+  { label: "Role", value: "Solo designer and builder" },
+  { label: "Process", value: "Spec-driven, AI-assisted software development" },
+  { label: "Year", value: "2025–Present" },
+  { label: "Deliverables", value: "Full-stack web application" },
+  { label: "Duration", value: "7 months" },
+  {
+    label: "Collaborators",
+    value: "Factory owner, floor manager, fabricators, and product inspectors",
+  },
+] as const;
+
+const solutionShots = [
+  {
+    src: "/images/benchmarkr-quality/inspection-checklist.png",
+    alt: "A Benchmarkr quality checklist with pass and fail reference images",
+    dots: [{ x: 73.5, y: 52 }],
+  },
+  {
+    src: "/images/benchmarkr-quality/issue-reference.png",
+    alt: "An inspection screen asking a worker to compare a product with a known issue",
+    dots: [{ x: 19.8, y: 91.7 }],
+  },
+  {
+    src: "/images/benchmarkr-quality/camera-launch.png",
+    alt: "The Benchmarkr inspection camera loading screen",
+    dots: [{ x: 54.7, y: 91.7 }],
+  },
+  {
+    src: "/images/benchmarkr-quality/photo-comparison.png",
+    alt: "A side-by-side comparison between a reference photo and an inspector's photo",
+    dots: [{ x: 70.5, y: 94.5 }],
+  },
+  {
+    src: "/images/benchmarkr-quality/inspection-details.png",
+    alt: "An inspection report with a reason, description, and supporting photos",
+    dots: [
+      { x: 55.2, y: 62.5 },
+      { x: 85.8, y: 94.9 },
+    ],
+  },
+  {
+    src: "/images/benchmarkr-quality/completed-inspection.png",
+    alt: "A completed checklist item pairing a fail reference with inspection evidence",
+    dots: [{ x: 78.3, y: 53.3 }],
+  },
+] as const;
+---
+
+<BaseLayout
+  title="Reducing manufacturing flaws with Benchmarkr | Jordan England Nelson"
+  description="How Jordan England Nelson designed and built a quality-assurance web application for a concrete furniture manufacturer."
+  constrain={false}
+  showBackLink={false}
+  mainClass="quality-case-main"
+>
+  <nav class="quality-return" aria-label="Portfolio stories">
+    <a href={homeHref}><span aria-hidden="true">←</span> Back to stories</a>
+  </nav>
+
+  <article class="quality-case">
+    <header class="quality-hero">
+      <div class="quality-hero__copy">
+        <p class="quality-eyebrow quality-eyebrow--brand">Benchmarkr</p>
+        <h1>
+          Reducing manufacturing <span>flaws</span> at a concrete furniture factory
+        </h1>
+        <p class="quality-hero__lede">
+          How a quality assurance web application increases accountability and spec-adherence for
+          Restoration Hardware's main supplier of concrete furniture.
+        </p>
+
+        <dl class="quality-facts">
+          {facts.map((fact) => (
+            <div class:list={["quality-fact", fact.label === "Collaborators" && "quality-fact--tall"]}>
+              <dt>{fact.label}</dt>
+              <dd>{fact.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <div class="quality-hero__visual" aria-hidden="true">
+        <img
+          src={assetPath("/images/benchmarkr-quality/hero-device.png")}
+          alt=""
+          loading="eager"
+        />
+      </div>
+    </header>
+
+    <section class="quality-section quality-section--problem" aria-labelledby="human-problem-title">
+      <div class="quality-section__heading">
+        <p class="quality-eyebrow">The human problem</p>
+        <h2 id="human-problem-title">No accountability or visibility into process breakdown</h2>
+      </div>
+
+      <div class="human-problem-grid">
+        <div class="quality-prose">
+          <p>
+            It is very difficult to determine exactly which step of the process led to a flaw that
+            might only be discovered at the very end of the line.
+          </p>
+          <p>
+            Paper checklists may get filled out, but it was often impossible to identify when and
+            where a product flaw occurred without a photographic paper trail.
+          </p>
+
+          <blockquote>
+            <p>“I have no sense of how closely they are following these steps.”</p>
+            <footer>— CEO of furniture manufacturer</footer>
+          </blockquote>
+
+          <p>
+            The physical prototype is hugely important in the approval process and referenced
+            closely when setting up the manufacturing line, but rarely referenced after that.
+          </p>
+        </div>
+
+        <figure class="human-problem-visual">
+          <img
+            src={assetPath("/images/benchmarkr-quality/paper-checklist-context.png")}
+            alt="A paper quality checklist beside a concrete product on the factory floor"
+            loading="lazy"
+          />
+          <figcaption class="visually-hidden">
+            Paper checklists were generic, provided no photo references during inspection, and
+            created no searchable reporting trail.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="quality-section quality-section--technology" aria-labelledby="technology-problem-title">
+      <div class="quality-section__heading">
+        <p class="quality-eyebrow">The technology problem</p>
+        <h2 id="technology-problem-title">Physical samples were too cumbersome to reference</h2>
+      </div>
+
+      <div class="technology-grid">
+        <div class="quality-prose">
+          <p>
+            A singular physical prototype existed for each product line. These were stored far
+            from the manufacturing line and were rarely referenced.
+          </p>
+
+          <p>
+            The physical prototype is hugely important in the approval process and referenced
+            closely when setting up the manufacturing line, but rarely referenced after that.
+          </p>
+          <p>
+            Over time, variation creeps into the manufacturing process and the product can drift
+            from the original specs.
+          </p>
+        </div>
+
+        <img
+          class="technology-visual"
+          src={assetPath("/images/benchmarkr-quality/physical-sample.png")}
+          alt="A worker holding an approved concrete finish sample against a manufactured product"
+          loading="lazy"
+        />
+      </div>
+    </section>
+
+    <section class="quality-section quality-section--solution" aria-labelledby="solution-title">
+      <div class="quality-section__heading quality-section__heading--wide">
+        <p class="quality-eyebrow">Solution</p>
+        <h2 id="solution-title">
+          Replace paper checklists with digital process templates, pass/fail reference images,
+          and inspection photo capture
+        </h2>
+      </div>
+
+      <figure class="solution-gallery">
+        <div class="solution-gallery__grid">
+          {solutionShots.map((shot) => (
+            <div class="solution-shot">
+              <img src={assetPath(shot.src)} alt={shot.alt} loading="lazy" />
+              {shot.dots.map((dot) => (
+                <span class="solution-dot" style={`--dot-x: ${dot.x}%; --dot-y: ${dot.y}%`} aria-hidden="true" />
+              ))}
+            </div>
+          ))}
+        </div>
+        <figcaption>
+          Inspectors compare the product in front of them with pass and fail references, capture
+          evidence, explain deviations, and leave a visible record for managers.
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="quality-section quality-section--processes" aria-labelledby="processes-title">
+      <div class="quality-section__heading quality-section__heading--wide">
+        <h2 id="processes-title">Define processes with pass and fail reference photos</h2>
+      </div>
+
+      <div class="process-intro quality-prose">
+        <p>
+          A central question was how to store the process steps that would define how to
+          manufacture a given SKU.
+        </p>
+        <p>
+          Defining the process on the SKU itself proved to be too limiting, because multiple SKUs
+          might share the same process.
+        </p>
+      </div>
+
+      <div class="process-figures">
+        <figure>
+          <img
+            src={assetPath("/images/benchmarkr-quality/process-template.png")}
+            alt="A Benchmarkr quality-control process template made of seven configurable steps"
+            loading="lazy"
+          />
+          <figcaption>
+            Reusable process templates hold the shared sequence of work, including the inspection
+            tasks and reference imagery needed at each step.
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img
+            src={assetPath("/images/benchmarkr-quality/sku-catalog.png")}
+            alt="A Benchmarkr SKU catalog showing product collections, dimensions, colors, and statuses"
+            loading="lazy"
+          />
+          <figcaption>
+            Individual SKUs link to a reusable process instead of duplicating the same quality
+            definition across every size, collection, and color variation.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+  </article>
+
+  <nav class="quality-return quality-return--bottom" aria-label="Portfolio stories">
+    <a href={homeHref}><span aria-hidden="true">←</span> Back to stories</a>
+  </nav>
+</BaseLayout>
+
+<style>
+  :global(.quality-case-main) {
+    --quality-ink: #0b0c0f;
+    --quality-muted: #4a5368;
+    --quality-line: #d9d9d9;
+    --quality-accent: #ffe89d;
+    overflow: hidden;
+    background: #fff;
+    color: var(--quality-ink);
+  }
+
+  .quality-case,
+  .quality-return {
+    width: min(1216px, calc(100% - 64px));
+    margin-inline: auto;
+  }
+
+  .quality-return {
+    display: flex;
+    padding-top: 24px;
+  }
+
+  .quality-return--bottom {
+    padding: 40px 0 64px;
+    border-top: 1px solid var(--quality-line);
+  }
+
+  .quality-return a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    gap: 8px;
+    color: var(--quality-ink);
+    font-family: var(--type-font-body);
+    font-weight: 600;
+  }
+
+  .quality-return a:focus-visible {
+    outline: 3px solid #7250d7;
+    outline-offset: 4px;
+  }
+
+  .quality-hero {
+    display: grid;
+    min-height: min(900px, calc(100vh - 68px));
+    grid-template-columns: minmax(0, 1.55fr) minmax(340px, 0.9fr);
+    align-items: stretch;
+    gap: clamp(42px, 7vw, 104px);
+    padding: clamp(52px, 7vw, 90px) 0 clamp(48px, 5vw, 72px);
+  }
+
+  .quality-hero__copy {
+    display: grid;
+    align-content: start;
+  }
+
+  .quality-eyebrow {
+    margin: 0 0 24px;
+    color: var(--quality-ink);
+    font-family: var(--type-font-body);
+    font-size: clamp(0.78rem, 1.25vw, 1.05rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  .quality-eyebrow--brand {
+    margin-bottom: clamp(30px, 4.8vw, 64px);
+    color: var(--quality-muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .quality-hero h1,
+  .quality-section h2 {
+    margin: 0;
+    font-family: var(--type-font-body);
+    font-weight: 400;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+  }
+
+  .quality-hero h1 {
+    max-width: 13.5ch;
+    font-size: clamp(3.3rem, 6.1vw, 5rem);
+    line-height: 1.18;
+  }
+
+  .quality-hero h1 span {
+    position: relative;
+    z-index: 0;
+  }
+
+  .quality-hero h1 span::after {
+    position: absolute;
+    z-index: -1;
+    right: -0.08em;
+    bottom: -0.02em;
+    left: -0.12em;
+    height: 0.17em;
+    border-radius: 999px;
+    background: var(--quality-accent);
+    content: "";
+    transform: rotate(-2deg);
+  }
+
+  .quality-hero__lede {
+    max-width: 58ch;
+    margin: clamp(44px, 6vw, 76px) 0 0;
+    font-family: var(--type-font-body);
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
+    font-weight: 400;
+    line-height: 1.65;
+  }
+
+  .quality-facts {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.1fr);
+    gap: 22px clamp(36px, 5vw, 72px);
+    margin: auto 0 0;
+    padding-top: clamp(52px, 7vw, 88px);
+  }
+
+  .quality-fact {
+    display: grid;
+    align-content: start;
+    gap: 6px;
+  }
+
+  .quality-fact:nth-child(3),
+  .quality-fact:nth-child(4) {
+    grid-row: 2;
+  }
+
+  .quality-fact:nth-child(5),
+  .quality-fact:nth-child(6) {
+    grid-row: 3;
+  }
+
+  .quality-fact dt {
+    color: var(--quality-muted);
+    font-family: var(--type-font-body);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .quality-fact dd {
+    max-width: 34ch;
+    margin: 0;
+    font-family: var(--type-font-body);
+    font-size: clamp(0.9rem, 1.25vw, 1.02rem);
+    line-height: 1.55;
+  }
+
+  .quality-hero__visual {
+    display: grid;
+    align-items: center;
+    justify-items: end;
+  }
+
+  .quality-hero__visual img {
+    display: block;
+    width: min(100%, 448px);
+    height: auto;
+    filter: drop-shadow(0 16px 24px rgb(9 14 21 / 10%));
+  }
+
+  .quality-section {
+    padding: clamp(92px, 12vw, 154px) 0;
+    border-top: 1px solid var(--quality-line);
+  }
+
+  .quality-section__heading {
+    max-width: 1100px;
+    margin-bottom: clamp(70px, 9vw, 104px);
+  }
+
+  .quality-section__heading--wide {
+    max-width: 1160px;
+  }
+
+  .quality-section h2 {
+    font-size: clamp(2.6rem, 4.5vw, 3.75rem);
+    letter-spacing: -0.035em;
+    line-height: 1.2;
+  }
+
+  .human-problem-grid,
+  .technology-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.22fr) minmax(390px, 0.9fr);
+    align-items: start;
+    gap: clamp(60px, 8vw, 112px);
+  }
+
+  .quality-prose {
+    display: grid;
+    gap: clamp(42px, 6vw, 72px);
+    font-family: var(--type-font-body);
+  }
+
+  .quality-prose > p {
+    max-width: 57ch;
+    margin: 0;
+    font-size: clamp(1rem, 1.65vw, 1.2rem);
+    line-height: 1.65;
+  }
+
+  .quality-prose blockquote {
+    display: grid;
+    gap: 30px;
+    margin: clamp(16px, 2vw, 24px) 0;
+  }
+
+  .quality-prose blockquote p {
+    max-width: 17ch;
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2.4rem, 4.4vw, 4rem);
+    font-style: italic;
+    line-height: 1.22;
+  }
+
+  .quality-prose blockquote footer {
+    font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+    line-height: 1.5;
+  }
+
+  .human-problem-visual {
+    position: relative;
+    margin: 0;
+  }
+
+  .human-problem-visual img,
+  .technology-visual {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    clip: rect(0 0 0 0) !important;
+    clip-path: inset(50%) !important;
+    white-space: nowrap !important;
+  }
+
+  .technology-grid {
+    grid-template-columns: minmax(0, 0.9fr) minmax(480px, 1.15fr);
+  }
+
+  .technology-grid .quality-prose {
+    padding-top: 2px;
+  }
+
+  .quality-section--solution {
+    padding-bottom: clamp(92px, 10vw, 128px);
+  }
+
+  .solution-gallery {
+    margin: 0;
+  }
+
+  .solution-gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(20px, 3.4vw, 42px);
+    align-items: start;
+  }
+
+  .solution-shot {
+    position: relative;
+    overflow: hidden;
+    background: #07101c;
+  }
+
+  .solution-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .solution-dot {
+    position: absolute;
+    top: var(--dot-y);
+    left: var(--dot-x);
+    width: clamp(14px, 1.85vw, 22px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #94e900;
+    transform: translate(-50%, -50%);
+  }
+
+  .solution-gallery > figcaption,
+  .process-figures figcaption {
+    max-width: 74ch;
+    margin: 34px auto 0;
+    font-family: var(--type-font-body);
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .process-intro {
+    max-width: 960px;
+    margin-bottom: clamp(78px, 10vw, 112px);
+  }
+
+  .process-figures {
+    display: grid;
+    gap: clamp(84px, 11vw, 130px);
+  }
+
+  .process-figures figure {
+    margin: 0;
+  }
+
+  .process-figures img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid #ececf1;
+    box-shadow: 0 12px 40px rgb(9 14 21 / 7%);
+  }
+
+  @media (max-width: 980px) {
+    .quality-case,
+    .quality-return {
+      width: min(100% - 40px, 760px);
+    }
+
+    .quality-hero {
+      min-height: 0;
+      grid-template-columns: 1fr;
+    }
+
+    .quality-hero__visual {
+      grid-row: 2;
+      justify-items: center;
+    }
+
+    .quality-hero__visual img {
+      width: min(76vw, 430px);
+    }
+
+    .quality-facts {
+      margin-top: 20px;
+    }
+
+    .human-problem-grid,
+    .technology-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .human-problem-visual,
+    .technology-visual {
+      width: min(100%, 640px);
+      margin-inline: auto;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .quality-case,
+    .quality-return {
+      width: min(100% - 28px, 760px);
+    }
+
+    .quality-return {
+      padding-top: 12px;
+    }
+
+    .quality-hero {
+      gap: 40px;
+      padding-top: 32px;
+    }
+
+    .quality-eyebrow--brand {
+      margin-bottom: 28px;
+    }
+
+    .quality-hero h1 {
+      max-width: 14ch;
+      font-size: clamp(2.65rem, 13.7vw, 4rem);
+      line-height: 1.08;
+    }
+
+    .quality-hero__lede {
+      margin-top: 32px;
+    }
+
+    .quality-facts {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      padding-top: 48px;
+    }
+
+    .quality-fact:nth-child(n) {
+      grid-row: auto;
+    }
+
+    .quality-section {
+      padding-block: 72px;
+    }
+
+    .quality-section__heading {
+      margin-bottom: 50px;
+    }
+
+    .quality-section h2 {
+      font-size: clamp(2.25rem, 10.5vw, 3.05rem);
+      line-height: 1.16;
+    }
+
+    .human-problem-grid,
+    .technology-grid {
+      gap: 54px;
+    }
+
+    .quality-prose {
+      gap: 38px;
+    }
+
+    .quality-prose blockquote {
+      gap: 20px;
+      margin-block: 8px;
+    }
+
+    .quality-prose blockquote p {
+      font-size: clamp(2.2rem, 11vw, 3.2rem);
+    }
+
+    .solution-gallery__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .process-intro {
+      margin-bottom: 62px;
+    }
+
+    .process-figures {
+      gap: 70px;
+    }
+
+    .process-figures img {
+      width: 165%;
+      max-width: none;
+      transform: translateX(-3%);
+    }
+
+    .process-figures figure {
+      overflow: hidden;
+    }
+  }
+</style>
