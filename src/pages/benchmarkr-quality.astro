@@ -324,6 +324,69 @@ const solutionShots = [
         </figcaption>
       </figure>
     </section>
+    <section class="quality-section quality-section--pilot" aria-labelledby="pilot-title">
+      <div class="quality-section__heading quality-section__heading--wide">
+        <p class="quality-eyebrow">Pilot outcomes and learnings</p>
+        <h2 id="pilot-title">What the pilot accomplished—and what it taught me</h2>
+      </div>
+
+      <p class="pilot-summary__intro">
+        This was a focused pilot, not a factory-wide rollout. A working bilingual product was
+        tested with factory leadership and floor users on one fire-table SKU. It showed how an
+        approved standard, inspection evidence, and a management decision could stay connected to
+        one serialized product. Measurable quality, time, and cost outcomes are still to be
+        established.
+      </p>
+
+      <div class="pilot-summary__grid">
+        <article class="pilot-summary__card">
+          <p class="pilot-summary__number" aria-hidden="true">01</p>
+          <h3>What it accomplished</h3>
+          <ul>
+            <li>
+              Put approved pass and fail references beside photo capture at the inspector’s point
+              of work.
+            </li>
+            <li>
+              Connected reusable processes to individual SKUs and preserved the evidence history
+              for each product.
+            </li>
+            <li>
+              Gave managers a live Needs Review workflow with step-level context instead of an
+              isolated paper record.
+            </li>
+          </ul>
+        </article>
+
+        <article class="pilot-summary__card">
+          <p class="pilot-summary__number" aria-hidden="true">02</p>
+          <h3>What I learned</h3>
+          <ul>
+            <li>
+              Buyers and practitioners hold different kinds of truth; floor managers needed to be
+              part of discovery earlier.
+            </li>
+            <li>
+              Flexibility belongs at the Step and Task level, where the work varies—not in rigid
+              process types.
+            </li>
+            <li>
+              Factory conditions shape adoption: an iPad fit inspectors carrying clipboards, but
+              not fabricators working in heavy gloves.
+            </li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="pilot-summary__next">
+        <p>What comes next</p>
+        <p>
+          Broader use needs to show whether issues are caught before more labor or material is
+          added, how quickly managers make review decisions, and which process Steps produce
+          recurring issues.
+        </p>
+      </div>
+    </section>
   </article>
 
   <nav class="quality-return quality-return--bottom" aria-label="Portfolio stories">
@@ -907,6 +970,105 @@ const solutionShots = [
     outline-offset: 3px;
   }
 
+  .quality-section--pilot {
+    padding-bottom: clamp(104px, 13vw, 168px);
+  }
+
+  .pilot-summary__intro {
+    max-width: 78ch;
+    margin: 0;
+    font-family: var(--type-font-body);
+    font-size: clamp(1.15rem, 2vw, 1.45rem);
+    line-height: 1.65;
+  }
+
+  .pilot-summary__grid {
+    display: grid;
+    overflow: hidden;
+    margin-top: clamp(64px, 8vw, 96px);
+    border: 1px solid #d9d2ed;
+    border-radius: clamp(22px, 3vw, 36px);
+    background: #f8f6ff;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pilot-summary__card {
+    padding: clamp(34px, 5vw, 62px);
+  }
+
+  .pilot-summary__card + .pilot-summary__card {
+    border-left: 1px solid #d9d2ed;
+  }
+
+  .pilot-summary__number {
+    margin: 0 0 42px;
+    color: #7250d7;
+    font-family: var(--type-font-body);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+  }
+
+  .pilot-summary__card h3 {
+    margin: 0;
+    font-family: var(--type-font-body);
+    font-size: clamp(1.75rem, 2.8vw, 2.35rem);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 1.2;
+  }
+
+  .pilot-summary__card ul {
+    display: grid;
+    gap: 28px;
+    margin: 44px 0 0;
+    padding: 0;
+    font-family: var(--type-font-body);
+    list-style: none;
+  }
+
+  .pilot-summary__card li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 14px;
+    font-size: clamp(0.98rem, 1.35vw, 1.08rem);
+    line-height: 1.65;
+  }
+
+  .pilot-summary__card li::before {
+    color: #7250d7;
+    content: "→";
+    font-weight: 800;
+  }
+
+  .pilot-summary__next {
+    display: grid;
+    margin-top: clamp(40px, 5vw, 64px);
+    padding-top: clamp(30px, 4vw, 44px);
+    border-top: 1px solid var(--quality-line);
+    font-family: var(--type-font-body);
+    grid-template-columns: minmax(150px, 0.35fr) minmax(0, 1fr);
+    gap: 28px clamp(36px, 7vw, 90px);
+  }
+
+  .pilot-summary__next p {
+    margin: 0;
+  }
+
+  .pilot-summary__next p:first-child {
+    color: var(--quality-muted);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .pilot-summary__next p:last-child {
+    max-width: 66ch;
+    font-size: clamp(1rem, 1.45vw, 1.12rem);
+    line-height: 1.65;
+  }
+
   @media (max-width: 980px) {
     .quality-case,
     .quality-return {
@@ -1056,6 +1218,18 @@ const solutionShots = [
 
     .process-figures img.process-drawer-reference {
       width: min(64%, 200px);
+    }
+    .pilot-summary__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .pilot-summary__card + .pilot-summary__card {
+      border-top: 1px solid #d9d2ed;
+      border-left: 0;
+    }
+
+    .pilot-summary__next {
+      grid-template-columns: minmax(0, 1fr);
     }
 
   }
