@@ -1,0 +1,199 @@
+<dialog class="photo-lightbox" data-photo-lightbox aria-label="Expanded project image">
+  <button class="photo-lightbox__close" type="button" data-photo-lightbox-close>
+    <span aria-hidden="true">×</span>
+    <span class="visually-hidden">Close expanded image</span>
+  </button>
+  <figure class="photo-lightbox__figure">
+    <img class="photo-lightbox__image" data-photo-lightbox-image src="" alt="" />
+    <figcaption class="photo-lightbox__caption" data-photo-lightbox-caption></figcaption>
+  </figure>
+</dialog>
+
+<style>
+  .photo-lightbox {
+    box-sizing: border-box;
+    width: min(96vw, 1440px);
+    max-width: none;
+    height: min(94vh, 1080px);
+    max-height: none;
+    overflow-y: auto;
+    padding: 12px 24px 24px;
+    border: 0;
+    border-radius: 18px;
+    background: #111317;
+    box-shadow: 0 24px 80px rgb(0 0 0 / 45%);
+    color: #fff;
+  }
+
+  .photo-lightbox::backdrop {
+    background: rgb(9 12 18 / 82%);
+    backdrop-filter: blur(8px);
+  }
+
+  .photo-lightbox__close {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    display: grid;
+    width: 40px;
+    aspect-ratio: 1;
+    place-items: center;
+    padding: 0;
+    border: 1px solid rgb(255 255 255 / 24%);
+    border-radius: 50%;
+    background: rgb(255 255 255 / 10%);
+    color: #fff;
+    font: inherit;
+    font-size: 1.7rem;
+    line-height: 1;
+    cursor: pointer;
+    margin-left: auto;
+  }
+
+  .photo-lightbox__close:hover {
+    background: rgb(255 255 255 / 18%);
+  }
+
+  .photo-lightbox__close:focus-visible {
+    outline: 3px solid #94e900;
+    outline-offset: 3px;
+  }
+
+  .photo-lightbox__figure {
+    width: 100%;
+    margin: 0;
+  }
+
+  .photo-lightbox__image {
+    display: block;
+    width: min(100%, var(--lightbox-image-width, 100%));
+    height: auto;
+    margin-inline: auto;
+  }
+
+  .photo-lightbox__caption {
+    max-width: 80ch;
+    margin: 16px auto 0;
+    color: rgb(255 255 255 / 76%);
+    font-family: var(--type-font-body);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .photo-lightbox__caption:empty {
+    display: none;
+  }
+
+  :global(img[data-lightbox-trigger="true"]) {
+    cursor: zoom-in;
+  }
+
+  :global(img[data-lightbox-trigger="true"]:focus-visible) {
+    outline: 4px solid #7f56d9;
+    outline-offset: 4px;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    border: 0;
+    margin: -1px;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 700px) {
+    .photo-lightbox {
+      width: 100vw;
+      height: 100dvh;
+      padding: 12px 12px 20px;
+      border-radius: 0;
+    }
+  }
+</style>
+
+<script>
+  const lightbox = document.querySelector<HTMLDialogElement>("[data-photo-lightbox]");
+  const lightboxImage = lightbox?.querySelector<HTMLImageElement>("[data-photo-lightbox-image]");
+  const lightboxCaption = lightbox?.querySelector<HTMLElement>("[data-photo-lightbox-caption]");
+  const closeButton = lightbox?.querySelector<HTMLButtonElement>("[data-photo-lightbox-close]");
+  const pageMain = document.querySelector<HTMLElement>("main");
+  let activeTrigger: HTMLImageElement | null = null;
+
+  const imageCaption = (image: HTMLImageElement) => {
+    const figureCaption = image.closest("figure")?.querySelector<HTMLElement>("figcaption");
+    return figureCaption?.textContent?.trim() || image.alt.trim();
+  };
+
+  const isLightboxImage = (image: HTMLImageElement) =>
+    !image.closest("[data-photo-lightbox]") &&
+    !image.closest('[aria-hidden="true"]') &&
+    !image.closest('button,[role="button"]') &&
+    !image.hasAttribute("data-no-lightbox") &&
+    image.alt.trim().length > 0;
+
+  const openLightbox = (image: HTMLImageElement) => {
+    if (!lightbox || !lightboxImage || !lightboxCaption) return;
+
+    activeTrigger = image;
+    const enlargedWidth = image.getBoundingClientRect().width * 1.5;
+    lightboxImage.src = image.currentSrc || image.src;
+    lightboxImage.alt = image.alt;
+    lightboxImage.style.setProperty("--lightbox-image-width", `${enlargedWidth}px`);
+    lightboxCaption.textContent = imageCaption(image);
+    lightbox.showModal();
+  };
+
+  pageMain?.querySelectorAll<HTMLImageElement>("img").forEach((image) => {
+    if (!isLightboxImage(image)) return;
+
+    image.dataset.lightboxTrigger = "true";
+    image.tabIndex = 0;
+    image.setAttribute("role", "button");
+    image.setAttribute("aria-label", `View larger: ${image.alt}`);
+  });
+
+  pageMain?.addEventListener(
+    "click",
+    (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLImageElement) || target.dataset.lightboxTrigger !== "true") return;
+
+      event.preventDefault();
+      event.stopPropagation();
+      openLightbox(target);
+    },
+    true,
+  );
+
+  pageMain?.addEventListener("keydown", (event) => {
+    const target = event.target;
+    if (
+      !(target instanceof HTMLImageElement) ||
+      target.dataset.lightboxTrigger !== "true" ||
+      (event.key !== "Enter" && event.key !== " ")
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    openLightbox(target);
+  });
+
+  closeButton?.addEventListener("click", () => lightbox?.close());
+  lightbox?.addEventListener("click", (event) => {
+    if (event.target === lightbox) lightbox.close();
+  });
+  lightbox?.addEventListener("close", () => {
+    activeTrigger?.focus();
+    activeTrigger = null;
+    if (lightboxImage) {
+      lightboxImage.src = "";
+      lightboxImage.style.removeProperty("--lightbox-image-width");
+    }
+  });
+</script>

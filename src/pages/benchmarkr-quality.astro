@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CopyReviewToolbar from "../components/CopyReviewToolbar.astro";
+import PhotoLightbox from "../components/PhotoLightbox.astro";
 
 const assetPath = (value: string) => `${import.meta.env.BASE_URL}${value.replace(/^\//, "")}`;
 const homeHref = `${import.meta.env.BASE_URL}#case-studies-title`;
@@ -311,6 +312,7 @@ const solutionShots = [
     <a href={homeHref}><span aria-hidden="true">←</span> Back to stories</a>
   </nav>
   {showCopyReview && <CopyReviewToolbar />}
+  <PhotoLightbox />
 </BaseLayout>
 
 <style>
