@@ -292,19 +292,37 @@ const solutionShots = [
           </figcaption>
         </figure>
 
-        <figure>
-          <img
-            class="sku-catalog-image"
-            src={assetPath("/images/benchmarkr-quality/sku-catalog.png")}
-            alt="A Benchmarkr SKU catalog showing product collections, dimensions, colors, and statuses"
-            loading="lazy"
-          />
-          <figcaption>
-            Individual SKUs link to a reusable process instead of duplicating the same quality
-            definition across every size, collection, and color variation.
-          </figcaption>
-        </figure>
       </div>
+    </section>
+
+    <section class="quality-section quality-section--skus" aria-labelledby="skus-title">
+      <div class="quality-section__heading quality-section__heading--wide">
+        <h2 id="skus-title">Connect each SKU to a reusable process</h2>
+      </div>
+
+      <div class="process-intro quality-prose">
+        <p>
+          Once processes could stand on their own, each SKU only needed to reference the process
+          used to manufacture it.
+        </p>
+        <p>
+          This kept the quality definition consistent across variations in size, collection, and
+          color without duplicating the same process on every SKU.
+        </p>
+      </div>
+
+      <figure class="sku-figure">
+        <img
+          class="sku-catalog-image"
+          src={assetPath("/images/benchmarkr-quality/sku-catalog.png")}
+          alt="A Benchmarkr SKU catalog showing product collections, dimensions, colors, and statuses"
+          loading="lazy"
+        />
+        <figcaption>
+          Individual SKUs link to a reusable process instead of duplicating the same quality
+          definition across every size, collection, and color variation.
+        </figcaption>
+      </figure>
     </section>
   </article>
 
@@ -616,7 +634,8 @@ const solutionShots = [
   }
 
   .solution-gallery > figcaption,
-  .process-figures figcaption {
+  .process-figures figcaption,
+  .sku-figure figcaption {
     max-width: 74ch;
     margin: 34px auto 0;
     font-family: var(--type-font-body);
@@ -639,7 +658,12 @@ const solutionShots = [
     margin: 0;
   }
 
-  .process-figures img {
+  .sku-figure {
+    margin: 0;
+  }
+
+  .process-figures img,
+  .sku-figure img {
     display: block;
     width: 100%;
     height: auto;
@@ -647,7 +671,7 @@ const solutionShots = [
     box-shadow: 0 12px 40px rgb(9 14 21 / 7%);
   }
 
-  .process-figures img.sku-catalog-image {
+  .sku-figure img.sku-catalog-image {
     border-radius: 12px;
   }
 
@@ -1002,13 +1026,15 @@ const solutionShots = [
       gap: 70px;
     }
 
-    .process-figures img {
+    .process-figures img,
+    .sku-figure img {
       width: 165%;
       max-width: none;
       transform: translateX(-3%);
     }
 
-    .process-figures figure {
+    .process-figures figure,
+    .sku-figure {
       overflow: hidden;
     }
 
