@@ -293,6 +293,7 @@ const solutionShots = [
 
         <figure>
           <img
+            class="sku-catalog-image"
             src={assetPath("/images/benchmarkr-quality/sku-catalog.png")}
             alt="A Benchmarkr SKU catalog showing product collections, dimensions, colors, and statuses"
             loading="lazy"
@@ -642,6 +643,10 @@ const solutionShots = [
     height: auto;
     border: 1px solid #ececf1;
     box-shadow: 0 12px 40px rgb(9 14 21 / 7%);
+  }
+
+  .process-figures img.sku-catalog-image {
+    border-radius: 12px;
   }
 
   .process-demo-stage {
