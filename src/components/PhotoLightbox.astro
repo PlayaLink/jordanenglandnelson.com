@@ -28,6 +28,12 @@
     </button>
   </div>
   <p class="photo-lightbox__counter" data-photo-lightbox-counter aria-live="polite" hidden></p>
+  <div class="photo-lightbox__scroll-hint" data-photo-lightbox-scroll-hint aria-hidden="true" hidden>
+    <svg viewBox="0 0 18 14" aria-hidden="true">
+      <path d="m3 4 6 6 6-6"></path>
+    </svg>
+    <span aria-hidden="true">Scroll down</span>
+  </div>
 </dialog>
 
 <style>
@@ -150,7 +156,8 @@
   }
 
   .photo-lightbox__nav[hidden],
-  .photo-lightbox__counter[hidden] {
+  .photo-lightbox__counter[hidden],
+  .photo-lightbox__scroll-hint[hidden] {
     display: none;
   }
 
@@ -161,6 +168,67 @@
     font-size: 0.78rem;
     line-height: 1.4;
     text-align: center;
+  }
+
+  .photo-lightbox__scroll-hint {
+    position: fixed;
+    z-index: 1;
+    bottom: max(calc(3vh + 12px), calc((100vh - 1080px) / 2 + 12px));
+    left: 50%;
+    display: grid;
+    width: 34px;
+    height: 34px;
+    aspect-ratio: 1;
+    place-items: center;
+    padding: 0;
+    border: 1px solid rgb(255 255 255 / 28%);
+    border-radius: 50%;
+    background: rgb(17 19 23 / 84%);
+    box-shadow: 0 4px 18px rgb(0 0 0 / 28%);
+    color: #fff;
+    font-family: var(--type-font-body);
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1;
+    pointer-events: none;
+    transform: translateX(-50%);
+    backdrop-filter: blur(6px);
+  }
+
+  .photo-lightbox__scroll-hint.is-hovered {
+    width: 104px;
+    border-radius: 999px;
+    background: rgb(17 19 23 / 96%);
+  }
+
+  .photo-lightbox__scroll-hint svg {
+    grid-area: 1 / 1;
+    width: 18px;
+    height: 14px;
+    overflow: visible;
+    fill: none;
+    stroke: currentcolor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+    opacity: 1;
+  }
+
+  .photo-lightbox__scroll-hint span {
+    grid-area: 1 / 1;
+    white-space: nowrap;
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  .photo-lightbox__scroll-hint.is-hovered svg {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  .photo-lightbox__scroll-hint.is-hovered span {
+    opacity: 1;
+    transform: scale(1);
   }
 
   :global(img[data-lightbox-trigger="true"]) {
@@ -203,7 +271,12 @@
     .photo-lightbox__nav--next {
       right: 8px;
     }
+
+    .photo-lightbox__scroll-hint {
+      bottom: 12px;
+    }
   }
+
 </style>
 
 <script>
@@ -214,6 +287,7 @@
   const previousButton = lightbox?.querySelector<HTMLButtonElement>("[data-photo-lightbox-previous]");
   const nextButton = lightbox?.querySelector<HTMLButtonElement>("[data-photo-lightbox-next]");
   const counter = lightbox?.querySelector<HTMLElement>("[data-photo-lightbox-counter]");
+  const scrollHint = lightbox?.querySelector<HTMLElement>("[data-photo-lightbox-scroll-hint]");
   const pageMain = document.querySelector<HTMLElement>("main");
   let activeTrigger: HTMLImageElement | null = null;
   let galleryImages: HTMLImageElement[] = [];
@@ -238,9 +312,36 @@
     return Array.from(gallery.querySelectorAll<HTMLImageElement>("img")).filter(isLightboxImage);
   };
 
+  const updateScrollHint = () => {
+    if (!lightbox || !lightboxImage || !scrollHint || !lightbox.open) {
+      if (scrollHint) scrollHint.hidden = true;
+      return;
+    }
+
+    const dialogBottom = lightbox.getBoundingClientRect().bottom;
+    const imageBottom = lightboxImage.getBoundingClientRect().bottom;
+    scrollHint.hidden = imageBottom <= dialogBottom - 8;
+    if (scrollHint.hidden) scrollHint.classList.remove("is-hovered");
+  };
+
+  const updateScrollHintHover = (event: PointerEvent) => {
+    if (!scrollHint || scrollHint.hidden) return;
+
+    const bounds = scrollHint.getBoundingClientRect();
+    const isHovered =
+      event.clientX >= bounds.left &&
+      event.clientX <= bounds.right &&
+      event.clientY >= bounds.top &&
+      event.clientY <= bounds.bottom;
+
+    scrollHint.classList.toggle("is-hovered", isHovered);
+  };
+
   const showImage = (image: HTMLImageElement) => {
     if (!lightboxImage || !lightboxCaption) return;
 
+    if (lightbox) lightbox.scrollTop = 0;
+    if (scrollHint) scrollHint.hidden = true;
     const enlargedWidth = image.getBoundingClientRect().width * 1.5;
     lightboxImage.src = image.dataset.lightboxSrc || image.currentSrc || image.src;
     lightboxImage.alt = image.alt;
@@ -264,6 +365,7 @@
     activeIndex = Math.max(0, galleryImages.indexOf(image));
     showImage(galleryImages[activeIndex] || image);
     lightbox.showModal();
+    requestAnimationFrame(updateScrollHint);
   };
 
   const moveToImage = (offset: number) => {
@@ -312,6 +414,11 @@
   closeButton?.addEventListener("click", () => lightbox?.close());
   previousButton?.addEventListener("click", () => moveToImage(-1));
   nextButton?.addEventListener("click", () => moveToImage(1));
+  lightboxImage?.addEventListener("load", updateScrollHint);
+  lightbox?.addEventListener("scroll", updateScrollHint, { passive: true });
+  lightbox?.addEventListener("pointermove", updateScrollHintHover, { passive: true });
+  lightbox?.addEventListener("pointerleave", () => scrollHint?.classList.remove("is-hovered"));
+  window.addEventListener("resize", updateScrollHint);
   lightbox?.addEventListener("keydown", (event) => {
     if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
 
@@ -332,6 +439,10 @@
     }
     if (previousButton) previousButton.hidden = true;
     if (nextButton) nextButton.hidden = true;
+    if (scrollHint) {
+      scrollHint.hidden = true;
+      scrollHint.classList.remove("is-hovered");
+    }
     if (counter) {
       counter.hidden = true;
       counter.textContent = "";
