@@ -1,7 +1,7 @@
 ---
 import CaseStudyCard from "../components/home/CaseStudyCard.astro";
 import BenchmarkrQualityCardArtwork from "../components/home/BenchmarkrQualityCardArtwork.astro";
-import MeetlyNavigationCardArtwork from "../components/home/MeetlyNavigationCardArtwork.astro";
+import LaptopCardArtwork from "../components/home/LaptopCardArtwork.astro";
 import ReflectionPanel from "../components/home/ReflectionPanel.astro";
 import SectionHeader from "../components/home/SectionHeader.astro";
 import Timeline from "../components/home/Timeline.astro";
@@ -27,6 +27,7 @@ const resolvedCaseStudies = caseStudies.map((caseStudy) => ({
   ...caseStudy,
   href: localHref(caseStudy.href),
   image: caseStudy.image ? assetPath(caseStudy.image) : undefined,
+  artworkImage: caseStudy.artworkImage ? assetPath(caseStudy.artworkImage) : undefined,
 }));
 
 const resolvedTimelineEntries = timelineEntries.map((entry) => ({
@@ -125,11 +126,7 @@ const resolvedReflections = reflections.map((reflection) => ({
 
     <section class="page-section" aria-labelledby="case-studies-title">
       <div class="home-container">
-        <SectionHeader
-          headingId="case-studies-title"
-          title="Stories about design"
-          stickerSrc={assetPath("/images/Ai_helped_msg.png")}
-        />
+        <SectionHeader headingId="case-studies-title" title="Stories about design" />
         <div class="case-study-grid">
           {
             resolvedCaseStudies.map((caseStudy) =>
@@ -145,7 +142,11 @@ const resolvedReflections = reflections.map((reflection) => ({
                     caseStudy.artwork === "benchmarkr-quality" ? (
                       <BenchmarkrQualityCardArtwork slot="artwork" />
                     ) : (
-                      <MeetlyNavigationCardArtwork slot="artwork" />
+                      <LaptopCardArtwork
+                        slot="artwork"
+                        screenSrc={caseStudy.artworkImage!}
+                        tone={caseStudy.artworkTone}
+                      />
                     )
                   }
                 </CaseStudyCard>

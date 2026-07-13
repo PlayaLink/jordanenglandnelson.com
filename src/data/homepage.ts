@@ -10,7 +10,9 @@ export interface HomepageCaseStudy {
   title: string;
   href: string;
   image?: string;
-  artwork?: "benchmarkr-quality" | "meetly-navigation";
+  artwork?: "benchmarkr-quality" | "laptop";
+  artworkImage?: string;
+  artworkTone?: "blue" | "mint";
   featured?: boolean;
   titleMaxWidth?: string;
   details: Array<{
@@ -36,7 +38,9 @@ export const caseStudies: readonly HomepageCaseStudy[] = [
   {
     title: "How iterative design helped users find their meeting notes twice as fast",
     href: "/meetly-navigation.html",
-    artwork: "meetly-navigation",
+    artwork: "laptop",
+    artworkImage: "/images/MeeetlyFinal2023.png",
+    artworkTone: "blue",
     featured: true,
     details: [
       { label: "Company", value: "B2C SaaS startup", note: "Meetly" },
@@ -47,7 +51,9 @@ export const caseStudies: readonly HomepageCaseStudy[] = [
   {
     title: "An admin settings engine that reduced onboarding time by 33%",
     href: "/admin-settings-management-system.html",
-    image: "/images/synth_admin_wide.png",
+    artwork: "laptop",
+    artworkImage: "/images/admin-settings/eclosing-settings-notifications.png",
+    artworkTone: "mint",
     featured: true,
     titleMaxWidth: "30ch",
     details: [

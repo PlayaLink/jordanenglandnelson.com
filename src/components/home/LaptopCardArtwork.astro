@@ -1,27 +1,34 @@
 ---
-const assetPath = (value: string) => `${import.meta.env.BASE_URL}${value.replace(/^\//, "")}`;
+interface Props {
+  screenSrc: string;
+  tone?: "blue" | "mint";
+}
+
+const { screenSrc, tone = "blue" } = Astro.props;
 ---
 
-<div class="meetly-navigation-artwork" aria-hidden="true">
-  <div class="meetly-navigation-artwork__laptop">
-    <div class="meetly-navigation-artwork__display">
-      <span class="meetly-navigation-artwork__camera"></span>
-      <div class="meetly-navigation-artwork__screen">
-        <img
-          src={assetPath("/images/MeeetlyFinal2023.png")}
-          alt=""
-          loading="lazy"
-        />
+<div
+  class:list={[
+    "laptop-card-artwork",
+    tone === "mint" && "laptop-card-artwork--mint",
+  ]}
+  aria-hidden="true"
+>
+  <div class="laptop-card-artwork__laptop">
+    <div class="laptop-card-artwork__display">
+      <span class="laptop-card-artwork__camera"></span>
+      <div class="laptop-card-artwork__screen">
+        <img src={screenSrc} alt="" loading="lazy" />
       </div>
     </div>
-    <div class="meetly-navigation-artwork__base">
+    <div class="laptop-card-artwork__base">
       <span></span>
     </div>
   </div>
 </div>
 
 <style>
-  .meetly-navigation-artwork {
+  .laptop-card-artwork {
     position: absolute;
     inset: 0;
     overflow: hidden;
@@ -30,16 +37,28 @@ const assetPath = (value: string) => `${import.meta.env.BASE_URL}${value.replace
       linear-gradient(145deg, #e4f4ff 0%, #bddff5 100%);
   }
 
-  .meetly-navigation-artwork__laptop {
-    position: absolute;
-    top: -6%;
-    left: 50%;
-    width: min(88%, 760px);
-    filter: drop-shadow(0 26px 28px rgb(18 48 69 / 30%));
-    transform: translateX(-50%) rotate(-1.5deg);
+  .laptop-card-artwork--mint {
+    background:
+      radial-gradient(circle at 78% 18%, rgb(255 255 255 / 78%) 0 5%, transparent 5.5%),
+      linear-gradient(145deg, #edf7f4 0%, #c5dfd9 100%);
   }
 
-  .meetly-navigation-artwork__display {
+  .laptop-card-artwork__laptop {
+    position: absolute;
+    top: 4%;
+    left: 52%;
+    width: min(88%, 760px);
+    filter: drop-shadow(0 26px 28px rgb(18 48 69 / 30%));
+    rotate: 0deg;
+    transform: translateX(-50%) rotate(0deg);
+    transform-origin: center;
+  }
+
+  .laptop-card-artwork--mint .laptop-card-artwork__laptop {
+    filter: drop-shadow(0 26px 28px rgb(26 63 58 / 28%));
+  }
+
+  .laptop-card-artwork__display {
     position: relative;
     z-index: 2;
     box-sizing: border-box;
@@ -55,7 +74,7 @@ const assetPath = (value: string) => `${import.meta.env.BASE_URL}${value.replace
       0 2px 0 #050506;
   }
 
-  .meetly-navigation-artwork__camera {
+  .laptop-card-artwork__camera {
     position: absolute;
     top: 1.25%;
     left: 50%;
@@ -67,7 +86,7 @@ const assetPath = (value: string) => `${import.meta.env.BASE_URL}${value.replace
     transform: translateX(-50%);
   }
 
-  .meetly-navigation-artwork__screen {
+  .laptop-card-artwork__screen {
     overflow: hidden;
     width: 100%;
     height: 100%;
@@ -75,7 +94,7 @@ const assetPath = (value: string) => `${import.meta.env.BASE_URL}${value.replace
     background: #fff;
   }
 
-  .meetly-navigation-artwork__screen img {
+  .laptop-card-artwork__screen img {
     display: block;
     width: 100%;
     height: 100%;
@@ -84,7 +103,7 @@ const assetPath = (value: string) => `${import.meta.env.BASE_URL}${value.replace
     object-position: top center;
   }
 
-  .meetly-navigation-artwork__base {
+  .laptop-card-artwork__base {
     position: relative;
     z-index: 1;
     width: 100%;
@@ -97,7 +116,7 @@ const assetPath = (value: string) => `${import.meta.env.BASE_URL}${value.replace
     clip-path: polygon(4.5% 0, 95.5% 0, 100% 68%, 98% 100%, 2% 100%, 0 68%);
   }
 
-  .meetly-navigation-artwork__base span {
+  .laptop-card-artwork__base span {
     position: absolute;
     top: 0;
     left: 50%;
@@ -109,12 +128,13 @@ const assetPath = (value: string) => `${import.meta.env.BASE_URL}${value.replace
   }
 
   @media (max-width: 620px) {
-    .meetly-navigation-artwork__laptop {
-      top: 3%;
-      width: min(106%, 620px);
+    .laptop-card-artwork__laptop {
+      top: 9%;
+      left: 62.5%;
+      width: 125%;
     }
 
-    .meetly-navigation-artwork__display {
+    .laptop-card-artwork__display {
       border-radius: 14px 14px 6px 6px;
     }
   }
