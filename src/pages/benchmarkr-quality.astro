@@ -1,8 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import CopyReviewToolbar from "../components/CopyReviewToolbar.astro";
 
 const assetPath = (value: string) => `${import.meta.env.BASE_URL}${value.replace(/^\//, "")}`;
 const homeHref = `${import.meta.env.BASE_URL}#case-studies-title`;
+const showCopyReview = import.meta.env.DEV;
 
 const facts = [
   { label: "Role", value: "Solo designer and builder" },
@@ -173,8 +175,7 @@ const solutionShots = [
       <div class="quality-section__heading quality-section__heading--wide">
         <p class="quality-eyebrow">Solution</p>
         <h2 id="solution-title">
-          Replace paper checklists with digital process templates, pass/fail reference images,
-          and inspection photo capture
+          Replace paper checklists with visual references and photo inspection capture
         </h2>
       </div>
 
@@ -308,6 +309,7 @@ const solutionShots = [
   <nav class="quality-return quality-return--bottom" aria-label="Portfolio stories">
     <a href={homeHref}><span aria-hidden="true">←</span> Back to stories</a>
   </nav>
+  {showCopyReview && <CopyReviewToolbar />}
 </BaseLayout>
 
 <style>

@@ -1,0 +1,265 @@
+<aside class="copy-review" data-copy-review-toolbar aria-label="Page text review">
+  <div class="copy-review__copy">
+    <strong>Review page text</strong>
+    <span data-copy-review-message>Make text changes directly on the page.</span>
+  </div>
+  <div class="copy-review__actions">
+    <button type="button" class="copy-review__button copy-review__button--secondary" data-copy-review-toggle>
+      Review text
+    </button>
+    <button type="button" class="copy-review__button" data-copy-review-copy disabled>
+      Copy all changes
+    </button>
+  </div>
+</aside>
+
+<style>
+  .copy-review {
+    position: fixed;
+    z-index: 1000;
+    right: 20px;
+    bottom: 20px;
+    display: grid;
+    box-sizing: border-box;
+    width: min(460px, calc(100vw - 40px));
+    gap: 16px;
+    padding: 18px;
+    border: 1px solid rgb(22 22 22 / 16%);
+    border-radius: 14px;
+    background: rgb(255 255 255 / 96%);
+    box-shadow: 0 16px 50px rgb(22 22 22 / 18%);
+    color: #161616;
+    font-family: var(--type-font-body);
+    backdrop-filter: blur(12px);
+  }
+
+  .copy-review__copy {
+    display: grid;
+    gap: 4px;
+  }
+
+  .copy-review__copy strong {
+    font-size: 0.95rem;
+  }
+
+  .copy-review__copy span {
+    color: #5d5d5d;
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .copy-review__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .copy-review__button {
+    min-height: 40px;
+    padding: 9px 14px;
+    border: 1px solid #161616;
+    border-radius: 999px;
+    background: #161616;
+    color: #fff;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .copy-review__button--secondary {
+    background: #fff;
+    color: #161616;
+  }
+
+  .copy-review__button:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+
+  .copy-review__button:focus-visible {
+    outline: 3px solid #7f56d9;
+    outline-offset: 2px;
+  }
+
+  .copy-review__button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  :global([data-copy-review-editable="true"]) {
+    cursor: text;
+    outline: 2px dashed #7f56d9;
+    outline-offset: 4px;
+  }
+
+  :global([data-copy-review-editable="true"]:focus) {
+    outline-style: solid;
+    background: rgb(127 86 217 / 8%);
+  }
+
+  @media (max-width: 560px) {
+    .copy-review {
+      right: 14px;
+      bottom: 14px;
+      width: calc(100vw - 28px);
+    }
+  }
+</style>
+
+<script>
+  type CopyChange = {
+    id: string;
+    context: string;
+    original: string;
+    revised: string;
+  };
+
+  const toolbar = document.querySelector<HTMLElement>("[data-copy-review-toolbar]");
+  const page = document.querySelector<HTMLElement>("main");
+  const toggle = toolbar?.querySelector<HTMLButtonElement>("[data-copy-review-toggle]");
+  const copy = toolbar?.querySelector<HTMLButtonElement>("[data-copy-review-copy]");
+  const message = toolbar?.querySelector<HTMLElement>("[data-copy-review-message]");
+  const selector = "h1,h2,h3,h4,h5,h6,p,dt,dd,figcaption,blockquote footer,a";
+  const tracked = new WeakMap<HTMLElement, Omit<CopyChange, "revised">>();
+  const editableElements = new Set<HTMLElement>();
+  const changes = new Map<string, CopyChange>();
+  let reviewing = false;
+  let nextId = 1;
+
+  const normalizeText = (value: string) => value.replace(/\u00a0/g, " ").trim();
+
+  const elementContext = (element: HTMLElement) => {
+    const section = element.closest<HTMLElement>("section");
+    const sectionHeading = section?.querySelector<HTMLElement>("h2,h3");
+    const sectionLabel = sectionHeading ? normalizeText(sectionHeading.textContent ?? "") : null;
+    return sectionLabel
+      ? `${sectionLabel} > ${element.tagName.toLowerCase()}`
+      : element.tagName.toLowerCase();
+  };
+
+  const updateToolbar = (status?: "copied" | "failed") => {
+    if (!toggle || !copy || !message) return;
+
+    toggle.textContent = reviewing ? "Stop reviewing" : "Review text";
+    copy.disabled = changes.size === 0;
+
+    if (status === "copied") {
+      message.textContent = `Copied ${changes.size} text ${changes.size === 1 ? "change" : "changes"}.`;
+    } else if (status === "failed") {
+      message.textContent = "The browser could not access the clipboard.";
+    } else if (reviewing) {
+      message.textContent = `Click highlighted text and type. ${changes.size} ${changes.size === 1 ? "change" : "changes"} recorded.`;
+    } else {
+      message.textContent = `${changes.size} text ${changes.size === 1 ? "change" : "changes"} ready to copy.`;
+    }
+  };
+
+  const setReviewing = (active: boolean) => {
+    if (!page) return;
+    reviewing = active;
+
+    if (active) {
+      page.querySelectorAll<HTMLElement>(selector).forEach((element) => {
+        if (element.closest("[data-copy-review-toolbar]") || !normalizeText(element.textContent ?? "")) {
+          return;
+        }
+
+        if (!tracked.has(element)) {
+          tracked.set(element, {
+            id: `copy-change-${nextId++}`,
+            context: elementContext(element),
+            original: normalizeText(element.textContent ?? ""),
+          });
+        }
+
+        editableElements.add(element);
+        element.setAttribute("contenteditable", "plaintext-only");
+        element.setAttribute("data-copy-review-editable", "true");
+        element.setAttribute("spellcheck", "true");
+      });
+    } else {
+      editableElements.forEach((element) => {
+        element.removeAttribute("contenteditable");
+        element.removeAttribute("data-copy-review-editable");
+        element.removeAttribute("spellcheck");
+      });
+      editableElements.clear();
+    }
+
+    updateToolbar();
+  };
+
+  const formatChanges = () => {
+    const lines = ["# Benchmarkr Quality text changes", `Page: ${window.location.pathname}`, ""];
+
+    Array.from(changes.values()).forEach((change, index) => {
+      lines.push(`## ${index + 1}. ${change.context}`);
+      lines.push("Original:");
+      lines.push(change.original);
+      lines.push("Revised:");
+      lines.push(change.revised);
+      lines.push("");
+    });
+
+    return lines.join("\n").trimEnd();
+  };
+
+  const writeToClipboard = async (text: string) => {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return;
+    }
+
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.setAttribute("readonly", "");
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.append(textarea);
+    textarea.select();
+    const copied = document.execCommand("copy");
+    textarea.remove();
+    if (!copied) throw new Error("Clipboard copy failed");
+  };
+
+  page?.addEventListener("input", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+
+    const element = target.closest<HTMLElement>("[data-copy-review-editable='true']");
+    if (!element) return;
+    const original = tracked.get(element);
+    if (!original) return;
+
+    const revised = normalizeText(element.textContent ?? "");
+    if (revised === original.original) {
+      changes.delete(original.id);
+    } else {
+      changes.set(original.id, { ...original, revised });
+    }
+    updateToolbar();
+  });
+
+  page?.addEventListener(
+    "click",
+    (event) => {
+      const target = event.target;
+      if (reviewing && target instanceof HTMLElement && target.closest("[data-copy-review-editable='true']")) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    },
+    true,
+  );
+
+  toggle?.addEventListener("click", () => setReviewing(!reviewing));
+  copy?.addEventListener("click", async () => {
+    try {
+      await writeToClipboard(formatChanges());
+      updateToolbar("copied");
+    } catch {
+      updateToolbar("failed");
+    }
+  });
+</script>
