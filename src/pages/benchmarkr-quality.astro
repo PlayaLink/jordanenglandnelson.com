@@ -148,9 +148,13 @@ const solutionShots = [
             alt="A paper quality checklist beside a concrete product on the factory floor"
             loading="lazy"
           />
-          <figcaption class="visually-hidden">
-            Paper checklists were generic, provided no photo references during inspection, and
-            created no searchable reporting trail.
+          <figcaption class="human-problem-callout">
+            <p>Paper checklists existed but had <strong>drawbacks:</strong></p>
+            <ul>
+              <li>Generic, one-size-fits-all</li>
+              <li>No photo references to check during inspection</li>
+              <li>No reporting</li>
+            </ul>
           </figcaption>
         </figure>
       </div>
@@ -475,8 +479,9 @@ const solutionShots = [
     --quality-muted: #4a5368;
     --quality-line: #d9d9d9;
     --quality-accent: #ffe89d;
+    --quality-canvas: #fff8ef;
     overflow: hidden;
-    background: #fff8ef;
+    background: var(--quality-canvas);
     color: var(--quality-ink);
   }
 
@@ -767,14 +772,42 @@ const solutionShots = [
     height: auto;
   }
 
-  .visually-hidden {
-    position: absolute !important;
-    width: 1px !important;
-    height: 1px !important;
-    overflow: hidden !important;
-    clip: rect(0 0 0 0) !important;
-    clip-path: inset(50%) !important;
-    white-space: nowrap !important;
+  .human-problem-callout {
+    position: absolute;
+    top: 20.5%;
+    right: 3%;
+    bottom: 51.5%;
+    left: 34%;
+    box-sizing: border-box;
+    padding: clamp(18px, 2.25vw, 26px);
+    border: 1px solid var(--quality-line);
+    border-radius: 8px;
+    background: var(--quality-canvas);
+    box-shadow: 0 12px 32px rgb(11 12 15 / 12%);
+    color: var(--quality-ink);
+    font-family: var(--type-font-body);
+    font-size: clamp(0.9rem, 1.45vw, 1.05rem);
+    letter-spacing: -0.02em;
+    line-height: 1.45;
+  }
+
+  .human-problem-callout p {
+    margin: 0;
+  }
+
+  .human-problem-callout strong {
+    font-weight: 700;
+  }
+
+  .human-problem-callout ul {
+    display: grid;
+    gap: 0.35em;
+    margin: 0.45em 0 0;
+    padding-left: 1.35em;
+  }
+
+  .human-problem-callout li {
+    padding-left: 0.2em;
   }
 
   .technology-grid {
@@ -1331,6 +1364,12 @@ const solutionShots = [
     .human-problem-grid,
     .technology-grid {
       gap: 54px;
+    }
+
+    .human-problem-callout {
+      padding: 14px;
+      font-size: clamp(0.72rem, 3.6vw, 0.9rem);
+      line-height: 1.4;
     }
 
     .quality-prose {
