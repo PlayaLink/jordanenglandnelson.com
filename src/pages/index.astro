@@ -1,6 +1,7 @@
 ---
 import CaseStudyCard from "../components/home/CaseStudyCard.astro";
-import BenchmarkrCardArtwork from "../components/home/BenchmarkrCardArtwork.astro";
+import BenchmarkrQualityCardArtwork from "../components/home/BenchmarkrQualityCardArtwork.astro";
+import MeetlyNavigationCardArtwork from "../components/home/MeetlyNavigationCardArtwork.astro";
 import ReflectionPanel from "../components/home/ReflectionPanel.astro";
 import SectionHeader from "../components/home/SectionHeader.astro";
 import Timeline from "../components/home/Timeline.astro";
@@ -132,7 +133,7 @@ const resolvedReflections = reflections.map((reflection) => ({
         <div class="case-study-grid">
           {
             resolvedCaseStudies.map((caseStudy) =>
-              caseStudy.artwork === "benchmarkr-inspection" ? (
+              caseStudy.artwork ? (
                 <CaseStudyCard
                   title={caseStudy.title}
                   href={caseStudy.href}
@@ -140,7 +141,13 @@ const resolvedReflections = reflections.map((reflection) => ({
                   featured={caseStudy.featured}
                   titleMaxWidth={caseStudy.titleMaxWidth}
                 >
-                  <BenchmarkrCardArtwork slot="artwork" />
+                  {
+                    caseStudy.artwork === "benchmarkr-quality" ? (
+                      <BenchmarkrQualityCardArtwork slot="artwork" />
+                    ) : (
+                      <MeetlyNavigationCardArtwork slot="artwork" />
+                    )
+                  }
                 </CaseStudyCard>
               ) : (
                 <CaseStudyCard

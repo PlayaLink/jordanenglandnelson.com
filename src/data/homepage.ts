@@ -10,7 +10,7 @@ export interface HomepageCaseStudy {
   title: string;
   href: string;
   image?: string;
-  artwork?: "benchmarkr-inspection";
+  artwork?: "benchmarkr-quality" | "meetly-navigation";
   featured?: boolean;
   titleMaxWidth?: string;
   details: Array<{
@@ -22,21 +22,21 @@ export interface HomepageCaseStudy {
 
 export const caseStudies: readonly HomepageCaseStudy[] = [
   {
-    title: "From rigid paper checklists to flexible factory quality control",
-    href: "/benchmarkr",
-    artwork: "benchmarkr-inspection",
+    title: "Reducing manufacturing flaws at a concrete furniture factory",
+    href: "/benchmarkr-quality",
+    artwork: "benchmarkr-quality",
     featured: true,
-    titleMaxWidth: "25ch",
+    titleMaxWidth: "28ch",
     details: [
-      { label: "Project", value: "B2B manufacturing quality control", note: "Benchmarkr" },
-      { label: "My role", value: "Founder, product designer, and builder" },
-      { label: "Status", value: "Ongoing pilot program" },
+      { label: "Company", value: "B2B manufacturing SaaS", note: "Benchmarkr" },
+      { label: "My role", value: "Solo designer and builder" },
+      { label: "Duration", value: "7 months" },
     ],
   },
   {
     title: "How iterative design helped users find their meeting notes twice as fast",
     href: "/meetly-navigation.html",
-    image: "/images/meeting_room.png",
+    artwork: "meetly-navigation",
     featured: true,
     details: [
       { label: "Company", value: "B2C SaaS startup", note: "Meetly" },
@@ -54,18 +54,6 @@ export const caseStudies: readonly HomepageCaseStudy[] = [
       { label: "Company", value: "Enterprise B2B SaaS", note: "SimpleNexus" },
       { label: "My role", value: "Only designer", note: "on product team" },
       { label: "Duration", value: "8 mos" },
-    ],
-  },
-  {
-    title: "Reducing manufacturing flaws at a concrete furniture factory",
-    href: "/benchmarkr-quality",
-    image: "/images/benchmarkr-quality/physical-sample.png",
-    featured: true,
-    titleMaxWidth: "28ch",
-    details: [
-      { label: "Company", value: "B2B manufacturing SaaS", note: "Benchmarkr" },
-      { label: "My role", value: "Solo designer and builder" },
-      { label: "Duration", value: "7 months" },
     ],
   },
   {
