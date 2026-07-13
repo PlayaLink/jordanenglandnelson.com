@@ -1,0 +1,24 @@
+---
+import "../../styles/story-navigation.css";
+
+interface Props {
+  title: string;
+  href: string;
+  thumbnail: string;
+}
+
+const { title, href, thumbnail } = Astro.props;
+---
+
+<div class="next-story-wrapper">
+  <p class="next-story__eyebrow">Next case study</p>
+  <a class="next-story" href={href} aria-label={`Next case study: ${title}`}>
+    <img src={thumbnail} alt="" loading="lazy" />
+    <span class="next-story__content">
+      <span class="next-story__title-row">
+        <span class="next-story__title">{title}</span>
+        <span class="next-story__arrow" aria-hidden="true">→</span>
+      </span>
+    </span>
+  </a>
+</div>

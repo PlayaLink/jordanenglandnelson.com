@@ -16,8 +16,32 @@ const sourceDir = path.resolve(
   process.env.WEBFLOW_EXPORT_DIR || 'portfolio-site-1c56f5.webflow',
 );
 const publicDir = path.resolve(root, 'public');
+const storyNavigationStyles = path.resolve(root, 'src/styles/story-navigation.css');
 const astroOwnedHtmlFiles = new Set([
   'index.html',
+]);
+const featuredCaseStudyPages = new Map([
+  [
+    'meetly-navigation.html',
+    {
+      nextStory: {
+        title: 'An admin settings engine that reduced onboarding time by 33%',
+        href: 'admin-settings-management-system.html',
+        thumbnail: 'images/admin-settings/eclosing-settings-notifications.png',
+      },
+    },
+  ],
+  [
+    'admin-settings-management-system.html',
+    {
+      nextStory: {
+        title: 'Designing a home on wheels in NYC',
+        href: 'how-to-live-in-a-van-in-nyc.html',
+        thumbnail: 'images/van_thumbnail.png',
+      },
+    },
+  ],
+  ['how-to-live-in-a-van-in-nyc.html', { nextStory: null }],
 ]);
 const logRocketAppId = 'jordan-england-nelson-personal/webflow-portfolio-site';
 const logRocketCdnUrl = 'https://cdn.logr-in.com/LogRocket.min.js';
@@ -57,6 +81,8 @@ for (const entry of readdirSync(sourceDir)) {
     recursive: true,
   });
 }
+
+cpSync(storyNavigationStyles, path.join(publicDir, 'css', 'story-navigation.css'));
 
 const assetIndex = new Map();
 
@@ -101,6 +127,54 @@ for (const assetDir of ['images', 'videos']) {
 function localiseWebflowAssetUrl(url) {
   const match = assetIndex.get(normaliseAssetName(url));
   return match || url;
+}
+
+function renderNextStory(nextStory) {
+  if (!nextStory) {
+    return '';
+  }
+
+  return `
+    <div class="next-story-wrapper">
+      <p class="next-story__eyebrow">Next case study</p>
+      <a class="next-story" href="${nextStory.href}" aria-label="Next case study: ${nextStory.title}">
+        <img src="${nextStory.thumbnail}" alt="" loading="lazy">
+        <span class="next-story__content">
+          <span class="next-story__title-row">
+            <span class="next-story__title">${nextStory.title}</span>
+            <span class="next-story__arrow" aria-hidden="true">→</span>
+          </span>
+        </span>
+      </a>
+    </div>`;
+}
+
+function patchFeaturedCaseStudy(html, { nextStory }) {
+  html = html.replace(
+    '<link href="css/portfolio-site-1c56f5.webflow.css" rel="stylesheet" type="text/css">',
+    `<link href="css/portfolio-site-1c56f5.webflow.css" rel="stylesheet" type="text/css">
+  <link href="css/story-navigation.css" rel="stylesheet" type="text/css">`,
+  );
+
+  html = html
+    .replace(
+      '<a href="index.html" class="go-back-button w-inline-block">',
+      '<a href="index.html#case-studies-title" class="go-back-button story-return__back w-inline-block" aria-label="Back to stories">',
+    )
+    .replace('<div class="text-block-12">Back</div>', '<div class="text-block-12">Jordan England-Nelson</div>');
+
+  const footer = `  <nav class="story-footer-nav${nextStory ? '' : ' story-footer-nav--last'}" aria-label="Portfolio stories">
+    <a class="story-return__back" href="index.html#case-studies-title" aria-label="Back to stories">
+      <span aria-hidden="true">←</span>
+      <span>Jordan England-Nelson</span>
+    </a>${renderNextStory(nextStory)}
+  </nav>
+`;
+
+  return html.replace(
+    /  <script src="https:\/\/d3e54v103j8qbb\.cloudfront\.net\/js\/jquery-[^"]+"/,
+    `${footer}  <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=64792ae6db66683c7e64c158"`,
+  );
 }
 
 function patchHtml(filePath) {
@@ -148,6 +222,12 @@ function patchHtml(filePath) {
   );
 
   html = html.replace(/action="\/search"/g, 'action="search.html"');
+
+  const featuredCaseStudy = featuredCaseStudyPages.get(path.basename(filePath));
+
+  if (featuredCaseStudy) {
+    html = patchFeaturedCaseStudy(html, featuredCaseStudy);
+  }
 
   writeFileSync(filePath, html);
 }
